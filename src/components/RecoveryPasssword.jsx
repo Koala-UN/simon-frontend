@@ -9,8 +9,15 @@ const RecoveryPassword = () => {
         // Aquí iría la lógica para enviar el correo de recuperación de contraseña
         // Por ejemplo, una llamada a una API que maneje la recuperación de contraseñas
         try {
-            // Simulación de llamada a API
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const response = await fetch('http://localhost:5000/api/restaurant/rec-password', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ correo: email }),
+                });
+                const data = await response.json();
             setMessage('Se ha enviado un correo de recuperación a su dirección de correo electrónico.');
         } catch (error) {
             setMessage('Hubo un error al intentar enviar el correo de recuperación.');
