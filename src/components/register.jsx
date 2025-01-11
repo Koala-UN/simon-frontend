@@ -42,6 +42,12 @@ const Register = () => {
   const handleGoogleRegister = () => {
     // Implement Google register logic here
     console.log("Register with Google clicked");
+
+    try {
+        window.location.href = import.meta.env.VITE_BACKEND_GOOGLE_API_KEY;
+      } catch (error) {
+        console.error('Error en el inicio de sesión con Google:', error);
+      }
   };
 
   return (

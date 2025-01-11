@@ -15,6 +15,14 @@ const Login = () => {
       console.error('Error en el inicio de sesión:', error);
     }
   };
+const handleGoogleLogin = async () => {
+  try {
+    window.location.href = import.meta.env.VITE_BACKEND_GOOGLE_API_KEY;
+  } catch (error) {
+    console.error('Error en el inicio de sesión con Google:', error);
+  }
+};
+
 
 return (
     <div className="d-flex justify-content-center align-items-center vh-100">
@@ -39,6 +47,14 @@ return (
                 />
             </div>
             <button type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
+            <button
+          type="button"
+          className="btn btn-secondary btn-block mt-2"
+          style={{ backgroundColor: "red", fontWeight: "bold" }}
+          onClick={handleGoogleLogin}
+        >
+          Iniciar sesión con Google
+          </button>
         </form>
     </div>
 );

@@ -6,7 +6,8 @@ import Logout from './Logout';
 import ProtectedPage from './ProtectedPage';
 import ChangePassword from './ChangePassword';
 import RecoveryPassword from './RecoveryPasssword';
-
+import GoogleSuccess from './GoogleSuccess';
+import CompleteProfile from './CompleteProfile';
 const Home = ({ auth }) => {
   return (
     <div className="container">
@@ -30,7 +31,10 @@ const Home = ({ auth }) => {
         <Route path="/chg-password/*" element={auth ? <ChangePassword /> : <Navigate to="/login" />} />
 
         <Route path="/rec-password/*" element={auth ? <RecoveryPassword /> : <Navigate to="/login" />} />
-        
+
+        <Route path="/auth/google/callback" element={<GoogleSuccess  />}/>
+        <Route path="/auth/google/complete-profile" element={<CompleteProfile />} />
+
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>
