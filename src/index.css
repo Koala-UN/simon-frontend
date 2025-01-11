@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.react-calendar {
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  .react-calendar__tile {
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .react-calendar__tile--active {
+    background-color: #dc2626; /* Red for the selected date */
+    color: white;
+    border-radius: 50%;
+  }
+  
+  .react-calendar__tile:hover {
+    background-color: #f87171; /* Lighter red for hover */
+    color: white;
+  }
+  
+  .react-calendar__navigation button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    margin: 0 0.25rem;
+    color: #4b5563; /* Gray for navigation */
+    cursor: pointer;
+  }
+  
+  .react-calendar__navigation button:disabled {
+    color: #d1d5db; /* Light gray for disabled buttons */
+  }
+  
+  .react-calendar__month-view__weekdays {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #6b7280; /* Light gray */
+    font-weight: 600;
+  }
+  
