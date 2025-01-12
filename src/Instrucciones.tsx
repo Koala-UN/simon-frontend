@@ -1,6 +1,6 @@
-import logoBuscar from '../assets/buscarlogo.png';
-import logoBuscar1 from '../assets/buscarlogo1.png';
-import logoBuscar2 from '../assets/buscarlogo2.png';
+import logoBuscar from './assets/buscarlogo.png';
+import logoBuscar1 from './assets/buscarlogo1.png';
+import logoBuscar2 from './assets/buscarlogo2.png';
 
 const ReservaPasos = () => {
   return (

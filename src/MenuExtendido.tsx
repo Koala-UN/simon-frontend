@@ -7,7 +7,7 @@ import OrderSummary from "./OrderSummary.tsx";
 import { useParams } from "react-router-dom";
 
 function MenuExtendido() {
-  const [sortOrder, setSortOrder] = useState<string>("A-Z");
+  const [sortOrder] = useState<string>("A-Z");
   const [cart, setCart] = useState<any[]>([]); // Cart state to manage items in the cart
   const [restaurantName, setRestaurantName] = useState<string>(""); // Restaurant name
   const [dishes, setDishes] = useState<any[]>([]); // Dishes state
@@ -76,7 +76,6 @@ function MenuExtendido() {
   const filteredDishes = category
     ? dishes.filter((dish) => dish.categoria.toLowerCase() === category.toLowerCase())
     : dishes;
-
   // Sorting logic
   const sortedDishes = [...filteredDishes].sort((a, b) => {
     if (sortOrder === "A-Z") return a.name.localeCompare(b.name);

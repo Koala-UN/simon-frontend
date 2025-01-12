@@ -1,4 +1,4 @@
-import React from "react";
+
 import { CardDefault } from "./Card";
 import { useNavigate } from "react-router-dom";
 

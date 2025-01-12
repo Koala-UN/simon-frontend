@@ -1,6 +1,6 @@
-import bogotaImage from '../assets/bog.png';
-import cucutaImage from '../assets/cuc.png';
-import ibagueImage from '../assets/iba.png';
+import bogotaImage from './assets/bog.png';
+import cucutaImage from './assets/cuc.png';
+import ibagueImage from './assets/iba.png';
 
 const Ciudades = () => {
   const cities = [

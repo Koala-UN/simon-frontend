@@ -10,12 +10,14 @@ import Inventory from "./EditInventory.tsx";
 import NavBar from "./Navbar.tsx";
 import { Footer } from "./Footer.tsx";
 import AdminDashboard from "./adm.tsx";
+import App from "./App.tsx";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <NavBar/>
     <Router>
       <Routes>
-        <Route path="/" element={<SearchMenu/>} />
+        <Route path="/" element={<App/>} />
+        <Route path="/restaurantes" element={<SearchMenu />} />
         <Route path="/reserve/:restaurantId" element={<Reserve />} />
         <Route path="/menu/:restaurantId" element={<MenuExtendido />} />
         <Route path="/confirm-reserve/:restaurantId" element={<ConfirmReserve />} />

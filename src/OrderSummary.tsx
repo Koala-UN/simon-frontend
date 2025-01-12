@@ -1,4 +1,4 @@
-import React from "react";
+
 import { FaExternalLinkAlt } from "react-icons/fa"; // Import the external link icon
 
 function OrderSummary({ totalItems, totalPrice }: { totalItems: number; totalPrice: number }) {

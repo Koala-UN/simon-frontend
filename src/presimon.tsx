@@ -1,4 +1,4 @@
-import logoSimon from '../assets/logosimon.png'; // Asegúrate de tener el logo en esta ruta
+import logoSimon from './assets/logosimon.png'; // Asegúrate de tener el logo en esta ruta
 
 const PresentacionSimon = () =>     {
   return (
