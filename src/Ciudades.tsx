@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import bogotaImage from './assets/bog.png';
 import cucutaImage from './assets/cuc.png';
 import ibagueImage from './assets/iba.png';
 
 const Ciudades = () => {
+  const navigate = useNavigate(); // Initialize the navigate function
+
   const cities = [
     {
       name: 'Bogotá DC',
@@ -20,6 +23,11 @@ const Ciudades = () => {
       alt: 'Vista de Ibagué con árboles en flor',
     },
   ];
+
+  // Function to handle navigation
+  const handleNavigate = () => {
+    navigate(`/restaurantes`);
+  };
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>
@@ -63,6 +71,7 @@ const Ciudades = () => {
                   cursor: 'pointer',
                   width: '100%',
                 }}
+                onClick={() => handleNavigate()} // Navigate on click
               >
                 Buscar en {city.name} 🔍
               </button>

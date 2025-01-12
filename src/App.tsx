@@ -1,5 +1,4 @@
 import { Cta } from "./Cta";
-import { Footer } from "./Footer";
 
 
 import Ciudades from './Ciudades';
@@ -15,7 +14,7 @@ function App() {
       <PresentacionSimon/>
       <ReservaPasos/>
       <InfoCard/>
-      <Footer /></>
+</>
   );
 }
 
