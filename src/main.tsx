@@ -6,10 +6,8 @@ import Reserve from "./reserve.tsx";
 import MenuExtendido from "./MenuExtendido.tsx";
 import './index.css'; // Ensure the path is correct
 import ConfirmReserve from "./ConfirmReserve.tsx";
-import Inventory from "./EditInventory.tsx";
 import NavBar from "./Navbar.tsx";
 import { Footer } from "./Footer.tsx";
-import AdminDashboard from "./adm.tsx";
 import App from "./App.tsx";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

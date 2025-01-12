@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 function SearchMenu() {
   const [sortOrder, setSortOrder] = useState<string>("A-Z"); // Sorting state
   const [restaurants, setRestaurants] = useState<any[]>([]); // Restaurants data
-  const [searchTerm, setSearchTerm] = useState<string>(""); // Search filter state
+  const [, setSearchTerm] = useState<string>(""); // Search filter state
   const [loading, setLoading] = useState<boolean>(true); // Loading state
   const navigate = useNavigate(); // React Router navigation
 
