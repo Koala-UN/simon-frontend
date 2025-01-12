@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline"; // Import the X icon
 
 function Tags() {
@@ -38,8 +38,7 @@ function Tags() {
             color="black"
             variant="outlined"
             className="w-full text-xs font-medium flex justify-between items-center"
-            onClick={() => handleRemoveSelectedTag(tag)}
-          >
+            onClick={() => handleRemoveSelectedTag(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             <span>{tag}</span>
             <XMarkIcon className="w-5 h-5" />
           </Button>
@@ -55,8 +54,7 @@ function Tags() {
             color="blue-gray"
             variant="outlined"
             className="w-full text-xs justify-between font-medium"
-            onClick={() => handleTagClick(tag)}
-          >
+            onClick={() => handleTagClick(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             {tag}
           </Button>
         ))}

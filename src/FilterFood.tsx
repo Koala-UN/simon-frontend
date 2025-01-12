@@ -37,13 +37,10 @@ function FilterFood({ setCategory }: { setCategory: (category: string) => void }
           key={category.id}
           size="sm"
           color="amber"
-          className={`flex items-center gap-2 px-4 py-2 rounded-full ${
-            activeCategory === category.name
+          className={`flex items-center gap-2 px-4 py-2 rounded-full ${activeCategory === category.name
               ? "bg-orange-500 text-white" // Active state styles
-              : "bg-orange-100 text-black hover:bg-orange-200"
-          }`}
-          onClick={() => handleCategoryClick(category.name)}
-        >
+              : "bg-orange-100 text-black hover:bg-orange-200"}`}
+          onClick={() => handleCategoryClick(category.name)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
           <span className="text-xl">{category.icon}</span>
           <span className="font-medium">{category.name}</span>
         </Button>

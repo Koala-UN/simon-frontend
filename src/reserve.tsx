@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Typography, Card } from "@material-tailwind/react";
 import {
-  FaCalendarAlt,
+  
   FaClock,
   FaUsers,
   FaPizzaSlice,
@@ -16,15 +16,16 @@ import "react-calendar/dist/Calendar.css";
 import { useParams, useNavigate } from "react-router-dom";
 
 function RestaurantReservation() {
-  const { restaurantId } = useParams<{ restaurantId: string }>(); // Get restaurantId from the URL
+  const { restaurantId } = useParams<{ restaurantId: string }>();
   const [restaurant, setRestaurant] = useState<any>(null);
   const [dishes, setDishes] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedTime, setSelectedTime] = useState<string>("7:00 PM");
+  const [selectedTime, setSelectedTime] = useState<string>("18:00");
   const [guests, setGuests] = useState<number>(4);
+  const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+  const [capacityMessage, setCapacityMessage] = useState<string>("");
 
   const navigate = useNavigate();
-  const availableTimes = ["7:00 PM", "8:45 PM", "9:00 PM"];
 
   const categoryIcons: { [key: string]: React.ReactNode } = {
     Pizzas: <FaPizzaSlice />,
@@ -36,10 +37,11 @@ function RestaurantReservation() {
   };
 
   useEffect(() => {
-    // Fetch restaurant information based on restaurantId
     const fetchRestaurant = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/restaurant/${restaurantId}`);
+        const response = await fetch(
+          `https://simon-backend.onrender.com/api/restaurant/${restaurantId}`
+        );
         const data = await response.json();
         if (data.status === "success") setRestaurant(data.data);
       } catch (error) {
@@ -47,12 +49,13 @@ function RestaurantReservation() {
       }
     };
 
-    // Fetch dishes based on restaurantId
     const fetchDishes = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/dish/restaurant/${restaurantId}`);
+        const response = await fetch(
+          `https://simon-backend.onrender.com/api/dish/restaurant/${restaurantId}`
+        );
         const data = await response.json();
-        if (data.status === "success") setDishes(data.data);
+        if (data.status === "success") setDishes(data.data.slice(0, 10)); // Limit to 10 dishes
       } catch (error) {
         console.error("Error fetching dishes:", error);
       }
@@ -60,14 +63,57 @@ function RestaurantReservation() {
 
     fetchRestaurant();
     fetchDishes();
-  }, [restaurantId]); // Re-run effect when restaurantId changes
+  }, [restaurantId]);
 
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
+  const handleDateChange = (value: any) => {
+    if (value instanceof Date) {
+      setSelectedDate(value);
+    }
+  };
+
+  const handleAvailabilityCheck = async () => {
+    try {
+      const response = await fetch(
+        `https://simon-backend.onrender.com/api/reserve/capacity/${restaurantId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            time: selectedTime,
+            date: selectedDate.toISOString().split("T")[0],
+          }),
+        }
+      );
+
+      const data = await response.json();
+      if (data.status === "success" && restaurant) {
+        const capacity = data.data;
+        if (guests <= capacity) {
+          setIsAvailable(true);
+          setCapacityMessage(
+            guests === capacity
+              ? "La capacidad máxima del restaurante será alcanzada."
+              : "La capacidad del restaurante es suficiente."
+          );
+        } else {
+          setIsAvailable(false);
+          setCapacityMessage(
+            "El número de personas excede la capacidad del restaurante."
+          );
+        }
+      } else {
+        setIsAvailable(false);
+        setCapacityMessage("No se pudo verificar la disponibilidad.");
+      }
+    } catch (error) {
+      console.error("Error checking availability:", error);
+      setIsAvailable(false);
+      setCapacityMessage("Ocurrió un error al verificar la disponibilidad.");
+    }
   };
 
   const handleMenuNavigation = () => {
-    navigate(`/menu/${restaurantId}`); // Navigate to MenuExtendido with the current restaurant ID
+    navigate(`/menu/${restaurantId}`);
   };
 
   if (!restaurant) {
@@ -80,21 +126,18 @@ function RestaurantReservation() {
         <div className="grid grid-cols-3 gap-4">
           {/* Left Panel */}
           <div className="col-span-2">
-            <Typography variant="h4" className="font-bold mb-2">
+            <Typography variant="h4" className="font-bold mb-2"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               {restaurant.nombre}
             </Typography>
             <div className="flex gap-2 mb-4">
-              <Button size="sm" color="red">
+              <Button size="sm" color="red"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                 {restaurant.categoria}
               </Button>
-              <Button size="sm" color="red">
-                Bar
-              </Button>
             </div>
-            <Typography variant="small" className="text-gray-700 mb-4">
+            <Typography variant="small" className="text-gray-700 mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               {restaurant.address?.direccion || "Dirección no disponible"}
             </Typography>
-            <Typography className="text-gray-600 mb-4">
+            <Typography className="text-gray-600 mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               {restaurant.descripcion || "Descripción no disponible"}
             </Typography>
             <div className="mb-4">
@@ -104,51 +147,33 @@ function RestaurantReservation() {
                 className="w-full h-full rounded-lg object-cover"
               />
             </div>
-            <div className="flex justify-center gap-4 mb-4">
-              <Button color="red" size="sm" className="px-4 py-2">
-                Descripción
-              </Button>
-              <Button
-                color="red"
-                size="sm"
-                className="px-4 py-2"
-                onClick={handleMenuNavigation} // Navigate to MenuExtendido
-              >
-                Menú
-              </Button>
-              <Button color="red" size="sm" className="px-4 py-2">
-                Ubicación
+            <div className="flex justify-end mb-4">
+              <Button color="blue" onClick={handleMenuNavigation}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                Ver Menú completo
               </Button>
             </div>
             <div>
-              <Typography variant="h6" className="font-bold mb-4">
-                Menú
-              </Typography>
               <div className="space-y-4">
                 {dishes.map((dish) => (
                   <Card
                     key={dish.id}
-                    className="flex flex-row items-center p-4 shadow-sm border rounded-lg"
-                  >
-                    {/* Left Icon */}
+                    className="flex flex-row items-center p-4 shadow-sm border rounded-lg"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                  >
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 mr-4">
-                      {categoryIcons[dish.categoria] || <FaPizzaSlice className="text-purple-500" />}
+                      {categoryIcons[dish.categoria] || (
+                        <FaPizzaSlice className="text-purple-500" />
+                      )}
                     </div>
-
-                    {/* Middle Section */}
                     <div className="flex-1">
-                      <Typography variant="h6" className="font-bold truncate">
+                      <Typography variant="h6" className="font-bold truncate"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                         {dish.nombre}
                       </Typography>
-                      <Typography variant="small" className="text-gray-500">
+                      <Typography variant="small" className="text-gray-500"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                         COP {dish.precio.toLocaleString()}
                       </Typography>
                     </div>
-
-                    {/* Right Image */}
                     <div className="w-16 h-16 ml-4">
                       <img
-                        src={dish.image || "https://via.placeholder.com/80"} // Replace with dish.image if available
+                        src={dish.image || "https://via.placeholder.com/80"}
                         alt={dish.nombre}
                         className="w-full h-full rounded-lg object-cover"
                       />
@@ -161,7 +186,7 @@ function RestaurantReservation() {
 
           {/* Right Panel */}
           <div className="col-span-1 p-4 border-l">
-            <Typography variant="h6" className="font-bold mb-4">
+            <Typography variant="h6" className="font-bold mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Elija una fecha y hora
             </Typography>
             <div className="mb-6">
@@ -179,6 +204,18 @@ function RestaurantReservation() {
             <div className="space-y-4">
               <div>
                 <label className="flex items-center gap-2 text-gray-700 font-semibold">
+                  <FaClock />
+                  Hora
+                </label>
+                <input
+                  type="time"
+                  value={selectedTime}
+                  onChange={(e) => setSelectedTime(e.target.value)}
+                  className="w-full border rounded px-2 py-1"
+                />
+              </div>
+              <div>
+                <label className="flex items-center gap-2 text-gray-700 font-semibold">
                   <FaUsers />
                   Personas
                 </label>
@@ -190,42 +227,36 @@ function RestaurantReservation() {
                   min={1}
                 />
               </div>
-              <div>
-                <label className="flex items-center gap-2 text-gray-700 font-semibold">
-                  <FaClock />
-                  Hora
-                </label>
-                <div className="flex gap-2 mt-2">
-                  {availableTimes.map((time) => (
-                    <Button
-                      key={time}
-                      size="sm"
-                      color={time === selectedTime ? "red" : "gray"}
-                      onClick={() => setSelectedTime(time)}
-                    >
-                      {time}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+              <Button
+                size="sm"
+                color="blue"
+                className="w-full"
+                onClick={handleAvailabilityCheck}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                Validar disponibilidad
+              </Button>
+              {isAvailable !== null && (
+                <Typography
+                  className={`text-center mt-2 ${isAvailable ? "text-green-500" : "text-red-500"}`}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
+                  {capacityMessage}
+                </Typography>
+              )}
             </div>
             <Button
-  color="red"
-  className="mt-6 w-full flex items-center justify-center gap-2"
-  onClick={() =>
-    navigate(`/confirm-reserve/${restaurantId}`, {
-      state: {
-        selectedDate,
-        selectedTime,
-        guests,
-        restaurantName: restaurant?.nombre,
-      },
-    })
-  }
->
-  <span className="text-center">Hacer pedido</span>
-  <FaExternalLinkAlt className="text-white" />
-</Button>;
+              color="red"
+              className="mt-6 w-full flex items-center justify-center gap-2"
+              onClick={() => navigate(`/confirm-reserve/${restaurantId}`, {
+                state: {
+                  selectedDate,
+                  selectedTime,
+                  guests,
+                  restaurantName: restaurant?.nombre,
+                  restaurantImage: restaurant?.image || "https://via.placeholder.com/800x400",
+                },
+              })}
+              disabled={!isAvailable}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              <span className="text-center">Hacer reservación</span>
+              <FaExternalLinkAlt className="text-white" />
+            </Button>
           </div>
         </div>
       </div>

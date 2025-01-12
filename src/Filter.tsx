@@ -16,12 +16,12 @@ function Filter({ setSortOrder,sortOrder }: { setSortOrder: (sortOrder: string) 
         }}
       >
         <MenuHandler>
-          <Button>{sortOrder}</Button>
+          <Button   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>{sortOrder}</Button>
         </MenuHandler>
-        <MenuList>
-          <MenuItem onClick={() => setSortOrder("A-Z")}>A-Z</MenuItem>
-          <MenuItem onClick={() => setSortOrder("Z-A")}>Z-A</MenuItem>
-          <MenuItem onClick={() => setSortOrder("Rating")}>Rating</MenuItem>
+        <MenuList   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <MenuItem onClick={() => setSortOrder("A-Z")}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>A-Z</MenuItem>
+          <MenuItem onClick={() => setSortOrder("Z-A")}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Z-A</MenuItem>
+          <MenuItem onClick={() => setSortOrder("Rating")}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Rating</MenuItem>
         </MenuList>
       </Menu>
     </div>

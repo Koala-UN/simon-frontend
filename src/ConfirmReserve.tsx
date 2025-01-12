@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, Typography } from "@material-tailwind/react";
 import {
   FaCalendarAlt,
@@ -6,47 +6,37 @@ import {
   FaUsers,
   FaExternalLinkAlt,
 } from "react-icons/fa";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-function RestaurantReservation() {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
-  const [restaurant, setRestaurant] = useState<any>(null);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedTime, setSelectedTime] = useState<string>("7:00 PM");
-  const [guests, setGuests] = useState<number>(4);
+function ConfirmReserve() {
+  const location = useLocation();
+  const {
+    restaurantName,
+    restaurantImage,
+    selectedDate,
+    selectedTime,
+    guests,
+    formData,
+  } = location.state || {};
 
-  const navigate = useNavigate();
-  const availableTimes = ["7:00 PM", "8:45 PM", "9:00 PM"];
+  const [editableFormData, setEditableFormData] = useState(formData || {});
 
-  useEffect(() => {
-    const fetchRestaurant = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/api/restaurant/${restaurantId}`);
-        const data = await response.json();
-        if (data.status === "success") setRestaurant(data.data);
-      } catch (error) {
-        console.error("Error fetching restaurant:", error);
-      }
-    };
-
-    fetchRestaurant();
-  }, [restaurantId]);
-
-  const handleConfirmReserveNavigation = () => {
-    navigate(`/confirm-reserve/${restaurantId}`, {
-      state: {
-        restaurantName: restaurant?.nombre,
-        date: selectedDate,
-        time: selectedTime,
-        guests,
-      },
-    });
+  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+    const { name, value } = e.target;
+    setEditableFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
-  if (!restaurant) {
-    return <p className="text-center text-gray-500">Cargando restaurante...</p>;
+  const handleReservationSubmit = () => {
+    console.log("Reservación guardada con los datos:", editableFormData);
+    alert("Reservación guardada con éxito.");
+  };
+
+  if (!restaurantName || !selectedDate || !selectedTime || !guests) {
+    return (
+      <div className="text-center text-gray-500">
+        <p>No se encontró información de la reservación.</p>
+      </div>
+    );
   }
 
   return (
@@ -58,24 +48,24 @@ function RestaurantReservation() {
               <FaExternalLinkAlt className="text-red-500 text-3xl" />
             </div>
           </div>
-          <Typography variant="h5" className="font-bold text-gray-800">
+          <Typography variant="h5" className="font-bold text-gray-800"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             RESUMEN DE RESERVACIÓN
           </Typography>
         </div>
 
         <div className="bg-gray-100 rounded-lg p-4 text-center mb-6">
-          <Typography variant="h6" className="font-bold text-gray-900 mb-2">
-            {restaurant.nombre}
+          <Typography variant="h6" className="font-bold text-gray-900 mb-2"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            {restaurantName}
           </Typography>
           <img
-            src={restaurant.image || "https://via.placeholder.com/300x200"}
+            src={restaurantImage || "https://via.placeholder.com/800x400"}
             alt="Restaurant"
             className="rounded-lg mb-4 w-full object-cover"
           />
           <div className="flex flex-col items-center gap-2 text-gray-700">
             <div className="flex items-center gap-2">
               <FaCalendarAlt className="text-gray-500" />
-              <span>{selectedDate.toDateString()}</span>
+              <span>{new Date(selectedDate).toLocaleDateString()}</span>
             </div>
             <div className="flex items-center gap-2">
               <FaUsers className="text-gray-500" />
@@ -88,51 +78,77 @@ function RestaurantReservation() {
           </div>
         </div>
 
-        <p className="text-center text-gray-600 mb-6">
-          Completa la reservación para disfrutar de un buen momento bien preparado
-        </p>
-
         <form className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Nombres</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Nombres
+            </label>
             <input
               type="text"
+              name="firstName"
+              value={editableFormData.firstName || ""}
+              onChange={handleInputChange}
               placeholder="Tu nombre"
               className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Apellidos</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Apellidos
+            </label>
             <input
               type="text"
+              name="lastName"
+              value={editableFormData.lastName || ""}
+              onChange={handleInputChange}
               placeholder="Tus apellidos"
               className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Correo electrónico
+            </label>
             <input
               type="email"
+              name="email"
+              value={editableFormData.email || ""}
+              onChange={handleInputChange}
               placeholder="Tu correo"
               className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono / Celular</label>
-            <div className="flex">
-              <span className="inline-flex items-center px-3 text-gray-500 bg-gray-200 rounded-l-lg">
-                +57
-              </span>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Teléfono / Celular
+            </label>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center px-3  ">
+                <img
+                  src="https://flagcdn.com/w40/co.png"
+                  alt="Colombia"
+                  className="w-6 h-4"
+                />
+                <span className="ml-2">+57</span>
+              </div>
               <input
                 type="text"
+                name="phone"
+                value={editableFormData.phone || ""}
+                onChange={handleInputChange}
                 placeholder="Tu número"
-                className="flex-1 border border-gray-300 rounded-r-lg px-3 py-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full border rounded-r px-3 py-2 focus:ring-red-500 focus:border-red-500"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Detalles adicionales</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Detalles adicionales
+            </label>
             <textarea
+              name="additionalDetails"
+              value={editableFormData.additionalDetails || ""}
+              onChange={handleInputChange}
               placeholder="Detalles adicionales"
               rows={4}
               className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
@@ -141,10 +157,12 @@ function RestaurantReservation() {
           <Button
             color="red"
             className="w-full flex items-center justify-center gap-2"
-            onClick={handleConfirmReserveNavigation}
-          >
-            <span className="text-center">Guardar reservación</span>
-            <FaExternalLinkAlt className="text-white" />
+            onClick={(e) => {
+              e.preventDefault();
+              handleReservationSubmit();
+            } }   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+            <span>Guardar reservación</span>
+            <FaExternalLinkAlt />
           </Button>
         </form>
       </div>
@@ -152,4 +170,4 @@ function RestaurantReservation() {
   );
 }
 
-export default RestaurantReservation;
+export default ConfirmReserve;

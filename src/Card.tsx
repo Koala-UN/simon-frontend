@@ -26,17 +26,16 @@ export function CardDefault({
   return (
     <Card
       onClick={handleCardClick}
-      className="mt-6 w-80 cursor-pointer hover:shadow-lg transition-shadow"
-    >
-      <CardHeader color="blue-gray" className="relative h-56">
+      className="mt-6 w-80 cursor-pointer hover:shadow-lg transition-shadow"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}    >
+      <CardHeader color="blue-gray" className="relative h-56"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
         <img
           src={photo}
           alt={name}
           className="w-full h-full object-cover rounded-lg"
         />
       </CardHeader>
-      <CardBody>
-  <Typography variant="h5" color="blue-gray" className="mb-2">
+      <CardBody   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+  <Typography variant="h5" color="blue-gray" className="mb-2"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
     {name}
   </Typography>
   {/* Price Range Tag */}

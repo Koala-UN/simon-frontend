@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Card, CardHeader, CardBody, Typography, Button } from "@material-tailwind/react";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
 
@@ -9,7 +9,6 @@ function Inventory() {
       name: "Italy Pizza",
       description: "Extra cheese and topping",
       price: 28300,
-      quantity: 1,
       image: "https://via.placeholder.com/80",
     },
     {
@@ -17,7 +16,6 @@ function Inventory() {
       name: "Combo Plate",
       description: "Extra cheese and topping",
       price: 10300,
-      quantity: 10,
       image: "https://via.placeholder.com/80",
     },
     {
@@ -25,35 +23,16 @@ function Inventory() {
       name: "Spanish Rice",
       description: "Extra garlic",
       price: 45300,
-      quantity: 1,
       image: "https://via.placeholder.com/80",
     },
   ]);
 
   const [newProduct, setNewProduct] = useState({
     name: "",
-    cost: "",
-    amount: "",
+    description: "",
+    price: "",
     image: "",
   });
-
-  const handleIncrement = (id: number) => {
-    setMenuItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
-
-  const handleDecrement = (id: number) => {
-    setMenuItems((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
 
   const handleDelete = (id: number) => {
     setMenuItems((prev) => prev.filter((item) => item.id !== id));
@@ -66,13 +45,12 @@ function Inventory() {
       {
         id: newId,
         name: newProduct.name,
-        description: "New Product",
-        price: parseInt(newProduct.cost),
-        quantity: parseInt(newProduct.amount),
+        description: newProduct.description,
+        price: parseInt(newProduct.price),
         image: "https://via.placeholder.com/80",
       },
     ]);
-    setNewProduct({ name: "", cost: "", amount: "", image: "" });
+    setNewProduct({ name: "", description: "", price: "", image: "" });
   };
 
   return (
@@ -81,10 +59,10 @@ function Inventory() {
         <div className="flex">
           {/* Left Panel */}
           <div className="w-2/3 p-4">
-            <Typography variant="h5" className="font-bold mb-4 text-center">
+            <Typography variant="h5" className="font-bold mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Inventory
             </Typography>
-            <Typography variant="h6" className="mb-2 text-center">
+            <Typography variant="h6" className="mb-2 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Menu
             </Typography>
             <div className="border-b border-gray-300 my-4"></div> {/* Line between sections */}
@@ -92,14 +70,12 @@ function Inventory() {
               {menuItems.map((item) => (
                 <Card
                   key={item.id}
-                  className="w-128 flex-row items-center p-2 shadow-sm border rounded-lg"
-                >
+                  className="w-128 flex-row items-center p-2 shadow-sm border rounded-lg"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   {/* Image Section */}
                   <CardHeader
                     shadow={false}
                     floated={false}
-                    className="m-0 w-[4rem] h-[4rem] shrink-0 rounded-lg overflow-hidden"
-                  >
+                    className="m-0 w-[4rem] h-[4rem] shrink-0 rounded-lg overflow-hidden"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                  >
                     <img
                       src={item.image || "https://via.placeholder.com/80"}
                       alt={item.name}
@@ -108,53 +84,26 @@ function Inventory() {
                   </CardHeader>
 
                   {/* Details Section */}
-                  <CardBody className="flex-1 flex flex-col gap-1 px-2 py-1">
+                  <CardBody className="flex-1 flex flex-col gap-1 px-2 py-1"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <Typography
                       variant="h6"
                       color="blue-gray"
-                      className="text-xs font-semibold truncate"
-                    >
+                      className="text-xs font-semibold truncate"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
                       {item.name}
                     </Typography>
                     <Typography
                       color="gray"
                       className="text-xs truncate"
-                      style={{ maxWidth: "200px" }}
-                    >
+                      style={{ maxWidth: "200px" }}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
                       {item.description}
                     </Typography>
                     <Typography
                       variant="h6"
                       color="blue-gray"
-                      className="text-xs font-bold"
-                    >
+                      className="text-xs font-bold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
                       ${item.price.toLocaleString()} COP
                     </Typography>
                   </CardBody>
-
-                  {/* Quantity Controls Section */}
-                  <div className="flex items-center gap-2 px-2">
-                    <Button
-                      size="sm"
-                      color="gray"
-                      className="rounded-full w-6 h-6 p-0 flex justify-center items-center"
-                      onClick={() => handleDecrement(item.id)}
-                      disabled={item.quantity <= 1} // Disable if quantity is 1
-                    >
-                      {"<"}
-                    </Button>
-                    <Typography variant="h6" color="blue-gray" className="text-xs">
-                      {item.quantity}
-                    </Typography>
-                    <Button
-                      size="sm"
-                      color="gray"
-                      className="rounded-full w-6 h-6 p-0 flex justify-center items-center"
-                      onClick={() => handleIncrement(item.id)}
-                    >
-                      {">"}
-                    </Button>
-                  </div>
 
                   {/* Actions Section */}
                   <div className="flex items-center space-x-2 ml-4">
@@ -162,8 +111,7 @@ function Inventory() {
                     <Button
                       size="sm"
                       className="bg-transparent p-1 w-6 h-6 flex justify-center items-center rounded-full"
-                      onClick={() => handleDelete(item.id)}
-                    >
+                      onClick={() => handleDelete(item.id)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
                       <FaTrashAlt color="red" className="h-4 w-4" />
                     </Button>
                   </div>
@@ -174,12 +122,12 @@ function Inventory() {
 
           {/* Right Panel */}
           <div className="w-1/3 p-4 border-l">
-            <Typography variant="h6" className="mb-4 text-center">
+            <Typography variant="h6" className="mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Create product
             </Typography>
             <div className="space-y-4">
               <div>
-                <Typography className="text-sm font-semibold">Name</Typography>
+                <Typography className="text-sm font-semibold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Name</Typography>
                 <input
                   type="text"
                   value={newProduct.name}
@@ -190,23 +138,23 @@ function Inventory() {
                 />
               </div>
               <div>
-                <Typography className="text-sm font-semibold">Cost</Typography>
+                <Typography className="text-sm font-semibold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Description</Typography>
                 <input
-                  type="number"
-                  value={newProduct.cost}
+                  type="text"
+                  value={newProduct.description}
                   onChange={(e) =>
-                    setNewProduct({ ...newProduct, cost: e.target.value })
+                    setNewProduct({ ...newProduct, description: e.target.value })
                   }
                   className="w-full border rounded px-2 py-1"
                 />
               </div>
               <div>
-                <Typography className="text-sm font-semibold">Amount</Typography>
+                <Typography className="text-sm font-semibold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Price</Typography>
                 <input
                   type="number"
-                  value={newProduct.amount}
+                  value={newProduct.price}
                   onChange={(e) =>
-                    setNewProduct({ ...newProduct, amount: e.target.value })
+                    setNewProduct({ ...newProduct, price: e.target.value })
                   }
                   className="w-full border rounded px-2 py-1"
                 />
@@ -215,8 +163,7 @@ function Inventory() {
                 size="sm"
                 color="blue"
                 className="w-full mt-4"
-                onClick={handleAddProduct}
-              >
+                onClick={handleAddProduct}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 Add Product
               </Button>
 

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { Typography, Button } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
 
 function AdminDashboard() {
   const [reservations, setReservations] = useState<any[]>([]);
@@ -33,15 +33,15 @@ function AdminDashboard() {
   const currentReservations = reservations.slice(startIndex, endIndex);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-blue-50">
       {/* Sidebar */}
-      <div className="w-1/4 bg-gray-800 text-white p-4">
-        <Typography variant="h5" className="font-bold mb-6 text-center">
+      <div className="w-1/4 bg-blue-800 text-white p-4">
+        <Typography variant="h5" className="font-bold mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           Simon
         </Typography>
         <nav className="space-y-4">
           <div>
-            <Typography variant="small" className="uppercase text-gray-400">
+            <Typography variant="small" className="uppercase text-blue-300"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Acceso rápido
             </Typography>
             <ul className="space-y-2 mt-2">
@@ -52,7 +52,7 @@ function AdminDashboard() {
             </ul>
           </div>
           <div>
-            <Typography variant="small" className="uppercase text-gray-400">
+            <Typography variant="small" className="uppercase text-blue-300"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Servicios
             </Typography>
             <ul className="space-y-2 mt-2">
@@ -62,7 +62,7 @@ function AdminDashboard() {
             </ul>
           </div>
           <div>
-            <Typography variant="small" className="uppercase text-gray-400">
+            <Typography variant="small" className="uppercase text-blue-300"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Mi cuenta
             </Typography>
             <ul className="space-y-2 mt-2">
@@ -73,9 +73,8 @@ function AdminDashboard() {
           </div>
           <Button
             size="sm"
-            color="red"
-            className="w-full mt-6"
-          >
+            color="blue"
+            className="w-full mt-6"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Cerrar sesión
           </Button>
         </nav>
@@ -84,43 +83,43 @@ function AdminDashboard() {
       {/* Content Area */}
       <div className="w-3/4 p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <Typography variant="h5" className="font-bold mb-4">
+          <Typography variant="h5" className="font-bold mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Reservas
           </Typography>
-          <Typography variant="small" className="text-gray-600 mb-6 block">
+          <Typography variant="small" className="text-blue-600 mb-6 block"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Últimas reservas
           </Typography>
 
           {/* Table */}
           <div className="overflow-auto">
-            <table className="table-auto w-full border-collapse border border-gray-300">
+            <table className="table-auto w-full border-collapse border border-blue-300">
               <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-300 px-4 py-2 text-left">Fecha</th>
-                  <th className="border border-gray-300 px-4 py-2 text-left">Nombre</th>
-                  <th className="border border-gray-300 px-4 py-2 text-left">Nº Personas</th>
-                  <th className="border border-gray-300 px-4 py-2 text-left">Teléfono</th>
-                  <th className="border border-gray-300 px-4 py-2 text-left">Detalles</th>
+                <tr className="bg-blue-100">
+                  <th className="border border-blue-300 px-4 py-2 text-left">Fecha</th>
+                  <th className="border border-blue-300 px-4 py-2 text-left">Nombre</th>
+                  <th className="border border-blue-300 px-4 py-2 text-left">Nº Personas</th>
+                  <th className="border border-blue-300 px-4 py-2 text-left">Teléfono</th>
+                  <th className="border border-blue-300 px-4 py-2 text-left">Detalles</th>
                 </tr>
               </thead>
               <tbody>
                 {currentReservations.length > 0 ? (
                   currentReservations.map((reservation: any) => (
                     <tr key={reservation.id}>
-                      <td className="border border-gray-300 px-4 py-2">
+                      <td className="border border-blue-300 px-4 py-2">
                         {new Date(reservation.fecha).toLocaleDateString()} - {reservation.hora}
                       </td>
-                      <td className="border border-gray-300 px-4 py-2">{reservation.nombre}</td>
-                      <td className="border border-gray-300 px-4 py-2">{reservation.cantidad}</td>
-                      <td className="border border-gray-300 px-4 py-2">{reservation.telefono}</td>
-                      <td className="border border-gray-300 px-4 py-2">
+                      <td className="border border-blue-300 px-4 py-2">{reservation.nombre}</td>
+                      <td className="border border-blue-300 px-4 py-2">{reservation.cantidad}</td>
+                      <td className="border border-blue-300 px-4 py-2">{reservation.telefono}</td>
+                      <td className="border border-blue-300 px-4 py-2">
                         {reservation.estado}: {reservation.mesaEtiqueta || "Sin mesa asignada"}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className="border border-gray-300 px-4 py-2 text-center">
+                    <td colSpan={5} className="border border-blue-300 px-4 py-2 text-center">
                       No hay reservas disponibles.
                     </td>
                   </tr>
@@ -133,10 +132,9 @@ function AdminDashboard() {
           <div className="flex justify-between items-center mt-4">
             <Button
               size="sm"
-              color="gray"
+              color="blue-gray"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev - 1)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Anterior
             </Button>
             <div>
@@ -144,10 +142,9 @@ function AdminDashboard() {
             </div>
             <Button
               size="sm"
-              color="gray"
+              color="blue-gray"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev + 1)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Siguiente
             </Button>
           </div>

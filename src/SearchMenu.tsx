@@ -1,11 +1,10 @@
-import { InputDefault } from "./Input";
 import { Matrix } from "./Buscar";
 import LocationRestaurant from "./LocationRestaurant";
-import Tags from "./tags";
+import Tags from "./Tags.tsx";
 import { useEffect, useState } from "react";
 import Filter from "./Filter";
 import { useNavigate } from "react-router-dom";
-import AdminDashboard from "./adm";
+
 
 function SearchMenu() {
   const [sortOrder, setSortOrder] = useState<string>("A-Z"); // Sorting state
@@ -51,7 +50,7 @@ function SearchMenu() {
   return (
     
     <div className="flex">
-      <AdminDashboard/>
+      
       {/* Left Panel */}
       <div className="w-1/4 p-4 border-r border-gray-300">
         <div className="w-full h-full">
@@ -63,12 +62,15 @@ function SearchMenu() {
       {/* Right Panel */}
       <div className="w-3/4 p-4">
         <div className="mb-4">
-          <InputDefault
-            placeholder="Buscar restaurante..."
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchTerm(e.target.value)
-            }
-          />
+        <input
+  type="text"
+  placeholder="Buscar restaurante..."
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(e.target.value)
+  }
+  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+/>
+
         </div>
         <Filter setSortOrder={setSortOrder} sortOrder={sortOrder} />
         {loading ? (

@@ -10,7 +10,13 @@ function CardCartList({ cart }: { cart: any[] }) {
       {/* Cart Items */}
       {cart.length > 0 ? (
         cart.map((product) => (
-          <CardCart key={product.id} product={product} />
+          <CardCart key={product.id} product={product} onIncrement={function (id: number): void {
+            throw new Error("Function not implemented.");
+          } } onDecrement={function (id: number): void {
+            throw new Error("Function not implemented.");
+          } } onRemove={function (id: number): void {
+            throw new Error("Function not implemented.");
+          } } />
         ))
       ) : (
         <p className="text-gray-500 text-center">Tu carrito está vacío.</p>
