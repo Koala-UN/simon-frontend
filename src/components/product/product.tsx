@@ -14,7 +14,7 @@ const Product = () => {
 
   const createPreference = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/payment/create_preference", {
+      const response = await axios.post("https://simon-backend.onrender.com/api/payment/create_preference", {
         title: dish.title,
         quantity: dish.quantity,
         unit_price: dish.unit_price,
