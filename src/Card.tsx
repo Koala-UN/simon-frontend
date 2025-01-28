@@ -34,7 +34,7 @@ export function CardDefault({
           className="w-full h-full object-cover rounded-lg"
         />
       </CardHeader>
-      <CardBody   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+      <CardBody   placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} >
   <Typography variant="h5" color="blue-gray" className="mb-2"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
     {name}
   </Typography>

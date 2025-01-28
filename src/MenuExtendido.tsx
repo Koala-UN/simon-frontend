@@ -19,7 +19,7 @@ function MenuExtendido() {
   useEffect(() => {
     const fetchRestaurantName = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/restaurant/${restaurantId}`);
+        const response = await fetch(`http://localhost:5000/api/restaurant/${restaurantId}`);
         const data = await response.json();
 
         if (data.status === "success") {
@@ -43,7 +43,7 @@ function MenuExtendido() {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/dish/restaurant/${restaurantId}`);
+        const response = await fetch(`http://localhost:5000/api/dish/restaurant/${restaurantId}`);
         const data = await response.json();
 
         if (data.status === "success") {

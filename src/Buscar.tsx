@@ -37,7 +37,7 @@ export function Matrix({
               key={restaurant.id}
               name={restaurant.name}
               photo={restaurant.photo}
-              price={restaurant.price}
+              price={"$$"}
               onClick={() => handleReserveClick(restaurant.id)} // Navigate to Reserve
             />
           ))}

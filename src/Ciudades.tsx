@@ -1,77 +1,80 @@
-import { useNavigate } from 'react-router-dom';
-import bogotaImage from './assets/bog.png';
-import cucutaImage from './assets/cuc.png';
-import ibagueImage from './assets/iba.png';
+import { useNavigate } from "react-router-dom";
+import bogotaImage from "./assets/bog.png";
+import cucutaImage from "./assets/cuc.png";
+import ibagueImage from "./assets/iba.png";
 
 const Ciudades = () => {
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate(); // React Router navigation function
 
   const cities = [
     {
-      name: 'Bogotá DC',
+      id: 1,
+      name: "Bogotá DC",
       imgSrc: bogotaImage,
-      alt: 'Vista nocturna de Bogotá',
+      alt: "Vista nocturna de Bogotá",
     },
     {
-      name: 'Cúcuta',
+      id: 2,
+      name: "Cúcuta",
       imgSrc: cucutaImage,
-      alt: 'Vista de Cúcuta con la Torre del Reloj',
+      alt: "Vista de Cúcuta con la Torre del Reloj",
     },
     {
-      name: 'Ibagué',
+      id: 3,
+      name: "Ibagué",
       imgSrc: ibagueImage,
-      alt: 'Vista de Ibagué con árboles en flor',
+      alt: "Vista de Ibagué con árboles en flor",
     },
   ];
 
-  // Function to handle navigation
-  const handleNavigate = () => {
-    navigate(`/restaurantes`);
+  // Function to navigate with the city ID
+  const handleNavigate = (cityId: number) => {
+    navigate(`/restaurantes/${cityId}`);
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h2 style={{ fontSize: '2rem', margin: '20px 0' }}>
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h2 style={{ fontSize: "2rem", margin: "20px 0" }}>
         Encuentra nuestros restaurantes en las principales ciudades del país.
       </h2>
-      <p style={{ fontSize: '1.2rem', margin: '10px 0 30px 0' }}>
+      <p style={{ fontSize: "1.2rem", margin: "10px 0 30px 0" }}>
         Selecciona tu ubicación para descubrir la disponibilidad de mesas y
         disfrutar de nuestros deliciosos platillos.
       </p>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
         {cities.map((city) => (
           <div
-            key={city.name}
+            key={city.id}
             style={{
-              border: '1px solid #ccc',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              width: '300px',
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              overflow: "hidden",
+              width: "300px",
             }}
           >
             <img
               src={city.imgSrc}
               alt={city.alt}
-              style={{ width: '100%', height: 'auto' }}
+              style={{ width: "100%", height: "auto" }}
             />
             <div
               style={{
-                backgroundColor: 'black',
-                padding: '10px',
-                textAlign: 'center',
+                backgroundColor: "black",
+                padding: "10px",
+                textAlign: "center",
               }}
             >
               <button
                 style={{
-                  backgroundColor: 'black',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  width: '100%',
+                  backgroundColor: "black",
+                  color: "white",
+                  border: "none",
+                  padding: "10px 20px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  width: "100%",
                 }}
-                onClick={() => handleNavigate()} // Navigate on click
+                onClick={() => handleNavigate(city.id)} // Navigate on click
               >
                 Buscar en {city.name} 🔍
               </button>

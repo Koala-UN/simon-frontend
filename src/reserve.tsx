@@ -40,7 +40,7 @@ function RestaurantReservation() {
     const fetchRestaurant = async () => {
       try {
         const response = await fetch(
-          `https://simon-backend.onrender.com/api/restaurant/${restaurantId}`
+          `http://localhost:5000/api/restaurant/${restaurantId}`
         );
         const data = await response.json();
         if (data.status === "success") setRestaurant(data.data);
@@ -52,7 +52,7 @@ function RestaurantReservation() {
     const fetchDishes = async () => {
       try {
         const response = await fetch(
-          `https://simon-backend.onrender.com/api/dish/restaurant/${restaurantId}`
+          `http://localhost:5000/api/dish/restaurant/${restaurantId}`
         );
         const data = await response.json();
         if (data.status === "success") setDishes(data.data.slice(0, 10)); // Limit to 10 dishes
@@ -74,7 +74,7 @@ function RestaurantReservation() {
   const handleAvailabilityCheck = async () => {
     try {
       const response = await fetch(
-        `https://simon-backend.onrender.com/api/reserve/capacity/${restaurantId}`,
+        `http://localhost:5000/api/reserve/capacity/${restaurantId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
