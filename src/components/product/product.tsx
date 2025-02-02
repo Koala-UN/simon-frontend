@@ -6,8 +6,8 @@ initMercadoPago("APP_USR-86d3971d-e212-4e18-b5f7-a28c98c8a770");
 
 const Product = () => {
   const dish = {
-    title: "Pizza de peperoni",
-    quantity: 3,
+    title: "Orden total",
+    quantity: 1,
     unit_price: 2500,
   };
 
@@ -30,7 +30,7 @@ const Product = () => {
     const id = await createPreference();
     if (id) {
       // Redirigir directamente al flujo de pago de Mercado Pago
-      window.location.href = `https://www.mercadopago.com.co/checkout/v1/redirect?preference-id=${id}`;
+      window.open(`https://www.mercadopago.com.co/checkout/v1/redirect?preference-id=${id}`, "_blank");
     }
   };
 
