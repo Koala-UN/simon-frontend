@@ -33,3 +33,31 @@
     opacity: 0.7;
   }
   
+  .manual-payment {
+    margin-top: 10px;
+  }
+  
+  .manual-payment input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+  .verified-label {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .verified-label.success {
+    color: #28a745; /* Verde para éxito */
+  }
+  
+  .verified-label.error {
+    color: #dc3545; /* Rojo para error */
+  }
+  

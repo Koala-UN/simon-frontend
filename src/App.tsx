@@ -6,6 +6,7 @@ import { InfoCard } from "./infocard";
 import ReservaPasos from "./Instrucciones";
 import PresentacionSimon from "./presimon"; */
 
+import { PaymentProvider } from "./components/product/context/paymentProvider";
 import Product from "./components/product/product";
 
 
@@ -16,7 +17,10 @@ import Product from "./components/product/product";
 function App() {
   return (
     <>  
-      <Product/>
+    <PaymentProvider>
+      <Product></Product>
+    </PaymentProvider>
+    
 {/*         <Cta />
       <Ciudades/>
       <PresentacionSimon/>
