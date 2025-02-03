@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardBody, Typography, Button, Select, Option } from "@material-tailwind/react";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
+import Sidebar from "./Sidebar";
 
 function Inventory() {
   const [menuItems, setMenuItems] = useState<any[]>([]);
@@ -144,8 +145,9 @@ function Inventory() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-6">
-      <div className="w-full md:w-3/4 bg-white rounded-lg shadow-lg p-6">
+    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 ">
+      <Sidebar/>
+      <div className="w-3/4  md:w-3/4 bg-white rounded-lg shadow-lg m-6 ">
         <div className="grid md:grid-cols-3 gap-6">
           {/* Panel izquierdo */}
           <div className="col-span-2 p-4">

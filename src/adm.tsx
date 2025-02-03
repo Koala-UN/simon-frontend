@@ -1,17 +1,18 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminDashboard() {
   const [reservations, setReservations] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const reservationsPerPage = 5;
+  const navigate = useNavigate();
 
   // Fetch reservations data
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        // Verificar autenticación y obtener el ID del restaurante
         const authResponse = await fetch(
           "http://localhost:5000/api/restaurant/auth-status",
           {
@@ -19,16 +20,15 @@ function AdminDashboard() {
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: "include", // Esto asegura que las cookies sean enviadas
+            credentials: "include",
           }
         );
 
         const authData = await authResponse.json();
 
         if (authResponse.ok && authData.authenticated) {
-          const restauranteId = authData.user.id; // ID del restaurante autenticado
+          const restauranteId = authData.user.id;
 
-          // Hacer la solicitud a la API de reservas
           const response = await fetch(
             `http://localhost:5000/api/reserve/restaurant/${restauranteId}`,
             {
@@ -49,7 +49,10 @@ function AdminDashboard() {
             console.error("Error al obtener reservas:", data.message || data);
           }
         } else {
-          console.error("Usuario no autenticado o error en auth-status:", authData.message || authData);
+          console.error(
+            "Usuario no autenticado o error en auth-status:",
+            authData.message || authData
+          );
         }
       } catch (error) {
         console.error("Error al hacer la solicitud:", error);
@@ -68,42 +71,36 @@ function AdminDashboard() {
     <div className="flex min-h-screen bg-blue-50">
       {/* Sidebar */}
       <div className="w-1/4 bg-blue-800 text-white p-4">
-        <Typography variant="h5" className="font-bold mb-6 text-center">
+        <Typography variant="h5" className="font-bold mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           Simon
         </Typography>
         <nav className="space-y-4">
           <div>
-            <Typography variant="small" className="uppercase text-blue-300">
-              Acceso rápido
-            </Typography>
-            <ul className="space-y-2 mt-2">
-              <li>Inicio</li>
-              <li>Historial de pagos</li>
-              <li>Mis métodos de pago</li>
-              <li>Estadísticas</li>
-            </ul>
-          </div>
-          <div>
-            <Typography variant="small" className="uppercase text-blue-300">
+            <Typography variant="small" className="uppercase text-blue-300"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Servicios
             </Typography>
             <ul className="space-y-2 mt-2">
-              <li>Menú</li>
-              <li>Pedidos</li>
-              <li>Mesas</li>
+              <li
+                onClick={() => navigate("/admin/reserve")}
+                className="cursor-pointer hover:text-blue-300"
+              >
+                Reservas
+              </li>
+              <li
+                onClick={() => navigate("/admin/orders")}
+                className="cursor-pointer hover:text-blue-300"
+              >
+                Pedidos
+              </li>
+              <li
+                onClick={() => navigate("/inventory")}
+                className="cursor-pointer hover:text-blue-300"
+              >
+                Inventario
+              </li>
             </ul>
           </div>
-          <div>
-            <Typography variant="small" className="uppercase text-blue-300">
-              Mi cuenta
-            </Typography>
-            <ul className="space-y-2 mt-2">
-              <li>Notificaciones</li>
-              <li>Configuración</li>
-              <li>Preguntas y respuestas</li>
-            </ul>
-          </div>
-          <Button size="sm" color="blue" className="w-full mt-6">
+          <Button size="sm" color="blue" className="w-full mt-6"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Cerrar sesión
           </Button>
         </nav>
@@ -112,10 +109,10 @@ function AdminDashboard() {
       {/* Content Area */}
       <div className="w-3/4 p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <Typography variant="h5" className="font-bold mb-4">
+          <Typography variant="h5" className="font-bold mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Reservas
           </Typography>
-          <Typography variant="small" className="text-blue-600 mb-6 block">
+          <Typography variant="small" className="text-blue-600 mb-6 block"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Últimas reservas
           </Typography>
 
@@ -184,8 +181,7 @@ function AdminDashboard() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev - 1)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Anterior
             </Button>
             <div>
@@ -195,8 +191,7 @@ function AdminDashboard() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev + 1)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Siguiente
             </Button>
           </div>

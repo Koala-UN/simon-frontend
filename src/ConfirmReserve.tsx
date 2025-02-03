@@ -17,18 +17,62 @@ function ConfirmReserve() {
     selectedTime,
     guests,
     formData,
+    restaurantId, // Recibe el ID del restaurante desde el estado.
   } = location.state || {};
 
   const [editableFormData, setEditableFormData] = useState(formData || {});
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setEditableFormData((prev: any) => ({ ...prev, [name]: value }));
+    setEditableFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleReservationSubmit = () => {
-    console.log("Reservación guardada con los datos:", editableFormData);
-    alert("Reservación guardada con éxito.");
+  const handleReservationSubmit = async () => {
+    try {
+      if (!restaurantId) {
+        setErrorMessage("El ID del restaurante es obligatorio.");
+        return;
+      }
+
+      const reservationData = {
+        restaurantId,
+        date: new Date(selectedDate).toISOString().split("T")[0], // YYYY-MM-DD
+        time: selectedTime,
+        guests,
+        customer: {
+          firstName: editableFormData.firstName,
+          lastName: editableFormData.lastName,
+          email: editableFormData.email,
+          phone: editableFormData.phone,
+        },
+        additionalDetails: editableFormData.additionalDetails,
+      };
+
+      const response = await fetch("http://localhost:5000/api/reserve", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reservationData),
+      });
+
+      if (response.ok) {
+        setSuccessMessage("¡Reservación guardada con éxito!");
+        setErrorMessage("");
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message || "Error al guardar la reserva.");
+        setSuccessMessage("");
+      }
+    } catch (error) {
+      console.error("Error al guardar la reserva:", error);
+      setErrorMessage("Error al conectar con el servidor.");
+      setSuccessMessage("");
+    }
   };
 
   if (!restaurantName || !selectedDate || !selectedTime || !guests) {
@@ -90,6 +134,7 @@ function ConfirmReserve() {
               onChange={handleInputChange}
               placeholder="Tu nombre"
               className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
+              required
             />
           </div>
           <div>
@@ -103,6 +148,7 @@ function ConfirmReserve() {
               onChange={handleInputChange}
               placeholder="Tus apellidos"
               className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
+              required
             />
           </div>
           <div>
@@ -116,6 +162,7 @@ function ConfirmReserve() {
               onChange={handleInputChange}
               placeholder="Tu correo"
               className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
+              required
             />
           </div>
           <div>
@@ -123,7 +170,7 @@ function ConfirmReserve() {
               Teléfono / Celular
             </label>
             <div className="flex items-center gap-2">
-              <div className="flex items-center px-3  ">
+              <div className="flex items-center px-3">
                 <img
                   src="https://flagcdn.com/w40/co.png"
                   alt="Colombia"
@@ -138,6 +185,7 @@ function ConfirmReserve() {
                 onChange={handleInputChange}
                 placeholder="Tu número"
                 className="w-full border rounded-r px-3 py-2 focus:ring-red-500 focus:border-red-500"
+                required
               />
             </div>
           </div>
@@ -165,6 +213,8 @@ function ConfirmReserve() {
             <FaExternalLinkAlt />
           </Button>
         </form>
+        {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
+        {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
       </div>
     </div>
   );

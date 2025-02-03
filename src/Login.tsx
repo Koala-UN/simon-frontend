@@ -11,7 +11,6 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      // Llamada al endpoint de login
       const loginResponse = await fetch("http://localhost:5000/api/restaurant/login", {
         method: "POST",
         headers: {
@@ -29,17 +28,15 @@ const LoginForm = () => {
         throw new Error(errorData.message || "Error al iniciar sesión");
       }
 
-      // Verificar el estado de autenticación
       const authStatusResponse = await fetch("http://localhost:5000/api/restaurant/auth-status", {
         method: "GET",
-        credentials: "include", // Para enviar cookies
+        credentials: "include", // sPara enviar cookies
       });
 
       const authStatusData = await authStatusResponse.json();
 
       if (authStatusData.authenticated) {
-        // Redirigir al dashboard si está autenticado
-        navigate("/dashboard");
+        navigate("/admin/reserve"); // Redirigir al dashboard
       } else {
         setErrorMessage("Autenticación fallida.");
       }
@@ -92,22 +89,11 @@ const LoginForm = () => {
             Iniciar sesión
           </button>
         </form>
-        <p className="text-center text-xs text-black">
-          Al continuar aceptas nuestros{" "}
-          <a
-            href="/terms-and-conditions"
-            className="text-blue-500 hover:underline"
-          >
-            términos y condiciones
-          </a>{" "}
-          y el{" "}
-          <a
-            href="/data-privacy"
-            className="text-blue-500 hover:underline"
-          >
-            tratamiento de datos
-          </a>.
-        </p>
+        <p className="text-center text-xs text-black mt-3">
+  <a href="/recover-password" className="text-blue-500 font-medium hover:underline">
+    ¿Olvidaste tu contraseña?
+  </a>
+</p>
         <p className="text-center text-xs text-black mt-3">
           ¿No tienes una cuenta?{" "}
           <a href="/register" className="text-blue-500 font-medium hover:underline">

@@ -5,6 +5,7 @@ import { InputDefault } from "./Input";
 import FilterFood from "./FilterFood";
 import OrderSummary from "./OrderSummary.tsx";
 import { useParams } from "react-router-dom";
+import { PaymentProvider } from "./PaymentProvider.tsx";
 
 function MenuExtendido() {
   const [sortOrder] = useState<string>("A-Z");
@@ -124,10 +125,13 @@ function MenuExtendido() {
       <div className="w-1/4 p-4 flex flex-col h-full">
         <CardCartList cart={cart} />
         <div className="mt-auto">
-          <OrderSummary
+        <PaymentProvider>
+        <OrderSummary
             totalItems={cart.reduce((total, item) => total + item.quantity, 0)}
             totalPrice={cart.reduce((total, item) => total + item.price * item.quantity, 0)}
           />
+    </PaymentProvider>
+
         </div>
       </div>
     </div>

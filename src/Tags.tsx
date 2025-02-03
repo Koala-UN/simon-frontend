@@ -1,63 +1,85 @@
 import { Button } from "@material-tailwind/react";
-import  { useState } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline"; // Import the X icon
+import { useState } from "react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
-function Tags() {
+function Tags({ onFilterChange }: { onFilterChange: (tags: string[]) => void }) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [restaurantTags, setRestaurantTags] = useState([
-    "Fast Food",
-    "Fine Dining",
+    "Comida Rápida",
     "Casual Dining",
-    "Café",
+    "Fine Dining",
+    "Cafetería",
+    "Bar y Grill",
+    "Pizzería",
+    "Marisquería",
     "Buffet",
+    "Restaurante Temático",
     "Food Truck",
+    "Vegetariano/Vegano",
+    "Asador/Parrilla",
+    "Panadería y Repostería",
+    "Cocina Internacional",
+    "Cocina Regional",
   ]);
 
   const handleTagClick = (tag: string) => {
     if (!selectedTags.includes(tag)) {
-      setSelectedTags([tag, ...selectedTags]);
+      const updatedTags = [tag, ...selectedTags];
+      setSelectedTags(updatedTags);
       setRestaurantTags(restaurantTags.filter((t) => t !== tag));
+      onFilterChange(updatedTags); // Notificar a SearchMenu del cambio
     }
   };
 
   const handleRemoveSelectedTag = (tag: string) => {
-    setSelectedTags(selectedTags.filter((t) => t !== tag));
+    const updatedTags = selectedTags.filter((t) => t !== tag);
+    setSelectedTags(updatedTags);
     setRestaurantTags([...restaurantTags, tag]);
+    onFilterChange(updatedTags); // Notificar a SearchMenu del cambio
   };
 
   return (
-    <div className="w-48 p-4">
-      <h2 className="text-lg font-bold mb-4">Tags</h2>
+    <div className="w-full max-w-sm p-4 bg-white shadow-lg rounded-lg">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">Categorías</h2>
 
-      {/* Selected Tags */}
-      <div className="mb-4 flex flex-col gap-2">
-        {selectedTags.map((tag, index) => (
-          <Button
-            key={index}
-            size="sm"
-            color="black"
-            variant="outlined"
-            className="w-full text-xs font-medium flex justify-between items-center"
-            onClick={() => handleRemoveSelectedTag(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
-            <span>{tag}</span>
-            <XMarkIcon className="w-5 h-5" />
-          </Button>
-        ))}
+      {/* Categorías seleccionadas */}
+      <div className="mb-6">
+        <h3 className="text-sm font-medium text-gray-600 mb-2">Seleccionados</h3>
+        <div className="flex flex-wrap gap-2">
+          {selectedTags.map((tag, index) => (
+            <Button
+              key={index}
+              size="sm"
+              color="green"
+              variant="outlined"
+              className="text-xs font-medium flex items-center gap-2"
+              onClick={() => handleRemoveSelectedTag(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              {tag}
+              <XMarkIcon className="w-4 h-4" />
+            </Button>
+          ))}
+          {selectedTags.length === 0 && (
+            <p className="text-sm text-gray-500">Ninguna seleccionada.</p>
+          )}
+        </div>
       </div>
 
-      {/* Available Tags */}
-      <div className="flex flex-col gap-2">
-        {restaurantTags.map((tag, index) => (
-          <Button
-            key={index}
-            size="sm"
-            color="blue-gray"
-            variant="outlined"
-            className="w-full text-xs justify-between font-medium"
-            onClick={() => handleTagClick(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
-            {tag}
-          </Button>
-        ))}
+      {/* Categorías disponibles */}
+      <div>
+        <h3 className="text-sm font-medium text-gray-600 mb-2">Disponibles</h3>
+        <div className="flex flex-wrap gap-2">
+          {restaurantTags.map((tag, index) => (
+            <Button
+              key={index}
+              size="sm"
+              color="blue"
+              variant="outlined"
+              className="text-xs font-medium"
+              onClick={() => handleTagClick(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              {tag}
+            </Button>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -77,8 +77,7 @@ const Navbar = () => {
               key={index}
               variant="small"
               className="hover:text-blue-500 transition text-gray-700 cursor-pointer"
-              onClick={() => handleNavigate(route.href)}
-            >
+              onClick={() => handleNavigate(route.href)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               {route.label}
             </Typography>
           ))}
@@ -91,28 +90,30 @@ const Navbar = () => {
               <IconButton
                 variant="text"
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="focus:outline-none"
-              >
+                className="focus:outline-none"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 <UserCircleIcon className="w-8 h-8 text-gray-700" />
               </IconButton>
               {menuOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
                   <div className="p-4 border-b">
-                    <Typography variant="small" className="text-gray-700">
+                    <Typography variant="small" className="text-gray-700"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                       Hola, {user?.correo || "Usuario"}
                     </Typography>
                   </div>
                   <Menu>
                     <MenuItem
                       onClick={() => handleNavigate("/profile")}
-                      className="text-gray-700 hover:bg-gray-100"
-                    >
+                      className="text-gray-700 hover:bg-gray-100"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
                       Ver Perfil
                     </MenuItem>
                     <MenuItem
+                      onClick={() => handleNavigate("/change-password")} // Nueva opción
+                      className="text-gray-700 hover:bg-gray-100"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
+                      Cambiar Contraseña
+                    </MenuItem>
+                    <MenuItem
                       onClick={handleLogout}
-                      className="text-gray-700 hover:bg-gray-100"
-                    >
+                      className="text-gray-700 hover:bg-gray-100"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
                       Cerrar Sesión
                     </MenuItem>
                   </Menu>
@@ -122,19 +123,17 @@ const Navbar = () => {
           ) : (
             <>
               <Button
-                variant="outlined"
-                size="sm"
-                className="border-gray-500 text-gray-700 hover:bg-gray-100"
-                onClick={() => handleNavigate("/login")}
-              >
+                  variant="outlined"
+                  size="sm"
+                  className="border-gray-500 text-gray-700 hover:bg-gray-100"
+                  onClick={() => handleNavigate("/login")}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 Iniciar sesión
               </Button>
               <Button
-                variant="filled"
-                size="sm"
-                className="bg-gray-800 text-white hover:bg-gray-700"
-                onClick={() => handleNavigate("/register")}
-              >
+                  variant="filled"
+                  size="sm"
+                  className="bg-gray-800 text-white hover:bg-gray-700"
+                  onClick={() => handleNavigate("/register")}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 Registrarse
               </Button>
             </>
@@ -146,8 +145,7 @@ const Navbar = () => {
           variant="text"
           size="sm"
           className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
+          onClick={() => setIsOpen(!isOpen)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
           <Bars3Icon className="w-6 h-6 text-gray-700" />
         </IconButton>
       </div>
@@ -161,8 +159,7 @@ const Navbar = () => {
                 key={index}
                 variant="small"
                 className="hover:text-blue-500 transition text-gray-700 cursor-pointer"
-                onClick={() => handleNavigate(route.href)}
-              >
+                onClick={() => handleNavigate(route.href)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 {route.label}
               </Typography>
             ))}
@@ -172,31 +169,32 @@ const Navbar = () => {
                   variant="outlined"
                   size="sm"
                   className="border-gray-500 text-gray-700 w-full"
-                  onClick={() => handleNavigate("/login")}
-                >
+                  onClick={() => handleNavigate("/login")}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   Iniciar sesión
                 </Button>
                 <Button
                   variant="filled"
                   size="sm"
                   className="bg-gray-800 text-white w-full"
-                  onClick={() => handleNavigate("/register")}
-                >
+                  onClick={() => handleNavigate("/register")}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   Registrarse
                 </Button>
               </>
             ) : (
               <>
                 <MenuItem
-                  onClick={() => handleNavigate("/profile")}
-                  className="text-gray-700 hover:bg-gray-100 w-full"
-                >
+                    onClick={() => handleNavigate("/profile")}
+                    className="text-gray-700 hover:bg-gray-100 w-full"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   Ver Perfil
                 </MenuItem>
                 <MenuItem
-                  onClick={handleLogout}
-                  className="text-gray-700 hover:bg-gray-100 w-full"
-                >
+                    onClick={() => handleNavigate("/change-password")} // Nueva opción
+                    className="text-gray-700 hover:bg-gray-100 w-full"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
+                  Cambiar Contraseña
+                </MenuItem>
+                <MenuItem
+                    onClick={handleLogout}
+                    className="text-gray-700 hover:bg-gray-100 w-full"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   Cerrar Sesión
                 </MenuItem>
               </>
