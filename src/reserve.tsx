@@ -125,18 +125,18 @@ function RestaurantReservation() {
         <div className="grid grid-cols-3 gap-4">
           {/* Left Panel */}
           <div className="col-span-2">
-            <Typography variant="h4" className="font-bold mb-2">
+            <Typography variant="h4" className="font-bold mb-2"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               {restaurant.nombre}
             </Typography>
             <div className="flex gap-2 mb-4">
-              <Button size="sm" color="red">
+              <Button size="sm" color="red"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                 {restaurant.categoria}
               </Button>
             </div>
-            <Typography variant="small" className="text-gray-700 mb-4">
+            <Typography variant="small" className="text-gray-700 mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               {restaurant.address?.direccion || "Dirección no disponible"}
             </Typography>
-            <Typography className="text-gray-600 mb-4">
+            <Typography className="text-gray-600 mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               {restaurant.descripcion || "Descripción no disponible"}
             </Typography>
             <div className="mb-4">
@@ -147,7 +147,7 @@ function RestaurantReservation() {
               />
             </div>
             <div className="flex justify-end mb-4">
-              <Button color="blue" onClick={handleMenuNavigation}>
+              <Button color="blue" onClick={handleMenuNavigation}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                 Ver Menú completo
               </Button>
             </div>
@@ -156,8 +156,7 @@ function RestaurantReservation() {
                 {dishes.map((dish) => (
                   <Card
                     key={dish.id}
-                    className="flex flex-row items-center p-4 shadow-sm border rounded-lg"
-                  >
+                    className="flex flex-row items-center p-4 shadow-sm border rounded-lg"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                  >
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 mr-4">
                       {categoryIcons[dish.categoria] || (
                         <FaPizzaSlice className="text-purple-500" />
@@ -166,14 +165,12 @@ function RestaurantReservation() {
                     <div className="flex-1">
                       <Typography
                         variant="h6"
-                        className="font-bold truncate"
-                      >
+                        className="font-bold truncate"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                      >
                         {dish.nombre}
                       </Typography>
                       <Typography
                         variant="small"
-                        className="text-gray-500"
-                      >
+                        className="text-gray-500"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                      >
                         COP {dish.precio.toLocaleString()}
                       </Typography>
                     </div>
@@ -192,7 +189,7 @@ function RestaurantReservation() {
 
           {/* Right Panel */}
           <div className="col-span-1 p-4 border-l">
-            <Typography variant="h6" className="font-bold mb-4">
+            <Typography variant="h6" className="font-bold mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Elija una fecha y hora
             </Typography>
             <div className="mb-6">
@@ -237,16 +234,12 @@ function RestaurantReservation() {
                 size="sm"
                 color="blue"
                 className="w-full"
-                onClick={handleAvailabilityCheck}
-              >
+                onClick={handleAvailabilityCheck}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 Validar disponibilidad
               </Button>
               {isAvailable !== null && (
                 <Typography
-                  className={`text-center mt-2 ${
-                    isAvailable ? "text-green-500" : "text-red-500"
-                  }`}
-                >
+                  className={`text-center mt-2 ${isAvailable ? "text-green-500" : "text-red-500"}`}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   {capacityMessage}
                 </Typography>
               )}
@@ -254,21 +247,17 @@ function RestaurantReservation() {
             <Button
               color="red"
               className="mt-6 w-full flex items-center justify-center gap-2"
-              onClick={() =>
-                navigate(`/confirm-reserve/${restaurantId}`, {
-                  state: {
-                    selectedDate: selectedDate.toISOString().split("T")[0],
-                    selectedTime,
-                    guests,
-                    restaurantName: restaurant?.nombre,
-                    restaurantImage:
-                      restaurant?.image || "https://via.placeholder.com/800x400",
-                    restaurantId,
-                  },
-                })
-              }
-              disabled={!isAvailable}
-            >
+              onClick={() => navigate(`/confirm-reserve/${restaurantId}`, {
+                state: {
+                  selectedDate: selectedDate.toISOString().split("T")[0],
+                  selectedTime,
+                  guests,
+                  restaurantName: restaurant?.nombre,
+                  restaurantImage: restaurant?.image || "https://via.placeholder.com/800x400",
+                  restaurantId,
+                },
+              })}
+              disabled={!isAvailable}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               <span className="text-center">Hacer reservación</span>
               <FaExternalLinkAlt className="text-white" />
             </Button>
