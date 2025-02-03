@@ -7,7 +7,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     try {
@@ -42,7 +42,7 @@ const LoginForm = () => {
       }
     } catch (error) {
       console.error("Error en el proceso de inicio de sesión:", error);
-      setErrorMessage(error.message || "Error desconocido al iniciar sesión.");
+      setErrorMessage( "Error al iniciar sesión.");
     }
   };
 

@@ -39,7 +39,7 @@ function SearchMenu() {
           setFilteredRestaurants(formattedRestaurants);
 
           // 🔹 Imprime todos los restaurantes cargados en la consola
-          console.log("Restaurantes cargados:", formattedRestaurants.map(r => ({ id: r.id, name: r.name })));
+          console.log("Restaurantes cargados:", formattedRestaurants.map((r: { id: any; name: any; }) => ({ id: r.id, name: r.name })));
         } else {
           console.warn("No restaurants found.");
           setRestaurants([]);

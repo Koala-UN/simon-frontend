@@ -28,7 +28,7 @@ function ConfirmReserve() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setEditableFormData((prev) => ({ ...prev, [name]: value }));
+    setEditableFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
   const handleReservationSubmit = async () => {

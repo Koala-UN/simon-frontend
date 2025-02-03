@@ -280,8 +280,10 @@ function Inventory() {
                 </Typography>
                 <Select
                   value={newProduct.categoria}
-                  onChange={(value) => setNewProduct({ ...newProduct, categoria: value })}
-                  className="w-full"
+                  onChange={(value) =>
+                    setNewProduct({ ...newProduct, categoria: value || "" }) // Ensures it's always a string
+                  }
+            className="w-full"
                   placeholder="Select a category"   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   {categories.map((category) => (
                     <Option key={category} value={category}>
