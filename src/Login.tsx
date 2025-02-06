@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = async (e: { preventDefault: () => void; }) => {
+  const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     try {
@@ -30,19 +32,24 @@ const LoginForm = () => {
 
       const authStatusResponse = await fetch("http://localhost:5000/api/restaurant/auth-status", {
         method: "GET",
-        credentials: "include", // sPara enviar cookies
+        credentials: "include", // Para enviar cookies
       });
 
       const authStatusData = await authStatusResponse.json();
 
       if (authStatusData.authenticated) {
+        setIsAuthenticated(true);
+         // Actualiza el estado global de autenticación
+        
+
         navigate("/admin/reserve"); // Redirigir al dashboard
+         window.location.reload();
       } else {
         setErrorMessage("Autenticación fallida.");
       }
     } catch (error) {
       console.error("Error en el proceso de inicio de sesión:", error);
-      setErrorMessage( "Error al iniciar sesión.");
+      setErrorMessage("Error al iniciar sesión.");
     }
   };
 
@@ -90,10 +97,10 @@ const LoginForm = () => {
           </button>
         </form>
         <p className="text-center text-xs text-black mt-3">
-  <a href="/recover-password" className="text-blue-500 font-medium hover:underline">
-    ¿Olvidaste tu contraseña?
-  </a>
-</p>
+          <a href="/recover-password" className="text-blue-500 font-medium hover:underline">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </p>
         <p className="text-center text-xs text-black mt-3">
           ¿No tienes una cuenta?{" "}
           <a href="/register" className="text-blue-500 font-medium hover:underline">

@@ -1,4 +1,3 @@
-
 import { CardDefault } from "./Card";
 import { useNavigate } from "react-router-dom";
 
@@ -7,42 +6,28 @@ export function Matrix({
 }: {
   restaurants: { id: number; name: string; photo: string; price: string }[];
 }) {
-  // Split the restaurant data into rows of 4
-  const rows = [];
-  for (let i = 0; i < restaurants.length; i += 4) {
-    rows.push(restaurants.slice(i, i + 4));
-  }
-
-  const navigate = useNavigate(); // Use React Router's navigate function
+  const navigate = useNavigate();
 
   const handleReserveClick = (restaurantId: number) => {
-    navigate(`/reserve/${restaurantId}`); // Navigate to the Reserve page
+    navigate(`/reserve/${restaurantId}`);
   };
 
   return (
-    <div className="restaurant-matrix">
-      {rows.map((row, rowIndex) => (
-        <div
-          className="row"
-          key={rowIndex}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "20px", // Spacing between cards
-            marginBottom: "20px",
-          }}
-        >
-          {row.map((restaurant) => (
+    <div className="flex w-full justify-center">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
+        {restaurants.map((restaurant) => (
+          <div className="flex justify-center">
             <CardDefault
               key={restaurant.id}
               name={restaurant.name}
               photo={restaurant.photo}
               price={"$$"}
-              onClick={() => handleReserveClick(restaurant.id)} // Navigate to Reserve
+              className="w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3"
+              onClick={() => handleReserveClick(restaurant.id)}
             />
-          ))}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

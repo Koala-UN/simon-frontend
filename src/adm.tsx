@@ -9,6 +9,19 @@ function AdminDashboard() {
   const reservationsPerPage = 5;
   const navigate = useNavigate();
 
+  // Logout functionality
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:5000/api/restaurant/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      navigate("/login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   // Fetch reservations data
   useEffect(() => {
     const fetchReservations = async () => {
@@ -71,12 +84,12 @@ function AdminDashboard() {
     <div className="flex min-h-screen bg-blue-50">
       {/* Sidebar */}
       <div className="w-1/4 bg-blue-800 text-white p-4">
-        <Typography variant="h5" className="font-bold mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <Typography variant="h5" className="font-bold mb-6 text-center">
           Simon
         </Typography>
         <nav className="space-y-4">
           <div>
-            <Typography variant="small" className="uppercase text-blue-300"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <Typography variant="small" className="uppercase text-blue-300">
               Servicios
             </Typography>
             <ul className="space-y-2 mt-2">
@@ -100,7 +113,12 @@ function AdminDashboard() {
               </li>
             </ul>
           </div>
-          <Button size="sm" color="blue" className="w-full mt-6"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Button
+            size="sm"
+            color="red"
+            className="w-full mt-6"
+            onClick={handleLogout}
+          >
             Cerrar sesión
           </Button>
         </nav>
@@ -109,10 +127,10 @@ function AdminDashboard() {
       {/* Content Area */}
       <div className="w-3/4 p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <Typography variant="h5" className="font-bold mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="h5" className="font-bold mb-4">
             Reservas
           </Typography>
-          <Typography variant="small" className="text-blue-600 mb-6 block"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="small" className="text-blue-600 mb-6 block">
             Últimas reservas
           </Typography>
 
@@ -181,7 +199,8 @@ function AdminDashboard() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
               Anterior
             </Button>
             <div>
@@ -191,7 +210,8 @@ function AdminDashboard() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
               Siguiente
             </Button>
           </div>

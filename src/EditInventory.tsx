@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import { Card, CardHeader, CardBody, Typography, Button, Select, Option } from "@material-tailwind/react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Typography,
+  Button,
+  Select,
+  Option,
+} from "@material-tailwind/react";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 
@@ -32,14 +40,16 @@ function Inventory() {
     "Comida Saludable",
   ];
 
-  // Obtener el ID del restaurante desde la API auth-status
   useEffect(() => {
     const fetchAuthStatus = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/restaurant/auth-status", {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/restaurant/auth-status",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         const data = await response.json();
 
         if (response.ok && data.authenticated) {
@@ -55,7 +65,6 @@ function Inventory() {
     fetchAuthStatus();
   }, []);
 
-  // Obtener los platos del restaurante
   useEffect(() => {
     const fetchMenuItems = async () => {
       if (!restaurantId) return;
@@ -79,7 +88,6 @@ function Inventory() {
     fetchMenuItems();
   }, [restaurantId]);
 
-  // Eliminar un plato
   const handleDelete = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:5000/api/dish/${id}`, {
@@ -96,7 +104,6 @@ function Inventory() {
     }
   };
 
-  // Agregar un nuevo producto
   const handleAddProduct = async () => {
     if (!restaurantId) {
       console.error("No se encontró el ID del restaurante.");
@@ -145,161 +152,134 @@ function Inventory() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 ">
-      <Sidebar/>
-      <div className="w-3/4  md:w-3/4 bg-white rounded-lg shadow-lg m-6 ">
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* Panel izquierdo */}
-          <div className="col-span-2 p-4">
-            <Typography
-              variant="h4"
-              className="font-bold text-blue-600 mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
-              Inventory Management
-            </Typography>
-            <Typography
-              variant="h5"
-              className="font-semibold mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
-              Menu Items
-            </Typography>
-            <div className="border-b border-gray-300 my-4"></div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-center">
-              {menuItems.map((item) => (
-                <Card
-                  key={item.id}
-                  className="w-full flex flex-col sm:flex-row items-center p-2 shadow-sm border rounded-lg hover:shadow-lg transition"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
-                  <CardHeader
-                    shadow={false}
-                    floated={false}
-                    className="m-0 w-24 h-24 shrink-0 rounded-lg overflow-hidden"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                  >
-                    <img
-                      src={item.imageUrl || "https://via.placeholder.com/80"}
-                      alt={item.nombre}
-                      className="h-full w-full object-cover"
-                    />
-                  </CardHeader>
+    <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">
+      <Sidebar />
+      <div className="flex flex-col lg:w-3/4 px-4 py-6">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <Typography
+            variant="h4"
+            className="font-bold text-blue-600 mb-4 text-center"
+          >
+            Inventory Management
+          </Typography>
+          <Typography
+            variant="h5"
+            className="font-semibold mb-4 text-center"
+          >
+            Menu Items
+          </Typography>
 
-                  <CardBody className="flex-1 flex flex-col gap-1 px-4 py-2"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="text-sm font-semibold truncate"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
-                      {item.nombre || "Producto sin nombre"}
-                    </Typography>
-                    <Typography
-                      color="gray"
-                      className="text-xs truncate"
-                      style={{ maxWidth: "200px" }}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
-                      {item.descripcion || "Sin descripción"}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      color="blue-gray"
-                      className="text-sm font-bold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
-                      ${parseFloat(item.precio).toLocaleString()} COP
-                    </Typography>
-                  </CardBody>
-
-                  <div className="flex items-center space-x-2 mt-2 sm:mt-0">
-                    <FaPen className="text-gray-500 cursor-pointer" />
-                    <Button
-                      size="sm"
-                      className="bg-transparent p-1 w-6 h-6 flex justify-center items-center rounded-full"
-                      onClick={() => handleDelete(item.id)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
-                      <FaTrashAlt color="red" className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {menuItems.map((item) => (
+              <Card
+                key={item.id}
+                className="flex flex-col items-center p-4 shadow-sm border rounded-lg hover:shadow-lg transition"
+              >
+                <CardHeader
+                  shadow={false}
+                  floated={false}
+                  className="w-32 h-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    src={item.imageUrl || "https://via.placeholder.com/80"}
+                    alt={item.nombre}
+                    className="h-full w-full object-cover"
+                  />
+                </CardHeader>
+                <CardBody className="text-center">
+                  <Typography variant="h6" className="font-bold truncate">
+                    {item.nombre || "Producto sin nombre"}
+                  </Typography>
+                  <Typography className="text-sm truncate text-gray-600">
+                    {item.descripcion || "Sin descripción"}
+                  </Typography>
+                  <Typography className="font-semibold">
+                    ${parseFloat(item.precio).toLocaleString()} COP
+                  </Typography>
+                </CardBody>
+                <div className="flex gap-2">
+                  <FaPen className="text-gray-500 cursor-pointer" />
+                  <Button
+                    size="sm"
+                    variant="text"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    <FaTrashAlt color="red" />
+                  </Button>
+                </div>
+              </Card>
+            ))}
           </div>
+        </div>
 
-          {/* Panel derecho */}
-          <div className="p-4 bg-blue-50 rounded-lg shadow-sm border">
-            <Typography variant="h6" className="mb-4 text-blue-700 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-              Add New Product
-            </Typography>
-            <div className="space-y-4">
-              <div>
-                <Typography className="text-sm font-semibold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Name</Typography>
-                <input
-                  type="text"
-                  value={newProduct.nombre}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, nombre: e.target.value })
-                  }
-                  className="w-full border rounded-lg px-3 py-2"
-                  placeholder="Enter product name"
-                />
-              </div>
-              <div>
-                <Typography className="text-sm font-semibold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  Description
-                </Typography>
-                <input
-                  type="text"
-                  value={newProduct.descripcion}
-                  onChange={(e) =>
-                    setNewProduct({
-                      ...newProduct,
-                      descripcion: e.target.value,
-                    })
-                  }
-                  className="w-full border rounded-lg px-3 py-2"
-                  placeholder="Enter product description"
-                />
-              </div>
-              <div>
-                <Typography className="text-sm font-semibold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Price</Typography>
-                <input
-                  type="number"
-                  value={newProduct.precio}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, precio: e.target.value })
-                  }
-                  className="w-full border rounded-lg px-3 py-2"
-                  placeholder="Enter product price"
-                />
-              </div>
-              <div>
-                <Typography className="text-sm font-semibold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  Stock Quantity
-                </Typography>
-                <input
-                  type="number"
-                  value={newProduct.existencias}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, existencias: e.target.value })
-                  }
-                  className="w-full border rounded-lg px-3 py-2"
-                  placeholder="Enter stock quantity"
-                />
-              </div>
-              <div>
-                <Typography className="text-sm font-semibold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  Category
-                </Typography>
-                <Select
-                  value={newProduct.categoria}
-                  onChange={(value) =>
-                    setNewProduct({ ...newProduct, categoria: value || "" }) // Ensures it's always a string
-                  }
-            className="w-full"
-                  placeholder="Select a category"   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
-                  {categories.map((category) => (
-                    <Option key={category} value={category}>
-                      {category}
-                    </Option>
-                  ))}
-                </Select>
-              </div>
-              <Button
-                size="lg"
-                color="blue"
-                className="w-full mt-6"
-                onClick={handleAddProduct}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
-                Add Product
-              </Button>
-            </div>
+        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
+          <Typography
+            variant="h6"
+            className="text-blue-600 font-semibold mb-4 text-center"
+          >
+            Add New Product
+          </Typography>
+          <div className="grid grid-cols-1 gap-4">
+            <input
+              type="text"
+              value={newProduct.nombre}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, nombre: e.target.value })
+              }
+              className="border rounded-lg px-3 py-2"
+              placeholder="Product Name"
+            />
+            <input
+              type="text"
+              value={newProduct.descripcion}
+              onChange={(e) =>
+                setNewProduct({
+                  ...newProduct,
+                  descripcion: e.target.value,
+                })
+              }
+              className="border rounded-lg px-3 py-2"
+              placeholder="Product Description"
+            />
+            <input
+              type="number"
+              value={newProduct.precio}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, precio: e.target.value })
+              }
+              className="border rounded-lg px-3 py-2"
+              placeholder="Price"
+            />
+            <input
+              type="number"
+              value={newProduct.existencias}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, existencias: e.target.value })
+              }
+              className="border rounded-lg px-3 py-2"
+              placeholder="Stock Quantity"
+            />
+            <Select
+              value={newProduct.categoria}
+              onChange={(value) =>
+                setNewProduct({ ...newProduct, categoria: value || "" })
+              }
+              className="border rounded-lg"
+              placeholder="Select a Category"
+            >
+              {categories.map((category) => (
+                <Option key={category} value={category}>
+                  {category}
+                </Option>
+              ))}
+            </Select>
+            <Button
+              color="blue"
+              onClick={handleAddProduct}
+              className="w-full mt-4"
+            >
+              Add Product
+            </Button>
           </div>
         </div>
       </div>

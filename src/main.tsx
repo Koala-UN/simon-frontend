@@ -20,9 +20,11 @@ import SubscriptionPlans from "./Plans.tsx";
 import Ciudades from "./Ciudades.tsx";
 import ChangePasswordForm from "./Chgpassword.tsx";
 import RecoverPasswordForm from "./recovery.tsx";
+import { AuthProvider } from "./AuthContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <AuthProvider>
     <Router>
       <NavBar />
       <Routes>
@@ -45,6 +47,7 @@ createRoot(document.getElementById("root")!).render(
       </Routes>
       <Footer />
     </Router>
+    </AuthProvider>
   </React.StrictMode>
 );
  
