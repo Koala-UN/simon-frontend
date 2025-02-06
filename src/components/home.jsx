@@ -8,11 +8,12 @@ import ChangePassword from './ChangePassword';
 import RecoveryPassword from './RecoveryPasssword';
 import GoogleSuccess from './GoogleSuccess';
 import CompleteProfile from './CompleteProfile';
+import VerifyEmail from './VerifyEmail';
 const Home = ({ auth }) => {
   return (
     <div className="container">
       <h1>Home</h1>
-      <div className="d-flex justify-content-around my-4">
+      <div className="d-flex justify-content-around my-1">
         <Link to="/login" className="btn btn-primary">Login</Link>
         <Link to="/register" className="btn btn-primary">Register</Link>
         <Link to="/logout" className="btn btn-secondary">Logout</Link>
@@ -34,7 +35,7 @@ const Home = ({ auth }) => {
 
         <Route path="/auth/google/callback" element={<GoogleSuccess  />}/>
         <Route path="/auth/google/complete-profile" element={<CompleteProfile />} />
-
+        <Route path="/restaurant/verify-email" element={<VerifyEmail />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>
