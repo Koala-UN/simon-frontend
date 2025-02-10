@@ -1,9 +1,18 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+interface Reservation {
+  id: number;
+  fecha: string;
+  hora: string;
+  nombre: string;
+  cantidad: number;
+  telefono: string;
+  estado: string;
+  mesaEtiqueta?: string; // Campo opcional
+}
 function AdminDashboard() {
-  const [reservations, setReservations] = useState<any[]>([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const reservationsPerPage = 5;
@@ -84,12 +93,12 @@ function AdminDashboard() {
     <div className="flex min-h-screen bg-blue-50">
       {/* Sidebar */}
       <div className="w-1/4 bg-blue-800 text-white p-4">
-        <Typography variant="h5" className="font-bold mb-6 text-center">
+        <Typography variant="h5" className="font-bold mb-6 text-center"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           Simon
         </Typography>
         <nav className="space-y-4">
           <div>
-            <Typography variant="small" className="uppercase text-blue-300">
+            <Typography variant="small" className="uppercase text-blue-300"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Servicios
             </Typography>
             <ul className="space-y-2 mt-2">
@@ -117,8 +126,7 @@ function AdminDashboard() {
             size="sm"
             color="red"
             className="w-full mt-6"
-            onClick={handleLogout}
-          >
+            onClick={handleLogout}    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Cerrar sesión
           </Button>
         </nav>
@@ -127,10 +135,10 @@ function AdminDashboard() {
       {/* Content Area */}
       <div className="w-3/4 p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <Typography variant="h5" className="font-bold mb-4">
+          <Typography variant="h5" className="font-bold mb-4"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Reservas
           </Typography>
-          <Typography variant="small" className="text-blue-600 mb-6 block">
+          <Typography variant="small" className="text-blue-600 mb-6 block"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Últimas reservas
           </Typography>
 
@@ -158,7 +166,7 @@ function AdminDashboard() {
               </thead>
               <tbody>
                 {currentReservations.length > 0 ? (
-                  currentReservations.map((reservation: any) => (
+                  currentReservations.map((reservation: Reservation) => (
                     <tr key={reservation.id}>
                       <td className="border border-blue-300 px-4 py-2">
                         {new Date(reservation.fecha).toLocaleDateString()} -{" "}
@@ -199,8 +207,7 @@ function AdminDashboard() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev - 1)}    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Anterior
             </Button>
             <div>
@@ -210,8 +217,7 @@ function AdminDashboard() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev + 1)}    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Siguiente
             </Button>
           </div>

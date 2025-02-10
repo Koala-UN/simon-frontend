@@ -8,6 +8,14 @@ import {
 } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 
+interface FormDataInterface {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  additionalDetails?: string;
+}
+
 function ConfirmReserve() {
   const location = useLocation();
   const {
@@ -28,7 +36,7 @@ function ConfirmReserve() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setEditableFormData((prev: any) => ({ ...prev, [name]: value }));
+    setEditableFormData((prev: FormDataInterface) => ({ ...prev, [name]: value }));
   };
 
   const handleReservationSubmit = async () => {

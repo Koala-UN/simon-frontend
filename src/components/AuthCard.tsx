@@ -1,5 +1,5 @@
-import LoginForm from "./Login.tsx";
-import backgroundImage from "./assets/bglogin.png";
+import LoginForm from "../pages/Login";
+import backgroundImage from"../assets/bglogin.png";
 
 console.log(backgroundImage); // Add t1his line to check the URL
 

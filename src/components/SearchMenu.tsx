@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Matrix } from "./Buscar"; // Ensure Matrix is correctly imported
+import { Matrix } from "../pages/Buscar"; // Ensure Matrix is correctly imported
 import Tags from "./Tags.tsx";
-
+import {FormattedRestaurant, FullRestaurant } from "../types/interfaces.ts";
 function SearchMenu() {
   const { cityId } = useParams<{ cityId: string }>(); // Get cityId from URL
-  const [restaurants, setRestaurants] = useState<any[]>([]);
+  const [restaurants, setRestaurants] = useState<FormattedRestaurant[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [filteredRestaurants, setFilteredRestaurants] = useState<any[]>([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState<FormattedRestaurant[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]); // Selected categories
   const navigate = useNavigate();
 
+  // Handle navigation
+  const handleReserveClick = useCallback((restaurantId: number) => {
+    navigate(`/reserve/${restaurantId}`);
+  }, [navigate]);
   // Fetch data from the API
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -23,7 +27,7 @@ function SearchMenu() {
         }
         const data = await response.json();
         if (data.status === "success") {
-          const formattedRestaurants = data.data.map((restaurant: any) => ({
+          const formattedRestaurants:FormattedRestaurant[] = data.data.map((restaurant: FullRestaurant) => ({
             id: restaurant.id,
             name: restaurant.nombre,
             description: restaurant.descripcion,
@@ -37,7 +41,7 @@ function SearchMenu() {
           setRestaurants(formattedRestaurants);
           setFilteredRestaurants(formattedRestaurants);
 
-          console.log("Loaded restaurants:", formattedRestaurants.map((r) => ({ id: r.id, name: r.name })));
+          console.log("Loaded restaurants:", formattedRestaurants.map((r: FormattedRestaurant) => ({ id: r.id, name: r.name })));
         } else {
           console.warn("No restaurants found.");
           setRestaurants([]);
@@ -51,13 +55,13 @@ function SearchMenu() {
     };
 
     if (cityId) fetchRestaurants();
-  }, [cityId]);
+  }, [cityId, handleReserveClick]);
 
   // Apply filters when selected tags change
   useEffect(() => {
     if (selectedTags.length > 0) {
-      const filtered = restaurants.filter((restaurant) =>
-        selectedTags.includes(restaurant.tag)
+      const filtered = restaurants.filter((restaurant: FormattedRestaurant) =>
+        restaurant.tag && selectedTags.includes(restaurant.tag)
       );
       setFilteredRestaurants(filtered);
       console.log("Filtered restaurants:", filtered.map((r) => ({ id: r.id, name: r.name })));
@@ -67,10 +71,6 @@ function SearchMenu() {
     }
   }, [selectedTags, restaurants]);
 
-  // Handle navigation
-  const handleReserveClick = (restaurantId: number) => {
-    navigate(`/reserve/${restaurantId}`);
-  };
 
   return (
     <div className="flex w-full overflow-hidden">

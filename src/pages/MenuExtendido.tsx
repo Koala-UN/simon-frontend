@@ -1,20 +1,32 @@
 import { useEffect, useState } from "react";
 import MatrixMenuExtendido from "./MatrixMenuExtendido";
-import CardCartList from "./CardCartList";
-import { InputDefault } from "./Input";
-import FilterFood from "./FilterFood";
-import OrderSummary from "./OrderSummary.tsx";
+import CardCartList from "../components/CardCartList";
+import { InputDefault } from "../components/Input";
+import FilterFood from "../components/FilterFood";
+import OrderSummary from "../components/OrderSummary.tsx";
 import { useParams } from "react-router-dom";
-import { PaymentProvider } from "./PaymentProvider.tsx";
+import { PaymentProvider } from "../components/PaymentProvider.tsx";
+import { CartItem } from "../types/interfaces.ts";
+interface Dish {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  existencias: number;
+  rating: number;
+}
+
+
 
 function MenuExtendido() {
   const [sortOrder] = useState<string>("A-Z");
-  const [cart, setCart] = useState<any[]>([]); // Cart state to manage items in the cart
+  const [cart, setCart] = useState<CartItem[]>([]); // Cart state to manage items in the cart
   const [restaurantName, setRestaurantName] = useState<string>(""); // Restaurant name
-  const [dishes, setDishes] = useState<any[]>([]); // Dishes state
+  const [dishes, setDishes] = useState<Dish[]>([]); // Dishes state
   const [loading, setLoading] = useState<boolean>(true); // Loading state for dishes
   const [category, setCategory] = useState<string>(""); // State for the selected category
-  const { restaurantId } = useParams(); // Get restaurantId from the URL
+  const { restaurantId } = useParams<{ restaurantId: string }>(); // Get restaurantId from the URL
 
   // Fetch restaurant name based on restaurantId
   useEffect(() => {
@@ -49,12 +61,13 @@ function MenuExtendido() {
 
         if (data.status === "success") {
           // Filter the data to include only the required fields
-          const filteredDishes = data.data.map((dish: any) => ({
+          const filteredDishes: Dish[] = data.data.map((dish: Dish) => ({
             id: dish.id,
-            name: dish.nombre,
-            description: dish.descripcion,
-            price: parseFloat(dish.precio), // Parse 'precio' as a number
-            categoria: dish.categoria,
+            name: dish.name,
+            description: dish.description,
+            category: dish.category,
+            rating: dish.rating,
+            categoria: dish.category,
             existencias: dish.existencias,
           }));
           setDishes(filteredDishes);
@@ -75,7 +88,7 @@ function MenuExtendido() {
 
   // Filter dishes based on the selected category
   const filteredDishes = category
-    ? dishes.filter((dish) => dish.categoria.toLowerCase() === category.toLowerCase())
+    ? dishes.filter((dish) => dish.category.toLowerCase() === category.toLowerCase())
     : dishes;
   // Sorting logic
   const sortedDishes = [...filteredDishes].sort((a, b) => {
@@ -85,7 +98,7 @@ function MenuExtendido() {
   });
 
   // Add to cart function
-  const handleAddToCart = (dish: any) => {
+  const handleAddToCart = (dish: Dish) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === dish.id);
       if (existingItem) {
@@ -125,13 +138,12 @@ function MenuExtendido() {
       <div className="w-1/4 p-4 flex flex-col h-full">
         <CardCartList cart={cart} />
         <div className="mt-auto">
-        <PaymentProvider>
-        <OrderSummary
-            totalItems={cart.reduce((total, item) => total + item.quantity, 0)}
-            totalPrice={cart.reduce((total, item) => total + item.price * item.quantity, 0)}
-          />
-    </PaymentProvider>
-
+          <PaymentProvider>
+            <OrderSummary
+              totalItems={cart.reduce((total, item) => total + item.quantity, 0)}
+              totalPrice={cart.reduce((total, item) => total + item.price * item.quantity, 0)}
+            />
+          </PaymentProvider>
         </div>
       </div>
     </div>

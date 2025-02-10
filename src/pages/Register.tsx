@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import backgroundImage from "./assets/bglogin.png";
+import backgroundImage from"../assets/bglogin.png";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({

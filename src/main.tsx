@@ -1,26 +1,26 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SearchMenu from "./SearchMenu.tsx";
-import Reserve from "./reserve.tsx";
-import MenuExtendido from "./MenuExtendido.tsx";
-import "./index.css"; // Ensure the path is correct
-import ConfirmReserve from "./ConfirmReserve.tsx";
-import NavBar from "./Navbar.tsx";
-import { Footer } from "./Footer.tsx";
+import SearchMenu from "./components/SearchMenu.tsx";
+import Reserve from "./pages/reserve.tsx";
+import MenuExtendido from "./pages/MenuExtendido.tsx";
+import "./styles/index.css"; // Ensure the path is correct
+import ConfirmReserve from "./pages/ConfirmReserve.tsx";
+import NavBar from "./components/Navbar.tsx";
+import { Footer } from "./components/Footer.tsx";
 import App from "./App.tsx";
-import AdminDashboard from "./adm.tsx";
-import Inventory from "./EditInventory.tsx";
-import AdminDashboardOrders from "./admpedidos.tsx";
-import TermsAndConditions from "./terminos.tsx";
-import Authcard from "./AuthCard.tsx";
-import Tratamiento from "./tratamiento.tsx";
-import RegisterForm from "./Register.tsx";
-import SubscriptionPlans from "./Plans.tsx";
-import Ciudades from "./Ciudades.tsx";
-import ChangePasswordForm from "./Chgpassword.tsx";
-import RecoverPasswordForm from "./recovery.tsx";
-import { AuthProvider } from "./AuthContext.tsx";
+import AdminDashboard from "./pages/adm.tsx";
+import Inventory from "./pages/EditInventory.tsx";
+import AdminDashboardOrders from "./pages/admpedidos.tsx";
+import TermsAndConditions from "./pages/terminos.tsx";
+import Authcard from "./components/AuthCard.tsx";
+import Tratamiento from "./pages/tratamiento.tsx";
+import RegisterForm from "./pages/Register.tsx";
+import SubscriptionPlans from "./pages/Plans.tsx";
+import Ciudades from "./pages/Ciudades.tsx";
+import ChangePasswordForm from "./pages/Chgpassword.tsx";
+import RecoverPasswordForm from "./pages/recovery.tsx";
+import { AuthProvider } from "./contexts/AuthContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

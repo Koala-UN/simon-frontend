@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Button, Typography, Card } from "@material-tailwind/react";
 import {
   FaClock,
@@ -13,11 +13,13 @@ import { MdSoupKitchen, MdEmojiFoodBeverage } from "react-icons/md";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useParams, useNavigate } from "react-router-dom";
+import { Dish , Restaurant} from "../types/interfaces";
+import { Value } from "react-calendar/dist/esm/shared/types.js";
 
 function RestaurantReservation() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
-  const [restaurant, setRestaurant] = useState<any>(null);
-  const [dishes, setDishes] = useState<any[]>([]);
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+  const [dishes, setDishes] = useState<Dish[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedTime, setSelectedTime] = useState<string>("18:00");
   const [guests, setGuests] = useState<number>(4);
@@ -64,9 +66,15 @@ function RestaurantReservation() {
     fetchDishes();
   }, [restaurantId]);
 
-  const handleDateChange = (value: any) => {
-    if (value instanceof Date) {
-      setSelectedDate(value);
+  const handleDateChange = (value: Value) => {
+    if (Array.isArray(value)) {
+      if (value[0] instanceof Date) {
+        setSelectedDate(value[0]); // O maneja el rango de fechas según sea necesario
+      }
+    } else {
+      if (value instanceof Date) {
+        setSelectedDate(value);
+      }
     }
   };
 
@@ -123,11 +131,11 @@ function RestaurantReservation() {
     <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gray-100 p-4">
       <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 mb-6 lg:mb-0 lg:mr-4">
         <Typography variant="h4" className="font-bold mb-2"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-          {restaurant.nombre}
+          {restaurant.name}
         </Typography>
         <div className="flex gap-2 mb-4">
           <Button size="sm" color="red"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-            {restaurant.categoria}
+            {restaurant.category}
           </Button>
         </div>
         <Typography variant="small" className="text-gray-700 mb-4"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
@@ -154,22 +162,22 @@ function RestaurantReservation() {
               key={dish.id}
               className="flex flex-row items-center p-4 shadow-sm border rounded-lg"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 mr-4">
-                {categoryIcons[dish.categoria] || (
+                {categoryIcons[dish.category] || (
                   <FaPizzaSlice className="text-purple-500" />
                 )}
               </div>
               <div className="flex-1">
                 <Typography variant="h6" className="font-bold truncate"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  {dish.nombre}
+                  {dish.name}
                 </Typography>
                 <Typography variant="small" className="text-gray-500"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  COP {dish.precio.toLocaleString()}
+                  COP {dish.price.toLocaleString()}
                 </Typography>
               </div>
               <div className="w-16 h-16 ml-4">
                 <img
                   src={dish.image || "https://via.placeholder.com/80"}
-                  alt={dish.nombre}
+                  alt={dish.name}
                   className="w-full h-full rounded-lg object-cover"
                 />
               </div>
@@ -241,7 +249,7 @@ function RestaurantReservation() {
               selectedDate: selectedDate.toISOString().split("T")[0],
               selectedTime,
               guests,
-              restaurantName: restaurant?.nombre,
+              restaurantName: restaurant?.name,
               restaurantImage: restaurant?.image || "https://via.placeholder.com/800x400",
               restaurantId,
             },

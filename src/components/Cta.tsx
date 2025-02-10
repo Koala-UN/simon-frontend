@@ -1,4 +1,4 @@
-import foodImage from './assets/food.png';
+import foodImage from '../assets/food.png';
 export const Cta = () => {
   return (
     <section 

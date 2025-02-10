@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Button, Typography, IconButton, Menu, MenuItem } from "@material-tailwind/react";
 import { Bars3Icon, UserCircleIcon } from "@heroicons/react/24/outline";
-import logo from "./assets/logosimon.png";
+import logo from"../assets/logosimon.png";
 import { useNavigate } from "react-router-dom";
-
+import {User} from "../types/interfaces.ts";
 interface RouteProps {
   href: string;
   label: string;
@@ -19,7 +19,7 @@ const routeList: RouteProps[] = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 

@@ -2,8 +2,16 @@ import { Typography, Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface Order {
+  id: number;
+  fecha: string;
+  hora: string;
+  estado: string;
+  total: number;
+}
+
 function AdminDashboardOrders() {
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -84,7 +92,7 @@ function AdminDashboardOrders() {
   if (authenticated === null) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Typography variant="h6">Verificando autenticación...</Typography>
+        <Typography variant="h6"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Verificando autenticación...</Typography>
       </div>
     );
   }
@@ -93,12 +101,12 @@ function AdminDashboardOrders() {
     <div className="flex flex-col lg:flex-row min-h-screen bg-blue-50">
       {/* Sidebar */}
       <div className="w-full lg:w-1/4 bg-blue-800 text-white p-4">
-        <Typography variant="h5" className="font-bold mb-6 text-center">
+        <Typography variant="h5" className="font-bold mb-6 text-center"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           Admin Dashboard
         </Typography>
         <nav className="space-y-4">
           <div>
-            <Typography variant="small" className="uppercase text-blue-300">
+            <Typography variant="small" className="uppercase text-blue-300"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Servicios
             </Typography>
             <ul className="space-y-2 mt-2">
@@ -126,8 +134,7 @@ function AdminDashboardOrders() {
             size="sm"
             color="red"
             className="w-full mt-6"
-            onClick={handleLogout}
-          >
+            onClick={handleLogout}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Cerrar sesión
           </Button>
         </nav>
@@ -136,10 +143,10 @@ function AdminDashboardOrders() {
       {/* Content Area */}
       <div className="w-full lg:w-3/4 p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <Typography variant="h5" className="font-bold mb-4">
+          <Typography variant="h5" className="font-bold mb-4"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Pedidos
           </Typography>
-          <Typography variant="small" className="text-blue-600 mb-6 block">
+          <Typography variant="small" className="text-blue-600 mb-6 block"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Últimos pedidos
           </Typography>
 
@@ -164,7 +171,7 @@ function AdminDashboardOrders() {
               </thead>
               <tbody>
                 {currentOrders.length > 0 ? (
-                  currentOrders.map((order: any, index: number) => (
+                  currentOrders.map((order: Order, index: number) => (
                     <tr
                       key={order.id}
                       className={`${
@@ -205,8 +212,7 @@ function AdminDashboardOrders() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev - 1)}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Anterior
             </Button>
             <div>
@@ -216,8 +222,7 @@ function AdminDashboardOrders() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev + 1)}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Siguiente
             </Button>
           </div>

@@ -1,7 +1,7 @@
 
 import { CardCart } from "./CardCart";
-
-function CardCartList({ cart }: { cart: any[] }) {
+import {CartItem} from "../types/interfaces";
+function CardCartList({ cart }: { cart: CartItem[] }) {
   return (
     <div className="flex flex-col gap-4 mt-4">
       {/* Centered Title Section */}

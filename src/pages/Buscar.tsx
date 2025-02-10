@@ -1,10 +1,10 @@
-import { CardDefault } from "./Card";
+import { CardDefault } from "../components/Card";
 import { useNavigate } from "react-router-dom";
-
+import {FormattedRestaurant} from "../types/interfaces";
 export function Matrix({
   restaurants,
 }: {
-  restaurants: { id: number; name: string; photo: string; price: string }[];
+  restaurants: FormattedRestaurant[];
 }) {
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export function Matrix({
             <CardDefault
               key={restaurant.id}
               name={restaurant.name}
-              photo={restaurant.photo}
+              photo={restaurant.imageUrl}
               price={"$$"}
               className="w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3"
               onClick={() => handleReserveClick(restaurant.id)}

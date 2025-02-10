@@ -1,9 +1,19 @@
+interface Dish {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  existencias: number;
+  rating: number;
+}
+
 function MatrixMenuExtendido({
     dishes,
     onAddToCart,
   }: {
     dishes: { id: number;existencias: number; name: string; price: number; description: string; rating: number ;category :string}[];
-    onAddToCart: (dish: any) => void;
+    onAddToCart: (dish: Dish) => void;
   }) {
 return (
     <div className="grid grid-cols-3 gap-6 mt-4">

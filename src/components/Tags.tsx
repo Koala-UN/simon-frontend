@@ -2,8 +2,12 @@ import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
-function Tags({ onFilterChange }) {
-  const [selectedTags, setSelectedTags] = useState([]);
+interface TagsProps {
+  onFilterChange: (tags: string[]) => void;
+}
+
+function Tags({ onFilterChange }: TagsProps) {
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [restaurantTags, setRestaurantTags] = useState([
     "Comida Rápida",
     "Casual Dining",
@@ -23,7 +27,11 @@ function Tags({ onFilterChange }) {
   ]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const handleTagClick = (tag) => {
+  interface TagClickHandler {
+    (tag: string): void;
+  }
+
+  const handleTagClick: TagClickHandler = (tag) => {
     if (!selectedTags.includes(tag)) {
       const updatedTags = [tag, ...selectedTags];
       setSelectedTags(updatedTags);
@@ -32,7 +40,11 @@ function Tags({ onFilterChange }) {
     }
   };
 
-  const handleRemoveSelectedTag = (tag) => {
+  interface RemoveTagHandler {
+    (tag: string): void;
+  }
+
+  const handleRemoveSelectedTag: RemoveTagHandler = (tag) => {
     const updatedTags = selectedTags.filter((t) => t !== tag);
     setSelectedTags(updatedTags);
     setRestaurantTags([...restaurantTags, tag]);
@@ -76,7 +88,7 @@ function Tags({ onFilterChange }) {
                   color="green"
                   variant="outlined"
                   className="text-xs font-medium flex items-center gap-2"
-                  onClick={() => handleRemoveSelectedTag(tag)} children={undefined} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
+                  onClick={() => handleRemoveSelectedTag(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   {tag}
                   <XMarkIcon className="w-4 h-4" />
                 </Button>
@@ -98,7 +110,7 @@ function Tags({ onFilterChange }) {
                 color="blue"
                 variant="outlined"
                 className="text-xs font-medium"
-                onClick={() => handleTagClick(tag)} children={undefined} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                onClick={() => handleTagClick(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 {tag}
               </Button>
             ))}

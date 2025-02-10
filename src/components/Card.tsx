@@ -5,16 +5,20 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
+
+
 export function CardDefault({
   price,
   name,
   photo,
   onClick,
+  className,
 }: {
   price: string;
   name: string;
   photo: string;
   onClick?: () => void; // Optional click handler
+  className?: string;
 }) {
   const handleCardClick = () => {
     console.log(`${name} card clicked`);
@@ -26,7 +30,8 @@ export function CardDefault({
   return (
     <Card
       onClick={handleCardClick}
-      className="mt-4 w-64 cursor-pointer hover:shadow-md transition-shadow p-2"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}    >
+      className={`mt-4 w-64 cursor-pointer hover:shadow-md transition-shadow p-2 ${className}`}
+      placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}    >
       <CardHeader color="blue-gray" className="relative h-40"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
         <img
           src={photo}

@@ -9,10 +9,21 @@ import {
   Option,
 } from "@material-tailwind/react";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
-import Sidebar from "./Sidebar";
+import Sidebar from "../components/Sidebar";
+
+interface MenuItem {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: string;
+  existencias: string;
+  categoria: string;
+  imageUrl?: string;
+}
+
 
 function Inventory() {
-  const [menuItems, setMenuItems] = useState<any[]>([]);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [newProduct, setNewProduct] = useState({
     nombre: "",
     descripcion: "",
@@ -158,14 +169,12 @@ function Inventory() {
         <div className="bg-white rounded-lg shadow-lg p-6">
           <Typography
             variant="h4"
-            className="font-bold text-blue-600 mb-4 text-center"
-          >
+            className="font-bold text-blue-600 mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Inventory Management
           </Typography>
           <Typography
             variant="h5"
-            className="font-semibold mb-4 text-center"
-          >
+            className="font-semibold mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Menu Items
           </Typography>
 
@@ -173,27 +182,25 @@ function Inventory() {
             {menuItems.map((item) => (
               <Card
                 key={item.id}
-                className="flex flex-col items-center p-4 shadow-sm border rounded-lg hover:shadow-lg transition"
-              >
+                className="flex flex-col items-center p-4 shadow-sm border rounded-lg hover:shadow-lg transition"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 <CardHeader
                   shadow={false}
                   floated={false}
-                  className="w-32 h-32 rounded-lg overflow-hidden"
-                >
+                  className="w-32 h-32 rounded-lg overflow-hidden"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   <img
                     src={item.imageUrl || "https://via.placeholder.com/80"}
                     alt={item.nombre}
                     className="h-full w-full object-cover"
                   />
                 </CardHeader>
-                <CardBody className="text-center">
-                  <Typography variant="h6" className="font-bold truncate">
+                <CardBody className="text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                  <Typography variant="h6" className="font-bold truncate"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     {item.nombre || "Producto sin nombre"}
                   </Typography>
-                  <Typography className="text-sm truncate text-gray-600">
+                  <Typography className="text-sm truncate text-gray-600"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     {item.descripcion || "Sin descripción"}
                   </Typography>
-                  <Typography className="font-semibold">
+                  <Typography className="font-semibold" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     ${parseFloat(item.precio).toLocaleString()} COP
                   </Typography>
                 </CardBody>
@@ -202,9 +209,12 @@ function Inventory() {
                   <Button
                     size="sm"
                     variant="text"
-                    onClick={() => handleDelete(item.id)}
-                  >
-                    <FaTrashAlt color="red" />
+                    onClick={() => handleDelete(item.id)} 
+                    children={<FaTrashAlt color="red" />} 
+                    placeholder={undefined} 
+                    onPointerEnterCapture={undefined} 
+                    onPointerLeaveCapture={undefined}                  >
+                    
                   </Button>
                 </div>
               </Card>
@@ -215,8 +225,7 @@ function Inventory() {
         <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
           <Typography
             variant="h6"
-            className="text-blue-600 font-semibold mb-4 text-center"
-          >
+            className="text-blue-600 font-semibold mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Add New Product
           </Typography>
           <div className="grid grid-cols-1 gap-4">
@@ -261,12 +270,10 @@ function Inventory() {
             />
             <Select
               value={newProduct.categoria}
-              onChange={(value) =>
-                setNewProduct({ ...newProduct, categoria: value || "" })
-              }
+              onChange={(value) => setNewProduct({ ...newProduct, categoria: value || "" })}
               className="border rounded-lg"
-              placeholder="Select a Category"
-            >
+              placeholder="Select a Category" 
+              onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               {categories.map((category) => (
                 <Option key={category} value={category}>
                   {category}
@@ -276,8 +283,7 @@ function Inventory() {
             <Button
               color="blue"
               onClick={handleAddProduct}
-              className="w-full mt-4"
-            >
+              className="w-full mt-4"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Add Product
             </Button>
           </div>
