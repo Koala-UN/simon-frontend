@@ -13,7 +13,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const loginResponse = await fetch("http://localhost:5000/api/restaurant/login", {
+      const loginResponse = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const LoginForm = () => {
         throw new Error(errorData.message || "Error al iniciar sesión");
       }
 
-      const authStatusResponse = await fetch("http://localhost:5000/api/restaurant/auth-status", {
+      const authStatusResponse = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status", {
         method: "GET",
         credentials: "include", // Para enviar cookies
       });
@@ -52,6 +52,15 @@ const LoginForm = () => {
       setErrorMessage("Error al iniciar sesión.");
     }
   };
+
+  const handleGoogleLogin = async () => {
+    try {
+      window.location.href = import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth/google";
+    } catch (error) {
+      console.error('Error en el inicio de sesión con Google:', error);
+    }
+  };
+  
 
   return (
     <div className="flex justify-center items-center h-auto">
@@ -95,6 +104,14 @@ const LoginForm = () => {
           >
             Iniciar sesión
           </button>
+        <button
+          type="button"
+          className="my-2 w-full flex items-center justify-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition shadow-lg font-semibold"
+          onClick={handleGoogleLogin}
+        >
+          Iniciar sesión con Google
+        </button>
+
         </form>
         <p className="text-center text-xs text-black mt-3">
           <a href="/recover-password" className="text-blue-500 font-medium hover:underline">

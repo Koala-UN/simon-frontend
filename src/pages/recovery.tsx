@@ -11,7 +11,7 @@ const RecoverPasswordForm = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/restaurant/rec-password", {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/rec-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

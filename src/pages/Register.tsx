@@ -32,7 +32,7 @@ const RegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/restaurant/register", {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

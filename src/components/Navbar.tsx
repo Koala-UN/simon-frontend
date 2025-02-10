@@ -32,7 +32,7 @@ const Navbar = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/restaurant/auth-status", {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status", {
           method: "GET",
           credentials: "include",
         });
@@ -50,7 +50,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:5000/api/restaurant/logout", {
+      await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/logout", {
         method: "POST",
         credentials: "include",
       });

@@ -22,6 +22,11 @@ import ChangePasswordForm from "./pages/Chgpassword.tsx";
 import RecoverPasswordForm from "./pages/recovery.tsx";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 
+// Verificar y actualizar la URL del backend
+if (!import.meta.env.VITE_BACKEND_URL) {
+  import.meta.env.VITE_BACKEND_URL = 'http://localhost:5000';
+}
+
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>

@@ -55,7 +55,7 @@ function Inventory() {
     const fetchAuthStatus = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/restaurant/auth-status",
+          import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status",
           {
             method: "GET",
             credentials: "include",
@@ -133,7 +133,7 @@ function Inventory() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/dish", {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/dish", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

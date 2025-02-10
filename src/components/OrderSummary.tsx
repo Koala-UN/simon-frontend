@@ -20,7 +20,7 @@ function OrderSummary({ totalItems, totalPrice }: { totalItems: number; totalPri
   // Crear preferencia de pago en Mercado Pago
   const createPreference = async (): Promise<string | undefined> => {
     try {
-      const response = await axios.post("http://localhost:5000/api/payment/create_preference", {
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/payment/create_preference", {
         title: "Resumen del Pedido",
         quantity: 1,
         unit_price: totalPrice,
