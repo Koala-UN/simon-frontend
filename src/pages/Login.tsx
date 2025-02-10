@@ -25,28 +25,39 @@ const LoginForm = () => {
         credentials: "include", // Para manejar cookies
       });
 
-      if (!loginResponse.ok) {
+      if (loginResponse.ok) {
+
+        setIsAuthenticated(true);
+        // Actualiza el estado global de autenticación
+       
+
+       navigate("/admin/reserve"); // Redirigir al dashboard
+        window.location.reload();
+
+      }else{
+        
         const errorData = await loginResponse.json();
         throw new Error(errorData.message || "Error al iniciar sesión");
+       
       }
 
-      const authStatusResponse = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status", {
-        method: "GET",
-        credentials: "include", // Para enviar cookies
-      });
+      // const authStatusResponse = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status", {
+      //   method: "GET",
+      //   credentials: "include", // Para enviar cookies
+      // });
 
-      const authStatusData = await authStatusResponse.json();
+      // const authStatusData = await authStatusResponse.json();
 
-      if (authStatusData.authenticated) {
-        setIsAuthenticated(true);
-         // Actualiza el estado global de autenticación
+      // if (authStatusData.authenticated) {
+      //   setIsAuthenticated(true);
+      //    // Actualiza el estado global de autenticación
         
 
-        navigate("/admin/reserve"); // Redirigir al dashboard
-         window.location.reload();
-      } else {
-        setErrorMessage("Autenticación fallida.");
-      }
+      //   navigate("/admin/reserve"); // Redirigir al dashboard
+      //    window.location.reload();
+      // } else {
+      //   setErrorMessage("Autenticación fallida.");
+      // }
     } catch (error) {
       console.error("Error en el proceso de inicio de sesión:", error);
       setErrorMessage("Error al iniciar sesión.");
