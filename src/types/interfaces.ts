@@ -1,13 +1,13 @@
 export interface Dish {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    category: string;
-    existencias: number;
-    rating: number;
-    image?: string;
-  }
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: string;
+  existencias: number;
+  restauranteId: number;
+  categoria: string;
+  imageUrl: string;
+}
   
   export interface Reservation {
     id: number;

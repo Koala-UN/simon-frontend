@@ -1,18 +1,19 @@
-interface Dish {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  existencias: number;
-  rating: number;
-}
+// interface Dish {
+//   id: number;
+//   name: string;
+//   description: string;
+//   price: number;
+//   category: string;
+//   existencias: number;
+//   rating: number;
+// }
 
+import { Dish } from "../types/interfaces";
 function MatrixMenuExtendido({
     dishes,
     onAddToCart,
   }: {
-    dishes: { id: number;existencias: number; name: string; price: number; description: string; rating: number ;category :string}[];
+    dishes: Dish[];
     onAddToCart: (dish: Dish) => void;
   }) {
 return (
@@ -26,25 +27,25 @@ return (
           {/* Image */}
           <img
             src={"https://via.placeholder.com/150"}
-            alt={dish.name}
+            alt={dish.nombre}
             className="w-full h-40 object-cover rounded-lg mb-3"
           />
 
           {/* Name and Stock */}
           <div className="flex justify-between items-center mb-2">
-            <h3 className="font-semibold text-lg text-gray-800 truncate">{dish.name}</h3>
+            <h3 className="font-semibold text-lg text-gray-800 truncate">{dish.nombre}</h3>
             <div className="flex items-center">
               <span className="text-yellow-500 text-sm">⭐</span>
-              <span className="text-sm text-gray-600 ml-1">{dish.rating || "4.9"}</span>
+              <span className="text-sm text-gray-600 ml-1">{  "4.9"}</span>
             </div>
           </div>
           <p className="text-sm text-green-600 mb-2">{dish.existencias || "In Stock"}</p>
 
           {/* Price */}
-          <p className="text-base font-bold text-orange-500">${dish.price.toFixed(2)}</p>
+          <p className="text-base font-bold text-orange-500">${parseFloat(dish.precio).toFixed(2)}</p>
 
           {/* Description */}
-          <p className="text-sm text-gray-500 mt-2 truncate">{dish.description}</p>
+          <p className="text-sm text-gray-500 mt-2 truncate">{dish.descripcion}</p>
         </div>
       ))}
     </div>

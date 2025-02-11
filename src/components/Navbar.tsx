@@ -102,7 +102,7 @@ const Navbar = () => {
                   </div>
                   <Menu>
                     <MenuItem
-                      onClick={() => handleNavigate("/profile")}
+                      onClick={() => handleNavigate("/admin/reserve")}
                       className="text-gray-700 hover:bg-gray-100"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                    >
                       Ver Perfil
                     </MenuItem>
@@ -183,7 +183,7 @@ const Navbar = () => {
             ) : (
               <>
                 <MenuItem
-                    onClick={() => handleNavigate("/profile")}
+                    onClick={() => handleNavigate("/admin/reserve")}
                     className="text-gray-700 hover:bg-gray-100 w-full"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   Ver Perfil
                 </MenuItem>

@@ -16,6 +16,20 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Dish , Restaurant} from "../types/interfaces";
 import { Value } from "react-calendar/dist/esm/shared/types.js";
 
+
+
+// interface Restaurant {
+//   id: number;
+//   name: string;
+//   category: string;
+//   address: {
+//     direccion: string;
+//   };
+//   descripcion: string;
+//   image: string;
+// }
+
+
 function RestaurantReservation() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
@@ -162,22 +176,22 @@ function RestaurantReservation() {
               key={dish.id}
               className="flex flex-row items-center p-4 shadow-sm border rounded-lg"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 mr-4">
-                {categoryIcons[dish.category] || (
+                {categoryIcons[dish.categoria] || (
                   <FaPizzaSlice className="text-purple-500" />
                 )}
               </div>
               <div className="flex-1">
                 <Typography variant="h6" className="font-bold truncate"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  {dish.name}
+                  {dish.nombre}
                 </Typography>
                 <Typography variant="small" className="text-gray-500"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  COP {dish.price.toLocaleString()}
+                  COP {dish.precio.toLocaleString()}
                 </Typography>
               </div>
               <div className="w-16 h-16 ml-4">
                 <img
-                  src={dish.image || "https://via.placeholder.com/80"}
-                  alt={dish.name}
+                  src={dish.imageUrl || "https://via.placeholder.com/80"}
+                  alt={dish.nombre}
                   className="w-full h-full rounded-lg object-cover"
                 />
               </div>

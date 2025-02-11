@@ -21,9 +21,9 @@ import Ciudades from "./pages/Ciudades.tsx";
 import ChangePasswordForm from "./pages/Chgpassword.tsx";
 import RecoverPasswordForm from "./pages/recovery.tsx";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
-
+import AboutUs from "./pages/AboutUs.tsx";
 // Verificar y actualizar la URL del backend
-if (!import.meta.env.VITE_BACKEND_URL) {
+if (!import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL === undefined) {
   import.meta.env.VITE_BACKEND_URL = 'http://localhost:5000';
 }
 
@@ -49,6 +49,9 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/reserve/:restaurantId" element={<Reserve />} />
         <Route path="/menu/:restaurantId" element={<MenuExtendido />} />
         <Route path="/confirm-reserve/:restaurantId" element={<ConfirmReserve />} />
+        <Route path="/about-us" element={<AboutUs/>}></Route>
+        <Route path="*" element={<h1>Not Found</h1>} />
+        
       </Routes>
       <Footer />
     </Router>
