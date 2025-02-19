@@ -8,7 +8,7 @@ export const Footer = () => {
       className="bg-gray-900 py-8 text-white mt-auto" 
       style={{ backgroundColor: "rgb(51, 51, 51)" }}
     >
-      <div className="container mx-auto min-h-[35vh] flex-grow grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+      <div className="container mx-auto flex-grow grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
         {/* Logo and Description */}
         <div className="flex flex-col items-start">
           <img src={logo} alt="Logo Simon" className="w-28 mb-4" />

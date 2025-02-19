@@ -82,7 +82,7 @@ function Inventory() {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/dish/restaurant/${restaurantId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`
         );
         const data = await response.json();
 
@@ -101,7 +101,7 @@ function Inventory() {
 
   const handleDelete = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/dish/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/dish/${id}`, {
         method: "DELETE",
       });
 

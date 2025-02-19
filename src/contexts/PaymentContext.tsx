@@ -1,10 +1,8 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode } from "react";
 
-// Definimos la interfaz del contexto
-interface PaymentContextType {
-  paymentId: string;
-  setPaymentId: (id: string) => void;
-}
+import { PaymentContextType } from "../types/interfaces";
+
+
 
 // Creamos el contexto con valores por defecto
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
@@ -29,7 +27,7 @@ const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
  * que es un identificador de pago en forma de cadena de texto. El `PaymentContext.Provider` 
  * proporciona el `paymentId` y la función `setPaymentId` a los componentes hijos que consumen este contexto.
  */
-export const PaymentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const PaymentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [paymentId, setPaymentId] = useState<string>("");
 
   return (
@@ -39,11 +37,7 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({ children })
   );
 };
 
-// Hook para acceder fácilmente al contexto en cualquier parte de la app
-export const usePayment = (): PaymentContextType => {
-  const context = useContext(PaymentContext);
-  if (!context) {
-    throw new Error("usePayment debe usarse dentro de un PaymentProvider");
-  }
-  return context;
-};
+
+export default PaymentProvider;
+
+export { PaymentContext };

@@ -1,6 +1,6 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+////import { useNavigate } from "react-router-dom";
 
 interface Order {
   id: number;
@@ -16,7 +16,7 @@ function AdminDashboardOrders() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const ordersPerPage = 5;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Logout functionality
   const handleLogout = async () => {
@@ -25,7 +25,7 @@ function AdminDashboardOrders() {
         method: "POST",
         credentials: "include",
       });
-      navigate("/login");
+      window.location.href = "/login";
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -52,7 +52,7 @@ function AdminDashboardOrders() {
 
             // Fetch orders if authenticated
             const ordersResponse = await fetch(
-              `http://localhost:5000/api/order?restaurantId=${restauranteId}`,
+              `${import.meta.env.VITE_BACKEND_URL}/api/order?restaurantId=${restauranteId}`,
               {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
@@ -70,14 +70,14 @@ function AdminDashboardOrders() {
               setOrders([]);
             }
           } else {
-            navigate("/login");
+            window.location.href = "/login";
           }
         } else {
-          navigate("/login");
+          window.location.href = "/login";
         }
       } catch (error) {
         console.error("Error checking auth status:", error);
-        navigate("/login");
+        window.location.href = "/login";
       }
     };
 
@@ -111,19 +111,19 @@ function AdminDashboardOrders() {
             </Typography>
             <ul className="space-y-2 mt-2">
               <li
-                onClick={() => navigate("/admin/reserve")}
+                onClick={() => window.location.href = "/admin/reserve"}
                 className="cursor-pointer hover:text-blue-300"
               >
                 Reservas
               </li>
               <li
-                onClick={() => navigate("/admin/orders")}
+                onClick={() => window.location.href = "/admin/orders"}
                 className="cursor-pointer hover:text-blue-300"
               >
                 Pedidos
               </li>
               <li
-                onClick={() => navigate("/inventory")}
+                onClick={() => window.location.href = "/inventory"}
                 className="cursor-pointer hover:text-blue-300"
               >
                 Inventario

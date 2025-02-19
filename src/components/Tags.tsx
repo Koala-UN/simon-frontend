@@ -25,7 +25,7 @@ function Tags({ onFilterChange }: TagsProps) {
     "Cocina Internacional",
     "Cocina Regional",
   ]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   interface TagClickHandler {
     (tag: string): void;

@@ -4,10 +4,12 @@ export interface Dish {
   descripcion: string;
   precio: string;
   existencias: number;
-  restauranteId: number;
+  restauranteId?: number;
   categoria: string;
-  imageUrl: string;
+  imageUrl?: string;
+  rating?: number;
 }
+
   
   export interface Reservation {
     id: number;
@@ -97,10 +99,23 @@ export interface FullRestaurant {
 
 export interface User {
     id: number;
-    nombre: string;
+    nombre?: string;
     correo: string;
-    imageUrl: string;
+    imageUrl?: string;
 }
 export interface CartItem extends Dish {
     quantity: number;
+  }
+
+  export interface AuthContextType {
+    isAuthenticated: boolean;
+    setIsAuthenticated: (value: boolean) => void;
+    user: User;
+    setUser: (value: User) => void;
+  }
+
+  // Definimos la interfaz del contexto
+ export interface PaymentContextType {
+    paymentId: string;
+    setPaymentId: (id: string) => void;
   }

@@ -1,6 +1,5 @@
 import { Cta } from "./components/Cta";
 
-
 import Ciudades from './pages/Ciudades';
 import { InfoCard } from "./components/infocard";
 import ReservaPasos from "./pages/Instrucciones";

@@ -20,7 +20,7 @@ function SearchMenu() {
     const fetchRestaurants = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/restaurant?cityId=${cityId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/restaurant?cityId=${cityId}`
         );
         if (!response.ok) {
           throw new Error("Error loading restaurants.");

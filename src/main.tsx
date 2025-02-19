@@ -18,10 +18,13 @@ import Tratamiento from "./pages/tratamiento.tsx";
 import RegisterForm from "./pages/Register.tsx";
 import SubscriptionPlans from "./pages/Plans.tsx";
 import Ciudades from "./pages/Ciudades.tsx";
-import ChangePasswordForm from "./pages/Chgpassword.tsx";
-import RecoverPasswordForm from "./pages/recovery.tsx";
-import { AuthProvider } from "./contexts/AuthContext.tsx";
+import RecoveryPassword from "./pages/RecoveryPassword.tsx";
+import  AuthProvider  from "./contexts/AuthContext.tsx";
 import AboutUs from "./pages/AboutUs.tsx";
+
+import PrivateRoute from "./utils/PrivateRoute.tsx";
+import ChangePassword from "./pages/ChangePassword.tsx";
+
 // Verificar y actualizar la URL del backend
 if (!import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL === undefined) {
   import.meta.env.VITE_BACKEND_URL = 'http://localhost:5000';
@@ -34,23 +37,26 @@ createRoot(document.getElementById("root")!).render(
       <NavBar />
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/inventory" element={<Inventory />} />
+
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/plans" element={<SubscriptionPlans />} />
-        <Route path="/change-password" element={<ChangePasswordForm />} />
         <Route path="/data-privacy" element={<Tratamiento />} />
-        <Route path="/admin/reserve" element={<AdminDashboard />} />
-        <Route path="/admin/orders" element={<AdminDashboardOrders />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/login" element={<Authcard />} />
         <Route path="/ciudades" element={<Ciudades />} />
         <Route path="/restaurantes/:cityId" element={<SearchMenu />} />
-        <Route path="/recover-password" element={<RecoverPasswordForm />} />
         <Route path="/reserve/:restaurantId" element={<Reserve />} />
         <Route path="/menu/:restaurantId" element={<MenuExtendido />} />
         <Route path="/confirm-reserve/:restaurantId" element={<ConfirmReserve />} />
         <Route path="/about-us" element={<AboutUs/>}></Route>
         <Route path="*" element={<h1>Not Found</h1>} />
+        <Route element={<PrivateRoute />}> // Rutas PROTEGIDAS
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/admin/reserve" element={<AdminDashboard />} />
+          <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/admin/orders" element={<AdminDashboardOrders />} />
+          <Route path="/recover-password" element={<RecoveryPassword />} />
+        </Route>
         
       </Routes>
       <Footer />

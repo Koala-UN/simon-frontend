@@ -1,6 +1,7 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+//////import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/getContext";
 interface Reservation {
   id: number;
   fecha: string;
@@ -16,7 +17,8 @@ function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const reservationsPerPage = 5;
-  const navigate = useNavigate();
+  const { isAuthenticated, user } = useAuth();
+  //// const navigate = useNavigate();
 
   // Logout functionality
   const handleLogout = async () => {
@@ -25,7 +27,7 @@ function AdminDashboard() {
         method: "POST",
         credentials: "include",
       });
-      navigate("/login");
+      window.location.href = "/login";
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -35,24 +37,12 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const authResponse = await fetch(
-          import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          }
-        );
-
-        const authData = await authResponse.json();
-
-        if (authResponse.ok && authData.authenticated) {
-          const restauranteId = authData.user.id;
+        
+        if (isAuthenticated) {
+          const restauranteId = user.id;
 
           const response = await fetch(
-            `http://localhost:5000/api/reserve/restaurant/${restauranteId}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/reserve/restaurant/${restauranteId}`,
             {
               method: "GET",
               headers: {
@@ -73,7 +63,6 @@ function AdminDashboard() {
         } else {
           console.error(
             "Usuario no autenticado o error en auth-status:",
-            authData.message || authData
           );
         }
       } catch (error) {
@@ -103,19 +92,19 @@ function AdminDashboard() {
             </Typography>
             <ul className="space-y-2 mt-2">
               <li
-                onClick={() => navigate("/admin/reserve")}
+                onClick={() => window.location.href = "/admin/reserve"}
                 className="cursor-pointer hover:text-blue-300"
               >
                 Reservas
               </li>
               <li
-                onClick={() => navigate("/admin/orders")}
+                onClick={() => window.location.href = "/admin/orders"}
                 className="cursor-pointer hover:text-blue-300"
               >
                 Pedidos
               </li>
               <li
-                onClick={() => navigate("/inventory")}
+                onClick={() => window.location.href = "/inventory"}
                 className="cursor-pointer hover:text-blue-300"
               >
                 Inventario

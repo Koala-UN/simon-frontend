@@ -5,18 +5,9 @@ import { InputDefault } from "../components/Input";
 import FilterFood from "../components/FilterFood";
 import OrderSummary from "../components/OrderSummary.tsx";
 import { useParams } from "react-router-dom";
-import { PaymentProvider } from "../components/PaymentProvider.tsx";
+import  PaymentProvider  from "../contexts/PaymentContext";
 import { CartItem } from "../types/interfaces.ts";
-interface Dish {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  existencias: number;
-  rating: number;
-}
-
+import { Dish } from "../types/interfaces.ts";
 
 
 function MenuExtendido() {
@@ -32,7 +23,7 @@ function MenuExtendido() {
   useEffect(() => {
     const fetchRestaurantName = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/restaurant/${restaurantId}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`);
         const data = await response.json();
 
         if (data.status === "success") {
@@ -56,18 +47,17 @@ function MenuExtendido() {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/dish/restaurant/${restaurantId}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`);
         const data = await response.json();
 
         if (data.status === "success") {
           // Filter the data to include only the required fields
           const filteredDishes: Dish[] = data.data.map((dish: Dish) => ({
             id: dish.id,
-            name: dish.name,
-            description: dish.description,
-            category: dish.category,
+            nombre: dish.nombre,
+            descripcion: dish.descripcion,
             rating: dish.rating,
-            categoria: dish.category,
+            categoria: dish.categoria,
             existencias: dish.existencias,
           }));
           setDishes(filteredDishes);
@@ -88,12 +78,12 @@ function MenuExtendido() {
 
   // Filter dishes based on the selected category
   const filteredDishes = category
-    ? dishes.filter((dish) => dish.category.toLowerCase() === category.toLowerCase())
+    ? dishes.filter((dish) => dish.categoria.toLowerCase() === category.toLowerCase())
     : dishes;
   // Sorting logic
   const sortedDishes = [...filteredDishes].sort((a, b) => {
-    if (sortOrder === "A-Z") return a.name.localeCompare(b.name);
-    if (sortOrder === "Z-A") return b.name.localeCompare(a.name);
+    if (sortOrder === "A-Z") return a.nombre.localeCompare(b.nombre);
+    if (sortOrder === "Z-A") return b.nombre.localeCompare(a.nombre);
     return 0;
   });
 
@@ -141,7 +131,7 @@ function MenuExtendido() {
           <PaymentProvider>
             <OrderSummary
               totalItems={cart.reduce((total, item) => total + item.quantity, 0)}
-              totalPrice={cart.reduce((total, item) => total + item.price * item.quantity, 0)}
+              totalPrice={cart.reduce((total, item) => total + parseFloat(item.precio) * item.quantity, 0)}
             />
           </PaymentProvider>
         </div>

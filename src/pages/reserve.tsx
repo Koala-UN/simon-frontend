@@ -55,7 +55,7 @@ function RestaurantReservation() {
     const fetchRestaurant = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/restaurant/${restaurantId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`
         );
         const data = await response.json();
         if (data.status === "success") setRestaurant(data.data);
@@ -67,7 +67,7 @@ function RestaurantReservation() {
     const fetchDishes = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/dish/restaurant/${restaurantId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`
         );
         const data = await response.json();
         if (data.status === "success") setDishes(data.data.slice(0, 10));
@@ -95,7 +95,7 @@ function RestaurantReservation() {
   const handleAvailabilityCheck = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/reserve/capacity/${restaurantId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/reserve/capacity/${restaurantId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

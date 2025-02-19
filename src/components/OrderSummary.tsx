@@ -2,7 +2,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 
-import { usePayment } from "./PaymentProvider";
+import { usePayment } from "../utils/getContext";
 
 /**
  * Componente `OrderSummary` que muestra un resumen del pedido y permite realizar pagos con Mercado Pago.
@@ -14,7 +14,7 @@ import { usePayment } from "./PaymentProvider";
  * @returns {JSX.Element} El componente `OrderSummary`.
  */
 function OrderSummary({ totalItems, totalPrice }: { totalItems: number; totalPrice: number }) {
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const { setPaymentId } = usePayment();
 
   // Crear preferencia de pago en Mercado Pago

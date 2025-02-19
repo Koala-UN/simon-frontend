@@ -29,6 +29,7 @@ const Ciudades = () => {
 
   // Function to navigate with the city ID
   const handleNavigate = (cityId: number) => {
+    console.log(`Navigating to /restaurantes/${cityId}`);
     navigate(`/restaurantes/${cityId}`);
   };
 

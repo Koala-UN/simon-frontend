@@ -1,6 +1,6 @@
-import  { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import backgroundImage from"../assets/bglogin.png";
+import { useState } from "react";
+////import { useNavigate } from "react-router-dom";
+import backgroundImage from "../assets/bglogin.png";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -12,9 +12,11 @@ const RegisterForm = () => {
     descripcion: "",
     direccion: "",
     cityId: "",
+    fotoPerfil: null as File | null,
   });
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  const [previewImage, setPreviewImage] = useState<File | null>(null);
+  // const navigate = useNavigate();
 
   const cities = [
     { id: 1, name: "Bogotá" },
@@ -29,35 +31,63 @@ const RegisterForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = event.target.files;
+    if (fileList && fileList.length > 0) {
+      setPreviewImage(fileList[0]);
+      setFormData({ ...formData, fotoPerfil: fileList[0] });
+    } else {
+      setPreviewImage(null);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/register", {
+      const formDataToSend = new FormData();
+      const restaurantData = {
+        nombre: formData.nombre,
+        correo: formData.correo,
+        contrasena: formData.contrasena,
+        telefono: formData.telefono,
+        capacidadReservas: parseInt(formData.capacidadReservas),
+        descripcion: formData.descripcion,
+      };
+      const addressData = {
+        direccion: formData.direccion,
+      };
+      const suscriptionData = {
+        tipo: null,
+      };
+      formDataToSend.append("restaurantData", JSON.stringify(restaurantData));
+      formDataToSend.append("addressData", JSON.stringify(addressData));
+      formDataToSend.append("suscriptionData", JSON.stringify(suscriptionData));
+      formDataToSend.append("cityId", formData.cityId);
+      if (formData.fotoPerfil) {
+        formDataToSend.append("fotoPerfil", formData.fotoPerfil);
+      }
+
+      console.log("Datos a enviar:", {
+        nombre: formData.nombre,
+        correo: formData.correo,
+        contrasena: formData.contrasena,
+        telefono: formData.telefono,
+        capacidadReservas: formData.capacidadReservas,
+        descripcion: formData.descripcion,
+        direccion: formData.direccion,
+        cityId: formData.cityId,
+        fotoPerfil: formData.fotoPerfil,
+      });
+
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          restaurantData: {
-            nombre: formData.nombre,
-            correo: formData.correo,
-            contrasena: formData.contrasena,
-            telefono: formData.telefono,
-            idTransaccional: "trans199",
-            capacidadReservas: parseInt(formData.capacidadReservas, 10),
-            descripcion: formData.descripcion,
-          },
-          addressData: {
-            direccion: formData.direccion,
-          },
-          cityId: parseInt(formData.cityId, 10),
-        }),
+        body: formDataToSend,
       });
 
       if (response.ok) {
         const result = await response.json();
         console.log("Registro exitoso:", result);
-        navigate("/login");
+        window.location.href = "/login";
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.message || "Error al registrar el restaurante");
@@ -81,6 +111,29 @@ const RegisterForm = () => {
           <p className="text-red-500 text-center mb-4">{errorMessage}</p>
         )}
         <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Foto de Perfil
+            </label>
+            {previewImage && (
+              <div className="flex justify-center mb-4">
+              <img
+                src={URL.createObjectURL(previewImage)}
+                alt="Vista previa de la foto de perfil"
+                className="w-32 h-32 object-cover rounded-full shadow-md"
+              />
+              </div>
+            )}
+            <div className="flex justify-center">
+              <label className="w-full flex flex-col items-center px-4 py-1 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-500 hover:text-white">
+                <svg className="w-8 h-8 py-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M16.707 5.293a1 1 0 00-1.414 0L10 10.586 4.707 5.293a1 1 0 00-1.414 1.414l6 6a1 1 0 001.414 0l6-6a1 1 0 000-1.414z" />
+                </svg>
+                <span className="my-1 text-base leading-normal">Selecciona una foto</span>
+                <input type="file" className="hidden" onChange={handleImageChange} />
+              </label>
+            </div>
+          </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Nombre
