@@ -10,7 +10,6 @@ interface RouteProps {
 }
 
 const routeList: RouteProps[] = [
-  { href: "/products", label: "Productos" },
   { href: "/terms-and-conditions", label: "Términos y condiciones" },
   { href: "/about-us", label: "Quiénes somos" },
   { href: "/help", label: "Ayuda" },
