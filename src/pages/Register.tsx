@@ -79,7 +79,7 @@ const RegisterForm = () => {
         fotoPerfil: formData.fotoPerfil,
       });
 
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/register", {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "api/restaurant/register", {
         method: "POST",
         body: formDataToSend,
       });

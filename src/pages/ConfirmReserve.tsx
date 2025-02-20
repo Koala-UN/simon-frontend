@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Typography } from "@material-tailwind/react";
 import {
   FaCalendarAlt,
@@ -13,77 +13,118 @@ interface FormDataInterface {
   lastName: string;
   email: string;
   phone: string;
+  cedula: string;
   additionalDetails?: string;
 }
 
 function ConfirmReserve() {
   const location = useLocation();
   const {
-    restaurantName,
+    restaurantName: initialRestaurantName,
     restaurantImage,
     selectedDate,
     selectedTime,
     guests,
     formData,
-    restaurantId, // Recibe el ID del restaurante desde el estado.
+    restaurantId,
   } = location.state || {};
 
-  const [editableFormData, setEditableFormData] = useState(formData || {});
+  const [restaurantName, setRestaurantName] = useState<string | undefined>(initialRestaurantName);
+  const [editableFormData, setEditableFormData] = useState<FormDataInterface>(
+    formData || { firstName: "", lastName: "", email: "", phone: "", cedula: "", additionalDetails: "" }
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    console.log("🔍 Parámetros recibidos en ConfirmReserve:", {
+      restaurantName,
+      restaurantImage,
+      selectedDate,
+      selectedTime,
+      guests,
+      formData,
+      restaurantId,
+    });
+
+    // Si no se recibe `restaurantName`, obtenerlo del backend
+    if (!restaurantName && restaurantId) {
+      fetch(`https://simon-app-614942625022.southamerica-east1.run.app/api/restaurant/${restaurantId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "success") {
+            setRestaurantName(data.data.nombre);
+          } else {
+            console.error("❌ Error al obtener el nombre del restaurante:", data);
+          }
+        })
+        .catch((error) => console.error("❌ Error de red al obtener restaurante:", error));
+    }
+  }, [restaurantName, restaurantId]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setEditableFormData((prev: FormDataInterface) => ({ ...prev, [name]: value }));
+    setEditableFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleReservationSubmit = async () => {
     try {
       if (!restaurantId) {
-        setErrorMessage("El ID del restaurante es obligatorio.");
+        setErrorMessage("❌ Error: El ID del restaurante es obligatorio.");
+        console.error("❌ Error: No se recibió restaurantId.");
+        return;
+      }
+
+      if (!editableFormData.firstName || !editableFormData.lastName || !editableFormData.email || !editableFormData.phone || !editableFormData.cedula) {
+        setErrorMessage("❌ Error: Todos los campos son obligatorios.");
+        console.error("❌ Campos vacíos:", editableFormData);
         return;
       }
 
       const reservationData = {
-        restaurantId,
-        date: new Date(selectedDate).toISOString().split("T")[0], // YYYY-MM-DD
-        time: selectedTime,
-        guests,
-        customer: {
-          firstName: editableFormData.firstName,
-          lastName: editableFormData.lastName,
-          email: editableFormData.email,
-          phone: editableFormData.phone,
-        },
-        additionalDetails: editableFormData.additionalDetails,
+        fecha: new Date(selectedDate).toISOString().split("T")[0], // Formato YYYY-MM-DD
+        hora: selectedTime,
+        cantidad: guests,
+        restauranteId: restaurantId,
+        nombre: `${editableFormData.firstName} ${editableFormData.lastName}`.trim(),
+        telefono: editableFormData.phone,
+        correo: editableFormData.email,
+        cedula: editableFormData.cedula,
       };
 
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/reserve", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reservationData),
-      });
+      console.log("📤 Enviando reserva a la API:", reservationData);
+
+      const response = await fetch(
+        "https://simon-app-614942625022.southamerica-east1.run.app/api/reserve/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(reservationData),
+        }
+      );
+
+      const responseData = await response.json();
 
       if (response.ok) {
-        setSuccessMessage("¡Reservación guardada con éxito!");
+        setSuccessMessage("✅ ¡Reservación guardada con éxito!");
         setErrorMessage("");
+        console.log("✅ Reserva creada correctamente:", responseData);
       } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message || "Error al guardar la reserva.");
+        setErrorMessage(responseData.message || "❌ Error al guardar la reserva.");
         setSuccessMessage("");
+        console.error("❌ Error del servidor:", responseData);
       }
     } catch (error) {
-      console.error("Error al guardar la reserva:", error);
-      setErrorMessage("Error al conectar con el servidor.");
+      console.error("❌ Error al conectar con el servidor:", error);
+      setErrorMessage("❌ Error al conectar con el servidor.");
       setSuccessMessage("");
     }
   };
 
   if (!restaurantName || !selectedDate || !selectedTime || !guests) {
+    console.warn("⚠️ Falta información de la reserva.");
     return (
       <div className="text-center text-gray-500">
         <p>No se encontró información de la reservación.</p>
@@ -100,127 +141,51 @@ function ConfirmReserve() {
               <FaExternalLinkAlt className="text-red-500 text-3xl" />
             </div>
           </div>
-          <Typography variant="h5" className="font-bold text-gray-800"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="h5" className="font-bold text-gray-800">
             RESUMEN DE RESERVACIÓN
           </Typography>
         </div>
 
-        <div className="bg-gray-100 rounded-lg p-4 text-center mb-6">
-          <Typography variant="h6" className="font-bold text-gray-900 mb-2"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-            {restaurantName}
-          </Typography>
-          <img
-            src={restaurantImage || "https://via.placeholder.com/800x400"}
-            alt="Restaurant"
-            className="rounded-lg mb-4 w-full object-cover"
-          />
-          <div className="flex flex-col items-center gap-2 text-gray-700">
-            <div className="flex items-center gap-2">
-              <FaCalendarAlt className="text-gray-500" />
-              <span>{new Date(selectedDate).toLocaleDateString()}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FaUsers className="text-gray-500" />
-              <span>{guests} Personas</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FaClock className="text-gray-500" />
-              <span>{selectedTime}</span>
-            </div>
-          </div>
-        </div>
-
+        {/* 🔹 Formulario de Datos */}
         <form className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Nombres
-            </label>
-            <input
-              type="text"
-              name="firstName"
-              value={editableFormData.firstName || ""}
-              onChange={handleInputChange}
-              placeholder="Tu nombre"
-              className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Apellidos
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              value={editableFormData.lastName || ""}
-              onChange={handleInputChange}
-              placeholder="Tus apellidos"
-              className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Correo electrónico
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={editableFormData.email || ""}
-              onChange={handleInputChange}
-              placeholder="Tu correo"
-              className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Teléfono / Celular
-            </label>
-            <div className="flex items-center gap-2">
-              <div className="flex items-center px-3">
-                <img
-                  src="https://flagcdn.com/w40/co.png"
-                  alt="Colombia"
-                  className="w-6 h-4"
-                />
-                <span className="ml-2">+57</span>
-              </div>
+          {["firstName", "lastName", "email", "phone", "cedula"].map((field, index) => (
+            <div key={index}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {field === "firstName"
+                  ? "Nombres"
+                  : field === "lastName"
+                  ? "Apellidos"
+                  : field === "email"
+                  ? "Correo electrónico"
+                  : field === "phone"
+                  ? "Teléfono"
+                  : "Cédula"}
+              </label>
               <input
-                type="text"
-                name="phone"
-                value={editableFormData.phone || ""}
+                type={field === "email" ? "email" : "text"}
+                name={field}
+                value={editableFormData[field as keyof FormDataInterface] || ""}
                 onChange={handleInputChange}
-                placeholder="Tu número"
-                className="w-full border rounded-r px-3 py-2 focus:ring-red-500 focus:border-red-500"
+                placeholder={`Tu ${field}`}
+                className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
                 required
               />
             </div>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Detalles adicionales
-            </label>
-            <textarea
-              name="additionalDetails"
-              value={editableFormData.additionalDetails || ""}
-              onChange={handleInputChange}
-              placeholder="Detalles adicionales"
-              rows={4}
-              className="w-full border rounded px-3 py-2 focus:ring-red-500 focus:border-red-500"
-            ></textarea>
-          </div>
+          ))}
           <Button
             color="red"
             className="w-full flex items-center justify-center gap-2"
             onClick={(e) => {
               e.preventDefault();
               handleReservationSubmit();
-            } }   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+            }}
+          >
             <span>Guardar reservación</span>
             <FaExternalLinkAlt />
           </Button>
         </form>
+
+        {/* 🔹 Mensajes de Éxito/Error */}
         {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
         {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
       </div>
