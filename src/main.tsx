@@ -24,6 +24,7 @@ import AboutUs from "./pages/AboutUs.tsx";
 
 import PrivateRoute from "./utils/PrivateRoute.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
+import QrGenerator from "./components/QrGenerator.tsx";
 
 // Verificar y actualizar la URL del backend
 if (!import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL === undefined) {
@@ -56,6 +57,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/admin/orders" element={<AdminDashboardOrders />} />
           <Route path="/recover-password" element={<RecoveryPassword />} />
+          <Route path="/qr" element={<QrGenerator />} />
         </Route>
         
       </Routes>

@@ -11,7 +11,7 @@ const AboutUs = () => {
     },
     {
       name: "Haider Mayorga Vela",
-      role: "Developer",
+      role: "Front dev",
       imagePath: "src/assets/haider.jpg"
     },
     {
@@ -21,8 +21,8 @@ const AboutUs = () => {
     },
     {
       name: "Cesar Fabian Rincon",
-      role: "Team Member",
-      imagePath: ""
+      role: "Back dev",
+      imagePath:  "src/assets/fabian.jpg"
     }]
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
