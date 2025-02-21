@@ -156,7 +156,7 @@ function MenuExtendido() {
           <PaymentProvider>
             <OrderSummary
               totalItems={cart.reduce((total, item) => total + item.quantity, 0)}
-              totalPrice={cart.reduce((total, item) => total + (item.precio || 0) * item.quantity, 0)}
+              totalPrice={cart.reduce((total, item) => total + (parseFloat(item.precio) || 0) * item.quantity, 0)}
             />
           </PaymentProvider>
         </div>

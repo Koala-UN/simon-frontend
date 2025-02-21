@@ -1,7 +1,15 @@
 
 import { CardCart } from "./CardCart";
 import {CartItem} from "../types/interfaces";
-function CardCartList({ cart }: { cart: CartItem[] }) {
+
+interface CartList {
+  onIncrement: (id: number) => void;
+  onDecrement: (id: number) => void;
+  onRemove: (id: number) => void;
+  cart: CartItem[];
+}
+
+function CardCartList({ cart , onIncrement, onDecrement, onRemove}: CartList) {
   return (
     <div className="flex flex-col gap-4 mt-4">
       {/* Centered Title Section */}
@@ -10,13 +18,9 @@ function CardCartList({ cart }: { cart: CartItem[] }) {
       {/* Cart Items */}
       {cart.length > 0 ? (
         cart.map((product) => (
-          <CardCart key={product.id} product={product} onIncrement={function (): void {
-            throw new Error("Function not implemented.");
-          } } onDecrement={function (): void {
-            throw new Error("Function not implemented.");
-          } } onRemove={function (): void {
-            throw new Error("Function not implemented.");
-          } } />
+          <CardCart key={product.id} product={product} 
+          onIncrement={onIncrement } onDecrement={onDecrement}
+           onRemove={onRemove} />
         ))
       ) : (
         <p className="text-gray-500 text-center">Tu carrito está vacío.</p>
