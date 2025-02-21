@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Button, Typography } from "@material-tailwind/react";
 import {
-  FaCalendarAlt,
-  FaClock,
-  FaUsers,
+  // FaCalendarAlt,
+  // FaClock,
+  // FaUsers,
   FaExternalLinkAlt,
 } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
@@ -49,7 +49,7 @@ function ConfirmReserve() {
 
     // Si no se recibe `restaurantName`, obtenerlo del backend
     if (!restaurantName && restaurantId) {
-      fetch(`https://simon-app-614942625022.southamerica-east1.run.app/api/restaurant/${restaurantId}`)
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`)
         .then((res) => res.json())
         .then((data) => {
           if (data.status === "success") {
@@ -60,7 +60,7 @@ function ConfirmReserve() {
         })
         .catch((error) => console.error("❌ Error de red al obtener restaurante:", error));
     }
-  }, [restaurantName, restaurantId]);
+  }, [restaurantName, restaurantId, restaurantImage, selectedDate, selectedTime, guests, formData]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -97,7 +97,7 @@ function ConfirmReserve() {
       console.log("📤 Enviando reserva a la API:", reservationData);
 
       const response = await fetch(
-        "https://simon-app-614942625022.southamerica-east1.run.app/api/reserve/",
+        import.meta.env.VITE_BACKEND_URL+"/api/reserve/",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -141,7 +141,7 @@ function ConfirmReserve() {
               <FaExternalLinkAlt className="text-red-500 text-3xl" />
             </div>
           </div>
-          <Typography variant="h5" className="font-bold text-gray-800">
+          <Typography variant="h5" className="font-bold text-gray-800"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             RESUMEN DE RESERVACIÓN
           </Typography>
         </div>
@@ -178,8 +178,7 @@ function ConfirmReserve() {
             onClick={(e) => {
               e.preventDefault();
               handleReservationSubmit();
-            }}
-          >
+            } }   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             <span>Guardar reservación</span>
             <FaExternalLinkAlt />
           </Button>

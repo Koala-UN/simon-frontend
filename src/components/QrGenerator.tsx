@@ -14,7 +14,7 @@ const QrGenerator: React.FC = () => {
     const fetchUserId = async () => {
       try {
         const response = await fetch(
-          "https://simon-app-614942625022.southamerica-east1.run.app/api/restaurant/auth-status",
+          import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status",
           { credentials: "include" }
         );
 

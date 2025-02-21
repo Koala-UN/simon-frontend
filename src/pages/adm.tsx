@@ -71,7 +71,7 @@ function AdminDashboard() {
     };
 
     fetchReservations();
-  }, []);
+  }, [isAuthenticated, user.id]);
 
   // Paginate reservations
   const startIndex = (currentPage - 1) * reservationsPerPage;

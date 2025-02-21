@@ -78,7 +78,7 @@ function Inventory() {
     };
 
     fetchAuthStatus();
-  }, []);
+  }, [isAuthenticated, user.id]);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
