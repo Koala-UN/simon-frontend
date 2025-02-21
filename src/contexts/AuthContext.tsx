@@ -100,7 +100,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/auth-status", {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "api/restaurant/auth-status", {
           method: "GET",
           credentials: "include", // Para enviar cookies
         });

@@ -1,4 +1,3 @@
-
 const CatalogoRestaurantes = () => {
   const images = [
     "https://images.unsplash.com/photo-1525755662778-989d0524087e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
@@ -9,129 +8,42 @@ const CatalogoRestaurantes = () => {
   ];
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "40px",
-        backgroundColor: "#fff",
-      }}
-    >
-      {/* Sección de texto */}
-      <div style={{ flex: "1", maxWidth: "50%", paddingRight: "20px" }}>
-        <h2
-          style={{
-            fontSize: "2.5rem",
-            fontWeight: "bold",
-            color: "#333",
-            marginBottom: "20px",
-          }}
-        >
-          Ofrecemos un catálogo extenso de restaurantes para que puedas elegir
+    <div className="flex flex-col md:flex-row items-center justify-between px-6 py-10 md:px-20 bg-white">
+      {/* 📌 Sección de Texto */}
+      <div className="w-full md:w-1/2 md:pr-10 text-center md:text-left">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          Explora un catálogo extenso de restaurantes
         </h2>
-        <p style={{ fontSize: "1.2rem", lineHeight: "1.6", color: "#666" }}>
-          Para diferentes ciudades y diferentes gustos del país.
+        <p className="text-lg text-gray-600">
+          Descubre restaurantes en diferentes ciudades y para todos los gustos.
         </p>
       </div>
 
-      {/* Galería de imágenes con tamaños definidos */}
-      <div
-        style={{
-          display: "grid",
-          gap: "15px",
-          maxWidth: "40%",
-          gridTemplateAreas: `
-            "img1 img2"
-            "img3 img2"
-            "img4 img5"
-          `,
-        }}
-      >
-        {/* Imagen 1 */}
-        <div
-          style={{
-            gridArea: "img1",
-            width: "150px",
-            height: "150px",
-            borderRadius: "12px",
-            overflow: "hidden",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <img
-            src={images[0]}
-            alt="Restaurante 1"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+      {/* 📌 Galería de Imágenes */}
+      <div className="w-full md:w-1/2 mt-6 md:mt-0 grid grid-cols-2 grid-rows-3 gap-4">
+        {/* 📌 Imagen 1 */}
+        <div className="row-span-1 col-span-1 w-24 h-24 md:w-36 md:h-36 rounded-lg overflow-hidden shadow-lg">
+          <img src={images[0]} alt="Restaurante 1" className="w-full h-full object-cover" />
         </div>
-        {/* Imagen 2 */}
-        <div
-          style={{
-            gridArea: "img2",
-            width: "300px",
-            height: "300px",
-            borderRadius: "12px",
-            overflow: "hidden",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <img
-            src={images[1]}
-            alt="Restaurante 2"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+
+        {/* 📌 Imagen 2 (Grande) */}
+        <div className="row-span-2 col-span-1 w-36 h-36 md:w-56 md:h-56 rounded-lg overflow-hidden shadow-lg">
+          <img src={images[1]} alt="Restaurante 2" className="w-full h-full object-cover" />
         </div>
-        {/* Imagen 3 */}
-        <div
-          style={{
-            gridArea: "img3",
-            width: "300px",
-            height: "150px",
-            borderRadius: "12px",
-            overflow: "hidden",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <img
-            src={images[2]}
-            alt="Restaurante 3"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+
+        {/* 📌 Imagen 3 */}
+        <div className="row-span-1 col-span-1 w-36 h-24 md:w-56 md:h-28 rounded-lg overflow-hidden shadow-lg">
+          <img src={images[2]} alt="Restaurante 3" className="w-full h-full object-cover" />
         </div>
-        {/* Imagen 4 */}
-        <div
-          style={{
-            gridArea: "img4",
-            width: "150px",
-            height: "300px",
-            borderRadius: "12px",
-            overflow: "hidden",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <img
-            src={images[3]}
-            alt="Restaurante 4"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+
+        {/* 📌 Imagen 4 (Vertical) */}
+        <div className="row-span-2 col-span-1 w-24 h-36 md:w-36 md:h-56 rounded-lg overflow-hidden shadow-lg">
+          <img src={images[3]} alt="Restaurante 4" className="w-full h-full object-cover" />
         </div>
-        {/* Imagen 5 */}
-        <div
-          style={{
-            gridArea: "img5",
-            width: "150px",
-            height: "150px",
-            borderRadius: "12px",
-            overflow: "hidden",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <img
-            src={images[4]}
-            alt="Restaurante 5"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+
+        {/* 📌 Imagen 5 */}
+        <div className="row-span-1 col-span-1 w-24 h-24 md:w-36 md:h-36 rounded-lg overflow-hidden shadow-lg">
+          <img src={images[4]} alt="Restaurante 5" className="w-full h-full object-cover" />
         </div>
       </div>
     </div>

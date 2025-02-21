@@ -5,21 +5,19 @@ import { InputDefault } from "../components/Input";
 import FilterFood from "../components/FilterFood";
 import OrderSummary from "../components/OrderSummary.tsx";
 import { useParams } from "react-router-dom";
-import  PaymentProvider  from "../contexts/PaymentContext";
-import { CartItem } from "../types/interfaces.ts";
-import { Dish } from "../types/interfaces.ts";
-
+import PaymentProvider from "../contexts/PaymentContext";
+import { CartItem, Dish } from "../types/interfaces.ts";
 
 function MenuExtendido() {
   const [sortOrder] = useState<string>("A-Z");
-  const [cart, setCart] = useState<CartItem[]>([]); // Cart state to manage items in the cart
-  const [restaurantName, setRestaurantName] = useState<string>(""); // Restaurant name
-  const [dishes, setDishes] = useState<Dish[]>([]); // Dishes state
-  const [loading, setLoading] = useState<boolean>(true); // Loading state for dishes
-  const [category, setCategory] = useState<string>(""); // State for the selected category
-  const { restaurantId } = useParams<{ restaurantId: string }>(); // Get restaurantId from the URL
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [restaurantName, setRestaurantName] = useState<string>("");
+  const [dishes, setDishes] = useState<Dish[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [category, setCategory] = useState<string>("");
+  const { restaurantId } = useParams<{ restaurantId: string }>();
 
-  // Fetch restaurant name based on restaurantId
+  /** 📌 Fetch Restaurant Name */
   useEffect(() => {
     const fetchRestaurantName = async () => {
       try {
@@ -43,7 +41,7 @@ function MenuExtendido() {
     }
   }, [restaurantId]);
 
-  // Fetch dishes based on restaurantId
+  /** 📌 Fetch Dishes */
   useEffect(() => {
     const fetchDishes = async () => {
       try {
@@ -51,7 +49,6 @@ function MenuExtendido() {
         const data = await response.json();
 
         if (data.status === "success") {
-          // Filter the data to include only the required fields
           const filteredDishes: Dish[] = data.data.map((dish: Dish) => ({
             id: dish.id,
             nombre: dish.nombre,
@@ -59,6 +56,8 @@ function MenuExtendido() {
             rating: dish.rating,
             categoria: dish.categoria,
             existencias: dish.existencias,
+            precio: parseFloat(dish.precio), // Ensure precio is a number
+            imageUrl: dish.imageUrl || "https://via.placeholder.com/150", // Fallback for images
           }));
           setDishes(filteredDishes);
         } else {
@@ -76,30 +75,48 @@ function MenuExtendido() {
     }
   }, [restaurantId]);
 
-  // Filter dishes based on the selected category
+  /** 📌 Filter and Sort Dishes */
   const filteredDishes = category
     ? dishes.filter((dish) => dish.categoria.toLowerCase() === category.toLowerCase())
     : dishes;
-  // Sorting logic
+
   const sortedDishes = [...filteredDishes].sort((a, b) => {
     if (sortOrder === "A-Z") return a.nombre.localeCompare(b.nombre);
     if (sortOrder === "Z-A") return b.nombre.localeCompare(a.nombre);
     return 0;
   });
 
-  // Add to cart function
+  /** 📌 Handle Cart Operations */
   const handleAddToCart = (dish: Dish) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === dish.id);
       if (existingItem) {
-        // Increment the quantity if the item exists
         return prevCart.map((item) =>
           item.id === dish.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      // Add a new item to the cart with quantity 1
       return [...prevCart, { ...dish, quantity: 1 }];
     });
+  };
+
+  const handleIncrement = (id: number) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const handleDecrement = (id: number) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+      )
+    );
+  };
+
+  const handleRemove = (id: number) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
   return (
@@ -123,15 +140,23 @@ function MenuExtendido() {
           )}
         </div>
       </div>
+
+      {/* Divider */}
       <div className="border-l border-gray-300"></div>
+
       {/* Right Panel */}
       <div className="w-1/4 p-4 flex flex-col h-full">
-        <CardCartList cart={cart} />
+        <CardCartList
+          cart={cart}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
+          onRemove={handleRemove}
+        />
         <div className="mt-auto">
           <PaymentProvider>
             <OrderSummary
               totalItems={cart.reduce((total, item) => total + item.quantity, 0)}
-              totalPrice={cart.reduce((total, item) => total + parseFloat(item.precio) * item.quantity, 0)}
+              totalPrice={cart.reduce((total, item) => total + (item.precio || 0) * item.quantity, 0)}
             />
           </PaymentProvider>
         </div>
