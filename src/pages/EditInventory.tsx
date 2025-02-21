@@ -189,12 +189,12 @@ function Inventory() {
         <div className="bg-white rounded-lg shadow-lg p-6">
           <Typography
             variant="h4"
-            className="font-bold text-blue-600 mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+            className="font-bold text-blue-600 mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}          >
             Inventory Management
           </Typography>
           <Typography
             variant="h5"
-            className="font-semibold mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+            className="font-semibold mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}          >
             Menu Items
           </Typography>
 
@@ -202,25 +202,25 @@ function Inventory() {
             {menuItems.map((item) => (
               <Card
                 key={item.id}
-                className="flex flex-col items-center p-4 shadow-sm border rounded-lg hover:shadow-lg transition" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                className="flex flex-col items-center p-4 shadow-sm border rounded-lg hover:shadow-lg transition" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}              >
                 <CardHeader
                   shadow={false}
                   floated={false}
-                  className="w-32 h-32 rounded-lg overflow-hidden" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
+                  className="w-32 h-32 rounded-lg overflow-hidden" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}                >
                   <img
                     src={item.imageUrl || "https://via.placeholder.com/80"}
                     alt={item.nombre}
                     className="h-full w-full object-cover"
                   />
                 </CardHeader>
-                <CardBody className="text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  <Typography variant="h6" className="font-bold truncate" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                <CardBody className="text-center" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+                  <Typography variant="h6" className="font-bold truncate" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
                     {item.nombre || "Producto sin nombre"}
                   </Typography>
-                  <Typography className="text-sm truncate text-gray-600" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                  <Typography className="text-sm truncate text-gray-600" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
                     {item.descripcion || "Sin descripción"}
                   </Typography>
-                  <Typography className="font-semibold" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                  <Typography className="font-semibold" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
                     ${parseFloat(item.precio).toLocaleString()} COP
                   </Typography>
                 </CardBody>
@@ -233,7 +233,7 @@ function Inventory() {
                     children={<FaTrashAlt color="red" />}
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}                  >
+                     onPointerLeaveCapture= {()=> {}}                  >
 
                   </Button>
                 </div>
@@ -245,7 +245,7 @@ function Inventory() {
         <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
           <Typography
             variant="h6"
-            className="text-blue-600 font-semibold mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+            className="text-blue-600 font-semibold mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}          >
             Agregar nuevo producto
           </Typography>
           <div className="grid grid-cols-1 gap-4">
@@ -317,7 +317,7 @@ function Inventory() {
               onChange={(value) => setNewProduct({ ...newProduct, categoria: value || "" })}
               className="border rounded-lg"
               placeholder="Select a Category"
-              onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
               {categories.map((category) => (
                 <Option key={category} value={category}>
                   {category}
@@ -327,7 +327,7 @@ function Inventory() {
             <Button
               color="blue"
               onClick={handleAddProduct}
-              className="w-full mt-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              className="w-full mt-4" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
               Add Product
             </Button>
           </div>

@@ -82,12 +82,12 @@ function AdminDashboard() {
     <div className="flex min-h-screen bg-blue-50">
       {/* Sidebar */}
       <div className="w-1/4 bg-blue-800 text-white p-4">
-        <Typography variant="h5" className="font-bold mb-6 text-center"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <Typography variant="h5" className="font-bold mb-6 text-center"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
           Simon
         </Typography>
         <nav className="space-y-4">
           <div>
-            <Typography variant="small" className="uppercase text-blue-300"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <Typography variant="small" className="uppercase text-blue-300"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
               Servicios
             </Typography>
             <ul className="space-y-2 mt-2">
@@ -115,7 +115,7 @@ function AdminDashboard() {
             size="sm"
             color="red"
             className="w-full mt-6"
-            onClick={handleLogout}    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+            onClick={handleLogout}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}          >
             Cerrar sesión
           </Button>
         </nav>
@@ -124,10 +124,10 @@ function AdminDashboard() {
       {/* Content Area */}
       <div className="w-3/4 p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <Typography variant="h5" className="font-bold mb-4"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="h5" className="font-bold mb-4"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Reservas
           </Typography>
-          <Typography variant="small" className="text-blue-600 mb-6 block"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="small" className="text-blue-600 mb-6 block"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Últimas reservas
           </Typography>
 
@@ -196,7 +196,7 @@ function AdminDashboard() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              onClick={() => setCurrentPage((prev) => prev - 1)}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
               Anterior
             </Button>
             <div>
@@ -206,7 +206,7 @@ function AdminDashboard() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              onClick={() => setCurrentPage((prev) => prev + 1)}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
               Siguiente
             </Button>
           </div>

@@ -40,7 +40,7 @@ function FilterFood({ setCategory }: { setCategory: (category: string) => void }
           className={`flex items-center gap-2 px-4 py-2 rounded-full ${activeCategory === category.name
               ? "bg-orange-500 text-white" // Active state styles
               : "bg-orange-100 text-black hover:bg-orange-200"}`}
-          onClick={() => handleCategoryClick(category.name)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
+          onClick={() => handleCategoryClick(category.name)}   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}        >
           <span className="text-xl">{category.icon}</span>
           <span className="font-medium">{category.name}</span>
         </Button>

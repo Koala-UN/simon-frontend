@@ -7,7 +7,7 @@ const SubscriptionPlans = () => {
         {/* Header */}
         <Typography
           variant="h4"
-          className="font-extrabold text-center text-blue-700 mb-10"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
+          className="font-extrabold text-center text-blue-700 mb-10"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}        >
           Planes de Suscripción
         </Typography>
 
@@ -17,13 +17,13 @@ const SubscriptionPlans = () => {
           <div className="border border-blue-300 rounded-xl p-8 bg-blue-50 hover:bg-blue-100 shadow-md transition transform hover:scale-105">
             <Typography
               variant="h5"
-              className="font-bold text-center text-blue-800 mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              className="font-bold text-center text-blue-800 mb-4"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
               Mensualidad Base
             </Typography>
-            <Typography className="text-gray-600 mb-2 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <Typography className="text-gray-600 mb-2 text-center"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
               <strong>Precio:</strong> COP 45,000 al mes.
             </Typography>
-            <Typography className="text-gray-600 mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <Typography className="text-gray-600 mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
               <strong>Incluye:</strong> Gestión de reservas y pedidos, soporte
               multiplataforma, acceso de administradores y reportes básicos.
             </Typography>
@@ -32,7 +32,7 @@ const SubscriptionPlans = () => {
                 variant="gradient"
                 color="blue"
                 size="md"
-                className="w-full"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                className="w-full"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}              >
                 Suscribirse
               </Button>
             </div>
@@ -42,17 +42,17 @@ const SubscriptionPlans = () => {
           <div className="border border-blue-300 rounded-xl p-8 bg-yellow-50 hover:bg-yellow-100 shadow-md transition transform hover:scale-105">
             <Typography
               variant="h5"
-              className="font-bold text-center text-yellow-800 mb-4"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              className="font-bold text-center text-yellow-800 mb-4"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
               Plan Anual
             </Typography>
-            <Typography className="text-gray-600 mb-2 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <Typography className="text-gray-600 mb-2 text-center"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
               <strong>Precio:</strong> COP 450,000 al año (descuento del 17% sobre el
               plan mensual).
             </Typography>
-            <Typography className="text-gray-600 mb-2 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <Typography className="text-gray-600 mb-2 text-center"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
               <strong>Incluye:</strong> Todo lo del plan mensual durante 12 meses.
             </Typography>
-            <Typography className="text-gray-600 mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <Typography className="text-gray-600 mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
               <strong>Beneficio:</strong> Equivale a un ahorro de COP 90,000 frente al
               pago mensual.
             </Typography>
@@ -61,7 +61,7 @@ const SubscriptionPlans = () => {
                 variant="gradient"
                 color="yellow"
                 size="md"
-                className="w-full"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                className="w-full"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}              >
                 Suscribirse
               </Button>
 
@@ -71,7 +71,7 @@ const SubscriptionPlans = () => {
 
         {/* Footer */}
         <div className="mt-12 text-center">
-          <Typography variant="small" className="text-gray-600"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="small" className="text-gray-600"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             ¿Tienes dudas? Contáctanos en{" "}
             <a
               href="mailto:soporte@simon.com"

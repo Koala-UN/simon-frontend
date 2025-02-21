@@ -39,19 +39,19 @@ const LoginForm = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <Card className="w-full max-w-md"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+      <Card className="w-full max-w-md"  placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
       {/* <h2 className="text-lg font-semibold text-center text-black mb-3 ">
           Inicia sesión
         </h2> */}
 
 <div className="text-lg font-semibold rounded-t-lg text-center py-4 bg-cyan-800 mb-3 ">
-<Typography variant="h4" color="white" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+<Typography variant="h4" color="white" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
         Inicia sesión
         </Typography>
         </div>
         
 
-      <CardBody  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+      <CardBody  placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
         <form onSubmit={handleLogin}>
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">

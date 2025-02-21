@@ -5,7 +5,7 @@ const tratamiento = () => {
   return (
     <div className="p-6 bg-gray-100">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
-        <Typography variant="h4" className="font-bold mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <Typography variant="h4" className="font-bold mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
           
 Política de Tratamiento de Datos Personales (Política de Privacidad)
 

@@ -88,7 +88,7 @@ function Tags({ onFilterChange }: TagsProps) {
                   color="green"
                   variant="outlined"
                   className="text-xs font-medium flex items-center gap-2"
-                  onClick={() => handleRemoveSelectedTag(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
+                  onClick={() => handleRemoveSelectedTag(tag)}   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}                >
                   {tag}
                   <XMarkIcon className="w-4 h-4" />
                 </Button>
@@ -110,7 +110,7 @@ function Tags({ onFilterChange }: TagsProps) {
                 color="blue"
                 variant="outlined"
                 className="text-xs font-medium"
-                onClick={() => handleTagClick(tag)}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                onClick={() => handleTagClick(tag)}   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}              >
                 {tag}
               </Button>
             ))}

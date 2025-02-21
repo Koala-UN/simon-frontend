@@ -27,12 +27,12 @@ const AboutUs = () => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
-        <Typography variant="h4" className="font-bold mb-6 text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <Typography variant="h4" className="font-bold mb-6 text-center" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
           Acerca de Nosotros
         </Typography>
         
         <section className="mb-8">
-          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Nuestra Misión
           </Typography>
           <p className="text-gray-700">
@@ -41,7 +41,7 @@ const AboutUs = () => {
         </section>
 
         <section className="mb-8">
-          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Nuestra Visión
           </Typography>
           <p className="text-gray-700">
@@ -50,7 +50,7 @@ const AboutUs = () => {
         </section>
 
         <section className="mb-8">
-          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Nuestro Equipo
           </Typography>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -69,7 +69,7 @@ const AboutUs = () => {
         </section>
 
         <section className="mb-8">
-          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Contáctanos
           </Typography>
           <p className="text-gray-700">

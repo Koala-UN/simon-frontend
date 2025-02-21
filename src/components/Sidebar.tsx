@@ -6,12 +6,12 @@ function Sidebar() {
 
   return (
     <div className="w-1/4 bg-blue-800 text-white p-4 min-h-screen">
-      <Typography variant="h5" className="font-bold mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+      <Typography variant="h5" className="font-bold mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
         Simon
       </Typography>
       <nav className="space-y-4">
         <div>
-          <Typography variant="small" className="uppercase text-blue-300"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="small" className="uppercase text-blue-300"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Services
           </Typography>
           <ul className="space-y-2 mt-2">
@@ -26,7 +26,7 @@ function Sidebar() {
             </li>
           </ul>
         </div>
-        <Button size="sm" color="blue" className="w-full mt-6"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <Button size="sm" color="blue" className="w-full mt-6"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
           Log Out
         </Button>
       </nav>

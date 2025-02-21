@@ -31,16 +31,16 @@ export function CardDefault({
     <Card
       onClick={handleCardClick}
       className={`mt-4 w-64 cursor-pointer hover:shadow-md transition-shadow p-2 ${className}`}
-      placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}    >
-      <CardHeader color="blue-gray" className="relative h-40"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+      placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}    >
+      <CardHeader color="blue-gray" className="relative h-40"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
         <img
           src={photo}
           alt={name}
           className="w-full h-full object-cover rounded-md"
         />
       </CardHeader>
-      <CardBody className="p-2"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-        <Typography variant="h6" color="blue-gray" className="mb-1 text-sm"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+      <CardBody className="p-2"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+        <Typography variant="h6" color="blue-gray" className="mb-1 text-sm"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
           {name}
         </Typography>
         {/* Price Range Tag */}
