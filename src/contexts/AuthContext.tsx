@@ -1,15 +1,101 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { User, AuthContextType } from "../types/interfaces";
-
+import Loading from "../components/Loading"
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [isLoading, setIsLoading ] = useState<boolean>(false);
   const defaultUser: User = { id: 0, correo: "" };
   const authStatus = localStorage.getItem("isAuthenticated");
-  const userStatus = localStorage.getItem("user");
+  const userStatus = localStorage.getItem("user")== "undefined" ? null : localStorage.getItem("user");
 
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(authStatus === "true");
-  const [user, setUser] = useState<User>(userStatus ? JSON.parse(userStatus) : defaultUser);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(authStatus === "true" ? true : false);
+  const [user, setUser] = useState<User>( userStatus ? JSON.parse(userStatus ) : defaultUser);
+
+  const login = async (email: string, password: string): Promise<{ success: boolean; message: string }> => {
+    try {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          correo: email,
+          contrasena: password,
+        }),
+        credentials: "include",
+      });
+
+      const resp = await response.json();
+
+      if (response.ok) {
+        const { data } = resp;
+        setIsAuthenticated(true);
+        setUser(data.user);
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("user", JSON.stringify(data.user));
+        return { success: true, message: "Login successful" };
+      } else {
+        return { success: false, message: resp.message || "Login failed" };
+      }
+    } catch (error) {
+      setIsAuthenticated(false);
+      setUser(defaultUser);
+      return { success: false, message: (error as Error).message || "Login failed"};
+    }
+  };
+
+  const logout = async () => {
+    if (!isAuthenticated) return Promise.resolve(new Response("", { status: 401 }));
+    try {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        setIsAuthenticated(false);
+        setUser(defaultUser);
+        localStorage.removeItem("isAuthenticated");
+        localStorage.removeItem("user");
+        console.log("Logout successful");
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Login failed");
+      }
+      return response;
+    } catch (error) {
+      console.error("Error during logout:", error);
+      throw error;
+    }
+  };
+
+  const register = async (formData: FormData): Promise<{ success: boolean; message: string }> => {
+    try {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/register", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsAuthenticated(true);
+        setUser(data.user);
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("user", JSON.stringify(data.user));
+        console.log("Registration successful:", data);
+        return { success: true, message: "Registration successful" };
+      } else {
+        const errorData = await response.json();
+        return { success: false, message: errorData.message || "Registration failed" };
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      setIsAuthenticated(false);
+      setUser(defaultUser);
+      return { success: false, message: (error as Error).message || "Registration failed" };
+    }
+  };
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -31,13 +117,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
           console.log("Estado de autenticación verificado:", data);
         } else {
           setIsAuthenticated(false);
-          setUser(defaultUser);
-
-        }
+          //setUser(defaultUser);
+     }
       } catch (error) {
         console.error("Error al verificar el estado de autenticación:", error);
         setIsAuthenticated(false);
-        setUser(defaultUser);
+        //setUser(defaultUser);
       }
     };
 
@@ -45,8 +130,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser , login, logout, register, setIsLoading}}>
+     <Loading isLoading={isLoading}>
+
       {children}
+     </Loading>
     </AuthContext.Provider>
   );
 };

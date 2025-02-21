@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
-
+import { useAuth } from "../utils/getContext";
 interface MenuItem {
   id: number;
   nombre: string;
@@ -21,17 +21,29 @@ interface MenuItem {
   imageUrl?: string;
 }
 
+interface NewProduct {
+  nombre: string;
+  descripcion: string;
+  precio: string;
+  existencias: string;
+  categoria: string;
+  imageUrl: File | null;
+}
+
 
 function Inventory() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [newProduct, setNewProduct] = useState({
+  const [newProduct, setNewProduct] = useState<NewProduct>({
     nombre: "",
     descripcion: "",
     precio: "",
     existencias: "",
     categoria: "",
+    imageUrl: null,
   });
   const [restaurantId, setRestaurantId] = useState<number | null>(null);
+  const { isAuthenticated, setIsLoading, user } = useAuth();
+  const [previewImage, setPreviewImage] = useState<File | null>(null);
 
   const categories = [
     "Entradas",
@@ -54,17 +66,9 @@ function Inventory() {
   useEffect(() => {
     const fetchAuthStatus = async () => {
       try {
-        const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status",
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-        const data = await response.json();
 
-        if (response.ok && data.authenticated) {
-          setRestaurantId(data.user.id);
+        if (isAuthenticated) {
+          setRestaurantId(user.id);
         } else {
           console.error("No autenticado o error en la API de auth-status.");
         }
@@ -99,6 +103,16 @@ function Inventory() {
     fetchMenuItems();
   }, [restaurantId]);
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = event.target.files;
+    if (fileList && fileList.length > 0) {
+      setPreviewImage(fileList[0]);
+      setNewProduct({ ...newProduct, imageUrl: fileList[0] });
+    } else {
+      setPreviewImage(null);
+    }
+  };
+
   const handleDelete = async (id: number) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/dish/${id}`, {
@@ -126,14 +140,16 @@ function Inventory() {
       !newProduct.descripcion ||
       !newProduct.precio ||
       !newProduct.existencias ||
-      !newProduct.categoria
+      !newProduct.categoria ||
+      !newProduct.imageUrl
     ) {
       alert("Todos los campos son obligatorios.");
       return;
     }
 
     try {
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/dish", {
+      setIsLoading(true);
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/dish", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -153,11 +169,15 @@ function Inventory() {
           precio: "",
           existencias: "",
           categoria: "",
+          imageUrl: null,
         });
       } else {
+        console.log(response);
         console.error("Error al agregar el producto.");
       }
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.error("Error al intentar agregar el producto:", error);
     }
   };
@@ -169,12 +189,12 @@ function Inventory() {
         <div className="bg-white rounded-lg shadow-lg p-6">
           <Typography
             variant="h4"
-            className="font-bold text-blue-600 mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+            className="font-bold text-blue-600 mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Inventory Management
           </Typography>
           <Typography
             variant="h5"
-            className="font-semibold mb-4 text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+            className="font-semibold mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Menu Items
           </Typography>
 
@@ -182,22 +202,22 @@ function Inventory() {
             {menuItems.map((item) => (
               <Card
                 key={item.id}
-                className="flex flex-col items-center p-4 shadow-sm border rounded-lg hover:shadow-lg transition"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                className="flex flex-col items-center p-4 shadow-sm border rounded-lg hover:shadow-lg transition" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 <CardHeader
                   shadow={false}
                   floated={false}
-                  className="w-32 h-32 rounded-lg overflow-hidden"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
+                  className="w-32 h-32 rounded-lg overflow-hidden" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   <img
                     src={item.imageUrl || "https://via.placeholder.com/80"}
                     alt={item.nombre}
                     className="h-full w-full object-cover"
                   />
                 </CardHeader>
-                <CardBody className="text-center"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  <Typography variant="h6" className="font-bold truncate"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                <CardBody className="text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                  <Typography variant="h6" className="font-bold truncate" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     {item.nombre || "Producto sin nombre"}
                   </Typography>
-                  <Typography className="text-sm truncate text-gray-600"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                  <Typography className="text-sm truncate text-gray-600" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     {item.descripcion || "Sin descripción"}
                   </Typography>
                   <Typography className="font-semibold" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
@@ -209,12 +229,12 @@ function Inventory() {
                   <Button
                     size="sm"
                     variant="text"
-                    onClick={() => handleDelete(item.id)} 
-                    children={<FaTrashAlt color="red" />} 
-                    placeholder={undefined} 
-                    onPointerEnterCapture={undefined} 
+                    onClick={() => handleDelete(item.id)}
+                    children={<FaTrashAlt color="red" />}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}                  >
-                    
+
                   </Button>
                 </div>
               </Card>
@@ -226,9 +246,33 @@ function Inventory() {
           <Typography
             variant="h6"
             className="text-blue-600 font-semibold mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
-            Add New Product
+            Agregar nuevo producto
           </Typography>
           <div className="grid grid-cols-1 gap-4">
+            {previewImage && (
+              <div className="flex justify-center mb-4 relative">
+                <button
+                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                  onClick={() => setPreviewImage(null)}
+                >
+                  X
+                </button>
+                <img
+                  src={URL.createObjectURL(previewImage)}
+                  alt="Vista previa de la foto de perfil"
+                  className="w-32 h-32 object-cover rounded-sm shadow-md"
+                />
+              </div>
+            )}
+            <div className="flex justify-center">
+              <label className="w-full flex flex-col items-center px-4 py-1 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-500 hover:text-white">
+                <svg className="w-8 h-8 py-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M16.707 5.293a1 1 0 00-1.414 0L10 10.586 4.707 5.293a1 1 0 00-1.414 1.414l6 6a1 1 0 001.414 0l6-6a1 1 0 000-1.414z" />
+                </svg>
+                <span className="my-1 text-base leading-normal">Selecciona una foto</span>
+                <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+              </label>
+            </div>
             <input
               type="text"
               value={newProduct.nombre}
@@ -272,7 +316,7 @@ function Inventory() {
               value={newProduct.categoria}
               onChange={(value) => setNewProduct({ ...newProduct, categoria: value || "" })}
               className="border rounded-lg"
-              placeholder="Select a Category" 
+              placeholder="Select a Category"
               onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               {categories.map((category) => (
                 <Option key={category} value={category}>
@@ -283,7 +327,7 @@ function Inventory() {
             <Button
               color="blue"
               onClick={handleAddProduct}
-              className="w-full mt-4"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              className="w-full mt-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Add Product
             </Button>
           </div>

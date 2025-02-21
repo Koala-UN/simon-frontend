@@ -27,6 +27,7 @@ function SearchMenu() {
         }
         const data = await response.json();
         if (data.status === "success") {
+          console.log("Loaded restaurants:", data.data.map((r: FullRestaurant) => ({ id: r.id, name: r.nombre })));
           const formattedRestaurants:FormattedRestaurant[] = data.data.map((restaurant: FullRestaurant) => ({
             id: restaurant.id,
             name: restaurant.nombre,

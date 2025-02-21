@@ -1,7 +1,7 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-////import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/getContext";
 interface Order {
   id: number;
   fecha: string;
@@ -12,19 +12,16 @@ interface Order {
 
 function AdminDashboardOrders() {
   const [orders, setOrders] = useState<Order[]>([]);
-  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const { isAuthenticated, user, logout } = useAuth();
   const ordersPerPage = 5;
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // Logout functionality
   const handleLogout = async () => {
     try {
-      await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      await logout();
       window.location.href = "/login";
     } catch (error) {
       console.error("Error logging out:", error);
@@ -35,20 +32,12 @@ function AdminDashboardOrders() {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status",
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          setAuthenticated(data.authenticated);
-
-          if (data.authenticated) {
-            const restauranteId = data.user.id;
+        
+        if (!isAuthenticated) {
+          window.location.href = "/login";
+          return;
+        } else {
+            const restauranteId = user.id;
 
             // Fetch orders if authenticated
             const ordersResponse = await fetch(
@@ -69,12 +58,10 @@ function AdminDashboardOrders() {
               console.error("Error al obtener pedidos:", ordersData);
               setOrders([]);
             }
-          } else {
-            window.location.href = "/login";
+
           }
-        } else {
-          window.location.href = "/login";
-        }
+        
+        
       } catch (error) {
         console.error("Error checking auth status:", error);
         window.location.href = "/login";
@@ -82,14 +69,14 @@ function AdminDashboardOrders() {
     };
 
     checkAuthStatus();
-  }, [navigate]);
+  }, [isAuthenticated, navigate, user.id]);
 
   // Paginate orders
   const startIndex = (currentPage - 1) * ordersPerPage;
   const endIndex = startIndex + ordersPerPage;
   const currentOrders = orders.slice(startIndex, endIndex);
 
-  if (authenticated === null) {
+  if (isAuthenticated === null) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <Typography variant="h6"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Verificando autenticación...</Typography>

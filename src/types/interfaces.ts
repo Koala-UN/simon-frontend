@@ -41,7 +41,7 @@ export interface Dish {
         };
       };
     descripcion: string;
-    image: string;
+    imageUrl: string;
     tag?: string;
     photo?: string;
     price?: string;
@@ -112,6 +112,10 @@ export interface CartItem extends Dish {
     setIsAuthenticated: (value: boolean) => void;
     user: User;
     setUser: (value: User) => void;
+    login: (email: string, password: string) => Promise<{ success: boolean; message: string; }>;
+    logout: () => Promise<Response>;
+    register: (formData: FormData) => Promise<{ success: boolean; message: string; }> ;
+    setIsLoading: (value: boolean) => void;
   }
 
   // Definimos la interfaz del contexto

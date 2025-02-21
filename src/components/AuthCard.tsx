@@ -1,7 +1,7 @@
 import LoginForm from "../pages/Login";
 import backgroundImage from"../assets/bglogin.png";
 
-console.log(backgroundImage); // Add t1his line to check the URL
+//console.log(backgroundImage); // Add t1his line to check the URL
 
 function Authcard() {
   return (

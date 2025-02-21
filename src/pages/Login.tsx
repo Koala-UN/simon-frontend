@@ -4,55 +4,35 @@ import { useAuth } from "../utils/getContext";
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 
 const LoginForm = () => {
-  const { setIsAuthenticated } = useAuth();
+  const {  login, setIsLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    try {
-      const loginResponse = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          correo: email,
-          contrasena: password,
-        }),
-        credentials: "include", // Para manejar cookies
-      });
+    const { success, message } = await login(email, password);
 
-      if (loginResponse.ok) {
-
-      await new Promise((resolve) => {
-        setIsAuthenticated(true);
-        resolve(true);
-      });
-      // Actualiza el estado global de autenticación
-
-      window.location.href = "/admin/reserve"; // Redirigir al dashboard
-      //window.location.reload();
-
-      }else{
-        
-        const errorData = await loginResponse.json();
-        throw new Error(errorData.message || "Error al iniciar sesión");
-       
-      }
-    } catch (error) {
-      console.error("Error en el proceso de inicio de sesión:", error);
-      setErrorMessage("Error al iniciar sesión.");
+    if (success) {
+      //navigate("/dashboard");
+      window.location.href = "/";
+    } else {
+      setIsLoading(false);
+      setErrorMessage(message);
+      
     }
+   // setIsLoading(false);
   };
 
   const handleGoogleLogin = async () => {
+    setIsLoading(true);
     try {
       window.location.href = import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth/google";
     } catch (error) {
       console.error('Error en el inicio de sesión con Google:', error);
+      setIsLoading(false);
     }
   };
   

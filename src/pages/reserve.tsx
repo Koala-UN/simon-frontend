@@ -144,23 +144,23 @@ function RestaurantReservation() {
   return (
     <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gray-100 p-4">
       <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 mb-6 lg:mb-0 lg:mr-4">
-        <Typography variant="h4" className="font-bold mb-2"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-          {restaurant.name}
+        <Typography variant="h4" className="font-bold mb-2"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} children={restaurant.name}        >
+          
         </Typography>
         <div className="flex gap-2 mb-4">
-          <Button size="sm" color="red"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-            {restaurant.category}
+          <Button size="sm" color="red"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
+            children={restaurant.category}>
+            
           </Button>
         </div>
-        <Typography variant="small" className="text-gray-700 mb-4"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-          {restaurant.address?.direccion || "Dirección no disponible"}
+        <Typography variant="small" className="text-gray-700 mb-4"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} children={restaurant.address?.direccion || "Dirección no disponible"}        >  
         </Typography>
-        <Typography className="text-gray-600 mb-4"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-          {restaurant.descripcion || "Descripción no disponible"}
+        <Typography className="text-gray-600 mb-4"    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} children=
+          {restaurant.descripcion || "Descripción no disponible"}       >
         </Typography>
         <div className="mb-4">
           <img
-            src={restaurant.image || "https://via.placeholder.com/800x400"}
+            src={restaurant.imageUrl || "https://via.placeholder.com/800x400"}
             alt="Restaurant"
             className="w-full h-full rounded-lg object-cover"
           />
@@ -264,7 +264,7 @@ function RestaurantReservation() {
               selectedTime,
               guests,
               restaurantName: restaurant?.name,
-              restaurantImage: restaurant?.image || "https://via.placeholder.com/800x400",
+              restaurantImage: restaurant?.imageUrl || "https://via.placeholder.com/800x400",
               restaurantId,
             },
           })}

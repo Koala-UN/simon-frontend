@@ -1,7 +1,7 @@
 import { useState } from "react";
 ////import { useNavigate } from "react-router-dom";
 import backgroundImage from "../assets/bglogin.png";
-
+import { useAuth } from "../utils/getContext";
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
     nombre: "",
@@ -16,6 +16,7 @@ const RegisterForm = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [previewImage, setPreviewImage] = useState<File | null>(null);
+  const { register, setIsLoading } = useAuth();
   // const navigate = useNavigate();
 
   const cities = [
@@ -42,6 +43,7 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       const formDataToSend = new FormData();
@@ -79,22 +81,20 @@ const RegisterForm = () => {
         fotoPerfil: formData.fotoPerfil,
       });
 
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/register", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      const {success, message} = await register(formDataToSend);
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Registro exitoso:", result);
-        window.location.href = "/login";
+      if (success) {
+        // navigate("/dashboard");
+        window.location.href = "/";
       } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message || "Error al registrar el restaurante");
+        setIsLoading(false);
+        setErrorMessage(message);
       }
+    
     } catch (error) {
       console.error("Error al enviar datos:", error);
-      setErrorMessage("Error al conectar con el servidor");
+      setErrorMessage("Error al enviar datos: " + (error as Error).message);
+      setIsLoading(false);
     }
   };
 
@@ -130,7 +130,7 @@ const RegisterForm = () => {
                   <path d="M16.707 5.293a1 1 0 00-1.414 0L10 10.586 4.707 5.293a1 1 0 00-1.414 1.414l6 6a1 1 0 001.414 0l6-6a1 1 0 000-1.414z" />
                 </svg>
                 <span className="my-1 text-base leading-normal">Selecciona una foto</span>
-                <input type="file" className="hidden" onChange={handleImageChange} />
+                <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
               </label>
             </div>
           </div>
