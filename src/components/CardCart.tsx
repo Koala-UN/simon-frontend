@@ -32,7 +32,13 @@ export function CardCart({
     const fetchPrice = async () => {
       try {
         console.log(`Fetching price for product ID: ${product.id}`);
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/dish/${product.id}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/dish/${product.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
         const result = await response.json();
         console.log("Fetched data:", result);
 

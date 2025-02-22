@@ -86,7 +86,11 @@ function Inventory() {
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
         );
         const data = await response.json();
 
@@ -117,6 +121,7 @@ function Inventory() {
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/dish/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
 
       if (response.ok) {
@@ -152,6 +157,7 @@ function Inventory() {
       const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/dish", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           ...newProduct,
           precio: parseFloat(newProduct.precio),

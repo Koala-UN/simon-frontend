@@ -74,8 +74,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/register", {
         method: "POST",
+        credentials: "include",
         body: formData,
-      });
+      }, );
 
       if (response.ok) {
         const data = await response.json();

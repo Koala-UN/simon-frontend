@@ -21,7 +21,7 @@ function SearchMenu() {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/api/restaurant?cityId=${cityId}`
-        );
+        , { credentials: "include" });
         if (!response.ok) {
           throw new Error("Error loading restaurants.");
         }

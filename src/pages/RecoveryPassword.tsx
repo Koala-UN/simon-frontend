@@ -12,11 +12,14 @@ const RecoverPasswordForm = () => {
     setError("");
 
     try {
+
+      console.log("🚀 ~ file: RecoveryPassword.tsx ~ line 33 ~ handleSubmit ~ email: ", email);
       const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/rec-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ correo: email }),
       });
 

@@ -55,7 +55,8 @@ function RestaurantReservation() {
     const fetchRestaurant = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`,
+          { credentials: "include" }
         );
         const data = await response.json();
         if (data.status === "success") setRestaurant(data.data);
@@ -67,7 +68,8 @@ function RestaurantReservation() {
     const fetchDishes = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`,
+          { credentials: "include" }
         );
         const data = await response.json();
         if (data.status === "success") setDishes(data.data.slice(0, 10));
@@ -95,10 +97,11 @@ function RestaurantReservation() {
   const handleAvailabilityCheck = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/reserve/capacity/${restaurantId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/reserve/capacity/${restaurantId}`, 
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({
             time: selectedTime,
             date: selectedDate.toISOString().split("T")[0],

@@ -21,7 +21,8 @@ import Ciudades from "./pages/Ciudades.tsx";
 import RecoveryPassword from "./pages/RecoveryPassword.tsx";
 import  AuthProvider  from "./contexts/AuthContext.tsx";
 import AboutUs from "./pages/AboutUs.tsx";
-
+import VerifyEmailFinal from "./pages/VerifyEmail.tsx";
+import VerifyEmailSend from "./pages/VerifyEmailSend.tsx";
 import PrivateRoute from "./utils/PrivateRoute.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
 import QrGenerator from "./components/QrGenerator.tsx";
@@ -51,12 +52,14 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/confirm-reserve/:restaurantId" element={<ConfirmReserve />} />
         <Route path="/about-us" element={<AboutUs/>}></Route>
         <Route path="*" element={<h1>Not Found</h1>} />
+        <Route path="/restaurant/verify-email" element={<VerifyEmailFinal/>} />
+        <Route path="/recover-password" element={<RecoveryPassword />} />
+        <Route path="/restaurant/verify-email-send" element={<VerifyEmailSend />} />
         <Route element={<PrivateRoute />}> // Rutas PROTEGIDAS
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/admin/reserve" element={<AdminDashboard />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/admin/orders" element={<AdminDashboardOrders />} />
-          <Route path="/recover-password" element={<RecoveryPassword />} />
           <Route path="/qr" element={<QrGenerator />} />
         </Route>
         
