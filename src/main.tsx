@@ -26,7 +26,7 @@ import VerifyEmailSend from "./pages/VerifyEmailSend.tsx";
 import PrivateRoute from "./utils/PrivateRoute.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
 import QrGenerator from "./components/QrGenerator.tsx";
-
+import Ayuda from "./pages/Ayuda.tsx";
 // Verificar y actualizar la URL del backend
 if (!import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL === undefined) {
   import.meta.env.VITE_BACKEND_URL = 'http://localhost:5000';
@@ -39,7 +39,7 @@ createRoot(document.getElementById("root")!).render(
       <NavBar />
       <Routes>
         <Route path="/" element={<App />} />
-
+        <Route path="/help" element={<Ayuda />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/plans" element={<SubscriptionPlans />} />
         <Route path="/data-privacy" element={<Tratamiento />} />
