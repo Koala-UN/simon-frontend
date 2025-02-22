@@ -27,6 +27,7 @@ import PrivateRoute from "./utils/PrivateRoute.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
 import QrGenerator from "./components/QrGenerator.tsx";
 import Ayuda from "./pages/Ayuda.tsx";
+import EditProfile from "./pages/EditProfile.tsx";
 // Verificar y actualizar la URL del backend
 if (!import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL === undefined) {
   import.meta.env.VITE_BACKEND_URL = 'http://localhost:5000';
@@ -47,6 +48,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/login" element={<Authcard />} />
         <Route path="/ciudades" element={<Ciudades />} />
         <Route path="/restaurantes/:cityId" element={<SearchMenu />} />
+        <Route path="/restaurantes/:cityId/:category" element={<SearchMenu />} />
         <Route path="/reserve/:restaurantId" element={<Reserve />} />
         <Route path="/menu/:restaurantId" element={<MenuExtendido />} />
         <Route path="/confirm-reserve/:restaurantId" element={<ConfirmReserve />} />
@@ -56,11 +58,12 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/recover-password" element={<RecoveryPassword />} />
         <Route path="/restaurant/verify-email-send" element={<VerifyEmailSend />} />
         <Route element={<PrivateRoute />}> // Rutas PROTEGIDAS
-          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/admin/inventory" element={<Inventory />} />
           <Route path="/admin/reserve" element={<AdminDashboard />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/admin/orders" element={<AdminDashboardOrders />} />
           <Route path="/qr" element={<QrGenerator />} />
+          <Route path="/admin/edit-profile" element={<EditProfile/>} />
         </Route>
         
       </Routes>

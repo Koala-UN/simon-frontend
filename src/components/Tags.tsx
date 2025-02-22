@@ -52,7 +52,7 @@ function Tags({ onFilterChange }: TagsProps) {
   };
 
   return (
-    <>
+    <div className="relative min-h-screen">
       {/* Sidebar Button for Mobile */}
       <button
         className="md:hidden fixed top-1/2 left-4 z-50 p-3 bg-orange-600 text-white rounded-full shadow-lg transform -translate-y-1/2"
@@ -60,10 +60,10 @@ function Tags({ onFilterChange }: TagsProps) {
       >
         {isSidebarOpen ? <ChevronLeftIcon className="w-6 h-6" /> : <ChevronRightIcon className="w-6 h-6" />}
       </button>
-
+  
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out z-40 p-4
+        className={`absolute top-0 left-0 h-full w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out z-40 p-4
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:static md:w-72`}
       >
         <div className="flex justify-between items-center mb-4">
@@ -75,7 +75,7 @@ function Tags({ onFilterChange }: TagsProps) {
             <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
-
+  
         {/* Selected Categories */}
         <div className="mb-6">
           <h3 className="text-sm font-medium text-gray-600 mb-2">Seleccionados</h3>
@@ -88,7 +88,7 @@ function Tags({ onFilterChange }: TagsProps) {
                   color="green"
                   variant="outlined"
                   className="text-xs font-medium flex items-center gap-2"
-                  onClick={() => handleRemoveSelectedTag(tag)}   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}                >
+                  onClick={() => handleRemoveSelectedTag(tag)}    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   {tag}
                   <XMarkIcon className="w-4 h-4" />
                 </Button>
@@ -98,7 +98,7 @@ function Tags({ onFilterChange }: TagsProps) {
             )}
           </div>
         </div>
-
+  
         {/* Available Categories */}
         <div>
           <h3 className="text-sm font-medium text-gray-600 mb-2">Disponibles</h3>
@@ -110,14 +110,14 @@ function Tags({ onFilterChange }: TagsProps) {
                 color="blue"
                 variant="outlined"
                 className="text-xs font-medium"
-                onClick={() => handleTagClick(tag)}   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}              >
+                onClick={() => handleTagClick(tag)}    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 {tag}
               </Button>
             ))}
           </div>
         </div>
       </div>
-
+  
       {/* Dark Overlay for Mobile Sidebar */}
       {isSidebarOpen && (
         <div
@@ -125,7 +125,12 @@ function Tags({ onFilterChange }: TagsProps) {
           onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
-    </>
+  
+      {/* Main Content */}
+      <div className="md:pl-72">
+        {/* Aquí va el contenido principal de tu aplicación */}
+      </div>
+    </div>
   );
 }
 

@@ -1,10 +1,10 @@
 const CatalogoRestaurantes = () => {
   const images = [
-    "https://images.unsplash.com/photo-1525755662778-989d0524087e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
-    "https://images.unsplash.com/photo-1525755662778-989d0524087e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
-    "https://images.unsplash.com/photo-1525755662778-989d0524087e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
-    "https://images.unsplash.com/photo-1525755662778-989d0524087e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
-    "https://images.unsplash.com/photo-1525755662778-989d0524087e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+    "http://res.cloudinary.com/dnljvvheg/image/upload/v1740232194/landing-page-plate-2.jpg",
+    "http://res.cloudinary.com/dnljvvheg/image/upload/v1740232194/landing-page-plate-3.jpg",
+    "http://res.cloudinary.com/dnljvvheg/image/upload/v1740232194/landing-page-plate-1.jpg",
+    "http://res.cloudinary.com/dnljvvheg/image/upload/v1740232194/landing-page-plate-4.jpg",
+    "http://res.cloudinary.com/dnljvvheg/image/upload/v1740232194/landing-page-plate-5.jpg",
   ];
 
   return (
@@ -20,29 +20,29 @@ const CatalogoRestaurantes = () => {
       </div>
 
       {/* 📌 Galería de Imágenes */}
-      <div className="w-full md:w-1/2 mt-6 md:mt-0 grid grid-cols-2 grid-rows-3 gap-4">
+      <div className="items-start w-full md:w-1/2 mt-6 md:mt-0 flex flex-wrap justify-center gap-3 ">
+        {/* 📌 Imagen 4 (Vertical) */}
+        <div className="w-24 h-36 md:w-36 md:h-56 rounded-lg overflow-hidden shadow-lg">
+          <img src={images[3]} alt="Restaurante 4" className="w-full h-full object-cover" />
+        </div>
+        {/* 📌 Imagen 2 (Grande) */}
+        <div className="w-36 h-36 md:w-56 md:h-56 rounded-lg overflow-hidden shadow-lg">
+          <img src={images[1]} alt="Restaurante 2" className="w-full h-full object-cover" />
+        </div>
         {/* 📌 Imagen 1 */}
-        <div className="row-span-1 col-span-1 w-24 h-24 md:w-36 md:h-36 rounded-lg overflow-hidden shadow-lg">
+        <div className="w-32 h-32 md:w-48 md:h-38 rounded-lg overflow-hidden shadow-lg">
           <img src={images[0]} alt="Restaurante 1" className="w-full h-full object-cover" />
         </div>
 
-        {/* 📌 Imagen 2 (Grande) */}
-        <div className="row-span-2 col-span-1 w-36 h-36 md:w-56 md:h-56 rounded-lg overflow-hidden shadow-lg">
-          <img src={images[1]} alt="Restaurante 2" className="w-full h-full object-cover" />
-        </div>
 
         {/* 📌 Imagen 3 */}
-        <div className="row-span-1 col-span-1 w-36 h-24 md:w-56 md:h-28 rounded-lg overflow-hidden shadow-lg">
+        <div className="w-36 h-24 md:w-56 md:h-36 rounded-lg overflow-hidden shadow-lg">
           <img src={images[2]} alt="Restaurante 3" className="w-full h-full object-cover" />
         </div>
 
-        {/* 📌 Imagen 4 (Vertical) */}
-        <div className="row-span-2 col-span-1 w-24 h-36 md:w-36 md:h-56 rounded-lg overflow-hidden shadow-lg">
-          <img src={images[3]} alt="Restaurante 4" className="w-full h-full object-cover" />
-        </div>
 
         {/* 📌 Imagen 5 */}
-        <div className="row-span-1 col-span-1 w-24 h-24 md:w-36 md:h-36 rounded-lg overflow-hidden shadow-lg">
+        <div className="w-24 h-24 md:w-52 md:h-32 rounded-lg overflow-hidden shadow-lg">
           <img src={images[4]} alt="Restaurante 5" className="w-full h-full object-cover" />
         </div>
       </div>

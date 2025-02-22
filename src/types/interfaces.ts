@@ -29,11 +29,50 @@ export interface Dish {
     estado: string;
     total: number;
   }
-
+  
+  
+  export interface FullRestaurant {
+      id: number;
+      nombre: string;
+      correo: string;
+      telefono: string;
+      estado: string;
+      idAutenticacion?: number;
+      capacidadReservas: number;
+      direccionId: number;
+      categoria: string;
+      descripcion: string;
+      address: {
+          id: number;
+          ciudadId: number;
+          direccion: string;
+          ciudad: {
+              id: number;
+              departamentoId: number;
+              nombre: string;
+          };
+          departamento: {
+              id: number;
+              paisId: number;
+              nombre: string;
+          };
+          pais: {
+              id: number;
+              nombre: string;
+          };
+      };
+      suscripcion?: {
+          id: number;
+          tipo: string;
+          fecha_suscripcion: string;
+          fecha_vencimiento: string;
+      };
+      imageUrl?: string;
+  }
   export interface Restaurant {
     id: number;
-    name: string;
-    category: string;
+    nombre: string;
+    categoria: string;
     address: {
         direccion: string;
         ciudad: {
@@ -56,45 +95,6 @@ export interface FormattedRestaurant {
     address: string;
     city: string;
     onClick: () => void;
-}
-
-export interface FullRestaurant {
-    id: number;
-    nombre: string;
-    correo: string;
-    telefono: string;
-    estado: string;
-    idAutenticacion?: number | null;
-    capacidadReservas: number;
-    direccionId: number;
-    categoria: string;
-    descripcion: string;
-    address: {
-        id: number;
-        ciudadId: number;
-        direccion: string;
-        ciudad: {
-            id: number;
-            departamentoId: number;
-            nombre: string;
-        };
-        departamento: {
-            id: number;
-            paisId: number;
-            nombre: string;
-        };
-        pais: {
-            id: number;
-            nombre: string;
-        };
-    };
-    suscripcion: {
-        id: number;
-        tipo: string;
-        fecha_suscripcion: string;
-        fecha_vencimiento: string;
-    };
-    imageUrl: string;
 }
 
 export interface User {

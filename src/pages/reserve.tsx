@@ -13,7 +13,7 @@ import { MdSoupKitchen, MdEmojiFoodBeverage } from "react-icons/md";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { Dish , Restaurant} from "../types/interfaces";
+import { Dish , FullRestaurant} from "../types/interfaces";
 import { Value } from "react-calendar/dist/esm/shared/types.js";
 
 
@@ -32,7 +32,7 @@ import { Value } from "react-calendar/dist/esm/shared/types.js";
 
 function RestaurantReservation() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+  const [restaurant, setRestaurant] = useState<FullRestaurant | null>(null);
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedTime, setSelectedTime] = useState<string>("18:00");
@@ -147,12 +147,17 @@ function RestaurantReservation() {
   return (
     <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gray-100 p-4">
       <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 mb-6 lg:mb-0 lg:mr-4">
-        <Typography variant="h4" className="font-bold mb-2"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}} children={restaurant.name}        >
+        <Typography variant="h4" className="font-bold mb-2"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}} children={restaurant.nombre}        >
           
         </Typography>
         <div className="flex gap-2 mb-4">
-          <Button size="sm" color="red"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}} 
-            children={restaurant.category}>
+          <Button size="sm" color="red" onClick={()=> { 
+            console.log("Click en el botón de categoría");
+            console.log(" restaurante: ", restaurant);
+
+            window.location.href = `/restaurantes/${restaurant.address.ciudadId}/${restaurant.categoria}`;
+           }}   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}} 
+            children={restaurant.categoria}>
             
           </Button>
         </div>
@@ -266,7 +271,7 @@ function RestaurantReservation() {
               selectedDate: selectedDate.toISOString().split("T")[0],
               selectedTime,
               guests,
-              restaurantName: restaurant?.name,
+              restaurantName: restaurant?.nombre,
               restaurantImage: restaurant?.imageUrl || "https://via.placeholder.com/800x400",
               restaurantId,
             },

@@ -13,6 +13,7 @@ const RegisterForm = () => {
     direccion: "",
     cityId: "",
     fotoPerfil: null as File | null,
+    categoria: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [previewImage, setPreviewImage] = useState<File | null>(null);
@@ -42,10 +43,38 @@ const RegisterForm = () => {
     }
   };
 
+  // funcion para verificar si el formulario esta completo
+
+  const validateForm = () => {
+    if (
+      formData.nombre === "" ||
+      formData.correo === "" ||
+      formData.contrasena === "" ||
+      formData.telefono === "" ||
+      formData.capacidadReservas === "" ||
+      formData.descripcion === "" ||
+      formData.direccion === "" ||
+      formData.cityId === "" //||
+     // formData.categoria === "" ||
+     // formData.fotoPerfil === null
+    ) {
+      return false;
+    }
+    if (formData.categoria === "") {
+      formData.categoria = "Casual Dining";
+    }
+    return true;
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     setIsLoading(true);
     e.preventDefault();
     try {
+      if (!validateForm()) {
+        setIsLoading(false);
+        setErrorMessage("Por favor completa todos los campos");
+        return;
+      }
       const formDataToSend = new FormData();
       const restaurantData = {
         nombre: formData.nombre,
@@ -54,6 +83,7 @@ const RegisterForm = () => {
         telefono: formData.telefono,
         capacidadReservas: parseInt(formData.capacidadReservas),
         descripcion: formData.descripcion,
+        categoria: formData.categoria,
       };
       const addressData = {
         direccion: formData.direccion,
@@ -79,6 +109,7 @@ const RegisterForm = () => {
         direccion: formData.direccion,
         cityId: formData.cityId,
         fotoPerfil: formData.fotoPerfil,
+        categoria: formData.categoria,
       });
 
       const {success, message} = await register(formDataToSend);
@@ -86,7 +117,7 @@ const RegisterForm = () => {
       if (success) {
         // navigate("/dashboard");
         console.log("Registro exitoso: datos: ", message, " y success: ", success);
-        window.location.href = "/verify-email-send";
+        window.location.href = "/restaurant/verify-email-send";
       } else {
         setIsLoading(false);
         setErrorMessage(message);
@@ -211,6 +242,37 @@ const RegisterForm = () => {
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
             />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Categoría
+            </label>
+            <select
+              name="categoria"
+              value={formData.categoria}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            >
+              <option value="" disabled>
+                Selecciona una categoría
+              </option>
+              <option value="Comida Rápida">Comida Rápida</option>
+              <option value="Casual Dining">Casual Dining</option>
+              <option value="Fine Dining">Fine Dining</option>
+              <option value="Cafetería">Cafetería</option>
+              <option value="Bar y Grill">Bar y Grill</option>
+              <option value="Pizzería">Pizzería</option>
+              <option value="Marisquería">Marisquería</option>
+              <option value="Buffet">Buffet</option>
+              <option value="Restaurante Temático">Restaurante Temático</option>
+              <option value="Food Truck">Food Truck</option>
+              <option value="Vegetariano/Vegano">Vegetariano/Vegano</option>
+              <option value="Asador/Parrilla">Asador/Parrilla</option>
+              <option value="Panadería y Repostería">Panadería y Repostería</option>
+              <option value="Cocina Internacional">Cocina Internacional</option>
+              <option value="Cocina Regional">Cocina Regional</option>
+            </select>
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">

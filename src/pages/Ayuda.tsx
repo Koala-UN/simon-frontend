@@ -25,7 +25,7 @@ const Ayuda = () => {
     };
 
     return (
-        <div className="p-5 text-center">
+        <div className="p-5 text-center max-w-5xl my-4 mx-auto">
             <h1 className="text-3xl font-bold mb-4">Ayuda y Soporte</h1>
             <p className="mb-6">
                 Bienvenido a la página de ayuda de Simon. Aquí encontrarás respuestas a preguntas frecuentes, guías y tutoriales, y formas de contactarnos para obtener asistencia adicional.
