@@ -118,6 +118,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else {
           setIsAuthenticated(false);
           //setUser(defaultUser);
+          console.log("No hay una sesión activa: ", response);
      }
       } catch (error) {
         console.error("Error al verificar el estado de autenticación:", error);

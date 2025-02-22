@@ -17,7 +17,9 @@ const LoginForm = () => {
 
     if (success) {
       //navigate("/dashboard");
-      window.location.href = "/";
+      console.log("Registro exitoso: datos: ", message, " y success: ", success);
+
+      //window.location.href = "/";
     } else {
       setIsLoading(false);
       setErrorMessage(message);
