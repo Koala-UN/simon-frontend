@@ -99,7 +99,7 @@ const RegisterForm = () => {
       formDataToSend.append("cityId", formData.cityId);
       if (formData.fotoPerfil) {
         formDataToSend.append("fotoPerfil", formData.fotoPerfil);
-      }else{
+      } else {
         // enviar la imagen por defecto defaultUserImage
         const defaultImage = await fetch(defaultUserImage);
         const blob = await defaultImage.blob();
@@ -120,20 +120,13 @@ const RegisterForm = () => {
         categoria: formData.categoria,
       });
 
-      const {success, message} = await register(formDataToSend);
+      // Store formDataToSend in localStorage
+      localStorage.setItem("formDataToSend", JSON.stringify(Object.fromEntries(formDataToSend)));
 
-      if (success) {
-        // navigate("/dashboard");
-        console.log("Registro exitoso: datos: ", message, " y success: ", success);
-        window.location.href = "/restaurant/verify-email-send";
-      } else {
-        setIsLoading(false);
-        setErrorMessage(message);
-      }
-    
+      window.location.href = "/plans";
     } catch (error) {
-      console.error("Error al enviar datos:", error);
-      setErrorMessage("Error al enviar datos: " + (error as Error).message);
+      console.error("Error al preparar datos:", error);
+      setErrorMessage("Error al preparar datos: " + (error as Error).message);
       setIsLoading(false);
     }
   };
