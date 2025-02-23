@@ -34,7 +34,7 @@ const RestaurantImages = ({ images, setImages}: RestaurantImagesProps) => {
         };
 
         fetchImages();
-    }, [user.id]);
+    }, [setImages, user.id]);
 
     const moveImage = (dragIndex: number, hoverIndex: number) => {
         const updatedImages = [...images];

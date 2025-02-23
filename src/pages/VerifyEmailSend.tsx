@@ -1,27 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../utils/getContext';
 
 const VerifyEmailSend = () => {
     const { setIsLoading } = useAuth();
     const [emailSent, setEmailSent] = useState<boolean>(false);
     const {isAuthenticated, user } = useAuth();
+    const userRef = useRef(user);
+
+    useEffect(() => {
+        userRef.current = user;
+    }, [user]);
+
     useEffect(() => {
         const sendVerificationEmail = async () => {
             setIsLoading(true);
             try {
-                if (!isAuthenticated || !user?.correo) {
-                    console.error('User is not authenticated or does not have an email' , user, isAuthenticated);
+                if (!isAuthenticated || !userRef.current?.correo) {
+                    console.error('User is not authenticated or does not have an email' , userRef.current, isAuthenticated);
                     setEmailSent(false);
                     setIsLoading(false);
                     return;
                 }
-                console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 33 ~ sendVerificationEmail ~ user", user, isAuthenticated)
+                console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 33 ~ sendVerificationEmail ~ user", userRef.current, isAuthenticated)
                 const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/verify-email-send`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({correo: user?.correo}),
+                    body: JSON.stringify({correo: userRef.current?.correo}),
                     credentials: 'include',
                 });
                 const data = await response.json();
@@ -38,7 +44,7 @@ const VerifyEmailSend = () => {
             setIsLoading(false);
         };
         sendVerificationEmail();
-    }, [isAuthenticated, setIsLoading, user?.correo]);
+    }, [isAuthenticated, setIsLoading]);
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
