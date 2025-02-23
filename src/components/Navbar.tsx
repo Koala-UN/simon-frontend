@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Button, Typography, IconButton } from "@material-tailwind/react";
 import { Bars3Icon, UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logosimon.png";
@@ -15,57 +16,74 @@ const routeList: RouteProps[] = [
   { href: "/help", label: "Ayuda" },
 ];
 
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const { isAuthenticated, user } = useAuth();
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
-  // Manejo del menú móvil
-  const toggleMenu = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita que el evento de cierre del useEffect lo bloquee
-    setIsMenuOpen((prev) => !prev);
-  };
-
-  const closeMenu = () => setIsMenuOpen(false);
-
-  // Cierra el menú si el usuario hace clic fuera de él
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest(".menu-container") && !target.closest(".menu-toggle")) {
-        setIsMenuOpen(false);
-        setMenuOpen(false);
+  const Navbar: React.FC = () => {
+    const [isMenuOpen2, setIsMenu2Open] = useState<boolean>(false);
+    const location = useLocation();
+    const isAdminPath = location.pathname.startsWith("/admin");
+    const { isAuthenticated, user, isAdminMenuOpen, setIsAdminMenuOpen } = useAuth();
+    const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  
+    // Manejo del menú móvil
+    const toggleMenu = (e: React.MouseEvent) => {
+      e.stopPropagation(); // Evita que el evento de cierre del useEffect lo bloquee
+      setIsMenu2Open((prev) => !prev);
+    };
+  
+    const closeMenu = () => setIsMenu2Open(false);
+  
+    // Cierra el menú si el usuario hace clic fuera de él
+    useEffect(() => {
+      const handleClickOutside = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        if (!target.closest(".menu-container") && !target.closest(".menu-toggle")) {
+          setIsMenu2Open(false);
+          setMenuOpen(false);
+        }
+      };
+  
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }, []);
+  
+    const handleNavigate = (path: string) => {
+      closeMenu();
+      window.location.href = path;
+    };
+  
+    const handleLogout = async () => {
+      try {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/logout", {
+          method: "POST",
+          credentials: "include",
+        });
+        if (response.ok) {
+          window.location.href = "/";
+        }
+      } catch (error) {
+        console.error("Error logging out:", error);
       }
     };
+  
+    return(
+      <div className="shadow-md border-b border-gray-200">
 
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  const handleNavigate = (path: string) => {
-    closeMenu();
-    window.location.href = path;
-  };
-
-  const handleLogout = async () => {
-    try {
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-      if (response.ok) {
-        window.location.href = "/";
-      }
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  };
-
-  return (
-    <header className="sticky top-0 z-40 w-full bg-white shadow-md border-b">
-      <div className="container mx-auto flex items-center justify-between px-4 py-3">
+        
         {/* 🔹 Logo */}
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.href = "/"}>
+    <header className="sticky top-0 z-40 w-full bg-white container mx-auto flex items-center justify-between px-4 py-3">
+      <div className="flex items-center ">
+
+        {/* 🔹 Botón Menú Mobile Izquierda (Solo para /admin) */}
+        {isAdminPath && (
+          <IconButton variant="text" size="sm" className="lg:hidden menu-container menu-toggle " onClick={() => {
+                setIsAdminMenuOpen(!isAdminMenuOpen);
+                console.log("modo admin, isAdminMenuOpen: ", isAdminMenuOpen);
+              } } placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} >
+            {isMenuOpen2 ? <XMarkIcon className="w-6 h-6 text-gray-700" /> : <Bars3Icon className="w-6 h-6 text-gray-700" />}
+          </IconButton>
+        )}
+
+        {/* 🔹 Logo */}
+        <div className="flex items-center gap-2 cursor-pointer px-2" onClick={() => window.location.href = "/"}>
           <img src={logo} alt="Logo" style={{ width: "100px", height: "auto" }} />
         </div>
 
@@ -75,13 +93,15 @@ const Navbar = () => {
             <Typography
               key={index}
               variant="small"
-              className="hover:text-blue-500 transition text-gray-700 cursor-pointer"
+              className="ms-4 hover:text-blue-500 transition text-gray-700 cursor-pointer"
               onClick={() => handleNavigate(route.href)}   placeholder= {undefined} onPointerEnterCapture= {()=> {}} onPointerLeaveCapture= {()=> {}}            >
               {route.label}
             </Typography>
           ))}
         </nav>
 
+        </div>
+<div className="flex items-center gap-8 md:space-x-4">
         {/* 🔹 Botones de Usuario (Desktop) */}
         <div className="hidden md:flex items-center gap-4">
           {isAuthenticated ? (
@@ -124,14 +144,14 @@ const Navbar = () => {
 
         {/* 🔹 Botón Menú Mobile */}
         <IconButton variant="text" size="sm" className="md:hidden menu-container menu-toggle" onClick={toggleMenu}   placeholder= {undefined} onPointerEnterCapture= {()=> {}} onPointerLeaveCapture= {()=> {}}>
-          {isMenuOpen ? <XMarkIcon className="w-6 h-6 text-gray-700" /> : <Bars3Icon className="w-6 h-6 text-gray-700" />}
+          {isMenuOpen2 ? <XMarkIcon className="w-6 h-6 text-gray-700" /> : <Bars3Icon className="w-6 h-6 text-gray-700" />}
         </IconButton>
       </div>
 
       {/* 🔹 Menú Mobile */}
-      <div className={`md:hidden fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`} onClick={closeMenu}></div>
+      <div className={`md:hidden fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isMenuOpen2 ? "opacity-100" : "opacity-0 pointer-events-none"}`} onClick={closeMenu}></div>
       
-      <div className={`md:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-lg transition-transform transform ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
+      <div className={`md:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-lg transition-transform transform ${isMenuOpen2 ? "translate-x-0" : "translate-x-full"}`}>
         <div className="p-4 flex justify-between items-center border-b">
           <h2 className="text-lg font-semibold text-gray-800">Menú</h2>
           <IconButton variant="text" size="sm" className="menu-toggle" onClick={closeMenu}   placeholder= {undefined} onPointerEnterCapture= {()=> {}} onPointerLeaveCapture= {()=> {}}>
@@ -167,6 +187,7 @@ const Navbar = () => {
         </nav>
       </div>
     </header>
+    </div>
   );
 };
 

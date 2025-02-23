@@ -16,7 +16,7 @@ const ChangePassword = () => {
             return;
         }
         try {
-            const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/api/change-password', {
+            const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/api/restaurant/chg-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,6 +25,7 @@ const ChangePassword = () => {
                     currentPassword,
                     newPassword,
                 }),
+                credentials: 'include',
             });
 
             if (response.ok) {

@@ -1,0 +1,15 @@
+.slider-container {
+    width: 100%;
+    max-width: 896px; /* Puedes ajustar este valor según tus necesidades */
+    height: auto;
+    position: relative;
+    padding-top: 56.25%; /* Relación de aspecto 16:9 */
+  }
+  
+  .slider-container > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }

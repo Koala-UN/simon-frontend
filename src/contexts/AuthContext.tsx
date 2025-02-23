@@ -11,6 +11,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(authStatus === "true" ? true : false);
   const [user, setUser] = useState<User>( userStatus ? JSON.parse(userStatus ) : defaultUser);
+  const [isAdminMenuOpen, setIsAdminMenuOpen] = useState<boolean>(false);
 
   const login = async (email: string, password: string): Promise<{ success: boolean; message: string }> => {
     try {
@@ -74,8 +75,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/restaurant/register", {
         method: "POST",
+        credentials: "include",
         body: formData,
-      });
+      }, );
 
       if (response.ok) {
         const data = await response.json();
@@ -96,6 +98,19 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       return { success: false, message: (error as Error).message || "Registration failed" };
     }
   };
+
+  // funcion para hacer post a : /api/restaurant/auth-status e enviar en el body un user{}:
+
+  const postAuthStatus = async (user: User) => {
+    try {
+        console.log("user postAuthStatus:-- ", user)
+    }
+    catch (error) {
+      console.error("Error al verificar el estado de autenticación:", error);
+    }
+  }
+
+
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -131,7 +146,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser , login, logout, register, setIsLoading}}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser , login, logout, register, setIsLoading, postAuthStatus, isAdminMenuOpen, setIsAdminMenuOpen }}>
      <Loading isLoading={isLoading}>
 
       {children}

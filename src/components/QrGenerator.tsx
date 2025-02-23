@@ -1,31 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import QRCode from 'react-qr-code';
 import { toPng } from 'html-to-image';
+import { useAuth } from '../utils/getContext';
 
-const QrGenerator: React.FC = () => {
+const QrGenerator = () => {
   const [link, setLink] = useState<string>('');
   const [userData, setUserData] = useState<object | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const qrRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated, user } = useAuth();
 
   // 🔹 Función para obtener el ID del usuario autenticado
   useEffect(() => {
     const fetchUserId = async () => {
       try {
-        const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth-status",
-          { credentials: "include" }
-        );
+        
 
-        const data = await response.json();
-        console.log("🔍 Respuesta de la API:", data);
+        setUserData(user); // Guardamos la respuesta para mostrarla en la UI
 
-        setUserData(data); // Guardamos la respuesta para mostrarla en la UI
-
-        if (data.user?.id) {
-          const userId = data.user.id;
-          const reservationLink = `http://localhost:5173/reserve/${userId}`;
+        if (isAuthenticated) {
+          const userId = user.id;
+          const reservationLink = `https://simon-frontend-xi.vercel.app/reserve/${userId}`;
           setLink(reservationLink);
           console.log("✅ Link generado:", reservationLink);
         } else {
@@ -41,7 +37,7 @@ const QrGenerator: React.FC = () => {
     };
 
     fetchUserId();
-  }, []);
+  }, [isAuthenticated, user]);
 
   // 🔹 Función para descargar el QR como imagen
   const handleDownload = async () => {
@@ -69,7 +65,7 @@ const QrGenerator: React.FC = () => {
           <p className="text-red-500">{error}</p>
         ) : (
           <>
-            <div ref={qrRef} className="p-4 bg-white rounded-lg shadow-md">
+            <div ref={qrRef} className="p-4 bg-white rounded-lg shadow-md flex justify-center">
               <QRCode value={link} />
             </div>
             <p className="text-sm text-gray-600 mt-4">Escanea este código QR para acceder a tu reserva.</p>
@@ -80,7 +76,7 @@ const QrGenerator: React.FC = () => {
               Descargar Código QR
             </button>
 
-            {/* 🔹 Mostrar respuesta de la API */}
+             {/* Mostrar respuesta de la API */}
             <div className="mt-6 p-4 bg-gray-100 rounded-lg text-left">
               <h3 className="text-sm font-semibold">📡 Respuesta de la API:</h3>
               <pre className="text-xs text-gray-700">{JSON.stringify(userData, null, 2)}</pre>

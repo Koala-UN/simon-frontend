@@ -1,4 +1,5 @@
 import { Typography } from "@material-tailwind/react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const AboutUs = () => {
   const teamMembers = [
@@ -6,22 +7,30 @@ const AboutUs = () => {
       name: "Luis Alfonso Pedraos Suarez",
       role: "Backend Developer",
       // We'll use a placeholder until you can provide local images
-      imagePath: "src/assets/luis.jpg"
+      imagePath: "src/assets/luis.jpg",
+      github: "https://github.com/brosgor",
+      linkedin: "https://www.linkedin.com/in/alfonso-dev/"
     },
     {
       name: "Haider Mayorga Vela",
       role: "Front dev",
-      imagePath: "src/assets/haider.jpg"
+      imagePath: "src/assets/haider.jpg",
+      github: "https://github.com/hmayorgav",
+      linkedin: "https://www.linkedin.com/in/haider-andres-mayorga-vela-205241241/"
     },
     {
       name: "Martin Polanco Barrero",
       role: "Product Owner",
-      imagePath: "src/assets/martin.jpg"
+      imagePath: "src/assets/martin.jpg",
+      github: "https://github.com/mpolancob",
+      linkedin: "https://www.linkedin.com/in/martin-polanco-14aa91140/"
     },
     {
       name: "Cesar Fabian Rincon",
       role: "Back dev",
-      imagePath:  "src/assets/fabian.jpg"
+      imagePath:  "src/assets/fabian.jpg",
+      github: "https://github.com/CesarFRR",
+      linkedin: "https://www.linkedin.com/in/c%C3%A9sar-fabi%C3%A1n-r-4b4731139/"
     }]
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -62,6 +71,14 @@ const AboutUs = () => {
                 />
                 <h3 className="font-semibold text-lg text-center">{member.name}</h3>
                 <p className="text-gray-600 text-center">{member.role}</p>
+                <div className="flex space-x-4 mt-2">
+                  <a href={member.github} target="_blank" rel="noopener noreferrer">
+                    <FaGithub className="text-gray-600 hover:text-gray-800" size={24} />
+                  </a>
+                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                    <FaLinkedin className="text-gray-600 hover:text-gray-800" size={24} />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -72,7 +89,7 @@ const AboutUs = () => {
             Contáctanos
           </Typography>
           <p className="text-gray-700">
-            ¿Tienes alguna pregunta o sugerencia? No dudes en contactarnos a través de nuestro correo electrónico: contact@example.com
+            ¿Tienes alguna pregunta o sugerencia? No dudes en contactarnos a través de nuestro correo electrónico: <a href="mailto:koalasimonapp@gmail.com" className="text-blue-500">koalasimonapp@gmail.com</a>
           </p>
         </section>
       </div>

@@ -21,7 +21,10 @@ function MenuExtendido() {
   useEffect(() => {
     const fetchRestaurantName = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`, {
+          credentials: "include",
+        }
+        );
         const data = await response.json();
 
         if (data.status === "success") {
@@ -45,7 +48,9 @@ function MenuExtendido() {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/dish/restaurant/${restaurantId}`,
+          { credentials: "include" }
+        );
         const data = await response.json();
 
         if (data.status === "success") {

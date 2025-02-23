@@ -2,6 +2,7 @@ import { Typography, Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 //////import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/getContext";
+import Sidebar from "../components/Sidebar";
 interface Reservation {
   id: number;
   fecha: string;
@@ -21,17 +22,7 @@ function AdminDashboard() {
   //// const navigate = useNavigate();
 
   // Logout functionality
-  const handleLogout = async () => {
-    try {
-      await fetch(import.meta.env.VITE_BACKEND_URL+"/api/restaurant/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-      window.location.href = "/login";
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  };
+
 
   // Fetch reservations data
   useEffect(() => {
@@ -81,48 +72,10 @@ function AdminDashboard() {
   return (
     <div className="flex min-h-screen bg-blue-50">
       {/* Sidebar */}
-      <div className="w-1/4 bg-blue-800 text-white p-4">
-        <Typography variant="h5" className="font-bold mb-6 text-center"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
-          Simon
-        </Typography>
-        <nav className="space-y-4">
-          <div>
-            <Typography variant="small" className="uppercase text-blue-300"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
-              Servicios
-            </Typography>
-            <ul className="space-y-2 mt-2">
-              <li
-                onClick={() => window.location.href = "/admin/reserve"}
-                className="cursor-pointer hover:text-blue-300"
-              >
-                Reservas
-              </li>
-              <li
-                onClick={() => window.location.href = "/admin/orders"}
-                className="cursor-pointer hover:text-blue-300"
-              >
-                Pedidos
-              </li>
-              <li
-                onClick={() => window.location.href = "/inventory"}
-                className="cursor-pointer hover:text-blue-300"
-              >
-                Inventario
-              </li>
-            </ul>
-          </div>
-          <Button
-            size="sm"
-            color="red"
-            className="w-full mt-6"
-            onClick={handleLogout}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}          >
-            Cerrar sesión
-          </Button>
-        </nav>
-      </div>
+      <Sidebar />
 
       {/* Content Area */}
-      <div className="w-3/4 p-6">
+      <div className="w-full p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
           <Typography variant="h5" className="font-bold mb-4"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Reservas

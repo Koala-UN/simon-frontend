@@ -5,12 +5,14 @@ import Tags from "./Tags.tsx";
 import {FormattedRestaurant, FullRestaurant } from "../types/interfaces.ts";
 function SearchMenu() {
   const { cityId } = useParams<{ cityId: string }>(); // Get cityId from URL
+  // ver si tembien esta category en el URL
+  const { category } = useParams<{ category: string }>();
   const [restaurants, setRestaurants] = useState<FormattedRestaurant[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [filteredRestaurants, setFilteredRestaurants] = useState<FormattedRestaurant[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]); // Selected categories
   const navigate = useNavigate();
-
+  
   // Handle navigation
   const handleReserveClick = useCallback((restaurantId: number) => {
     navigate(`/reserve/${restaurantId}`);
@@ -21,7 +23,7 @@ function SearchMenu() {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/api/restaurant?cityId=${cityId}`
-        );
+        , { credentials: "include" });
         if (!response.ok) {
           throw new Error("Error loading restaurants.");
         }
@@ -38,10 +40,10 @@ function SearchMenu() {
             city: restaurant.address.ciudad.nombre,
             onClick: () => handleReserveClick(restaurant.id),
           }));
-
+          
           setRestaurants(formattedRestaurants);
           setFilteredRestaurants(formattedRestaurants);
-
+          
           console.log("Loaded restaurants:", formattedRestaurants.map((r: FormattedRestaurant) => ({ id: r.id, name: r.name })));
         } else {
           console.warn("No restaurants found.");
@@ -57,22 +59,28 @@ function SearchMenu() {
 
     if (cityId) fetchRestaurants();
   }, [cityId, handleReserveClick]);
-
+  
   // Apply filters when selected tags change
   useEffect(() => {
     if (selectedTags.length > 0) {
       const filtered = restaurants.filter((restaurant: FormattedRestaurant) =>
         restaurant.tag && selectedTags.includes(restaurant.tag)
-      );
-      setFilteredRestaurants(filtered);
-      console.log("Filtered restaurants:", filtered.map((r) => ({ id: r.id, name: r.name })));
-    } else {
+    );
+    setFilteredRestaurants(filtered);
+    console.log("Filtered restaurants:", filtered.map((r) => ({ id: r.id, name: r.name })));
+  } else {
       setFilteredRestaurants(restaurants);
       console.log("Showing all restaurants:", restaurants.map((r) => ({ id: r.id, name: r.name })));
     }
   }, [selectedTags, restaurants]);
-
-
+  
+  // Set selectedTags if category is present in the URL
+  useEffect(() => {
+    if (category) {
+      setSelectedTags([category]);
+    }
+  }, [category]);
+  
   return (
     <div className="flex w-full overflow-hidden">
       {/* Left Panel */}
