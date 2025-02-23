@@ -303,10 +303,10 @@ const handleAddProduct = async () => {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">
+    <div className="flex flex-col lg:flex-row justify-between min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">
       <Sidebar />
-      <div className="flex flex-col lg:w-3/4 px-4 py-6">
-        <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="flex flex-col  px-4 py-2 lg:flex-row w-full">
+        <div className="bg-white rounded-lg shadow-lg p-6 sm:mb-0 w-full">
           <Typography
             variant="h4"
             className="font-bold text-blue-600 mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}          >
@@ -318,15 +318,16 @@ const handleAddProduct = async () => {
             Items del menú
           </Typography>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid xl:grid-cols-3 gap-1 md:grid-cols-2
+          grid-cols-1 w-full"       >
             {menuItems.map((item) => (
               <Card
                 key={item.id}
-                className="flex flex-col items-center p-4 shadow-sm border rounded-lg hover:shadow-lg transition" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}              >
+                className="flex flex-col items-center p-5 shadow-sm border rounded-lg hover:shadow-lg transition" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}              >
                 <CardHeader
                   shadow={false}
                   floated={false}
-                  className="w-32 h-32 rounded-lg overflow-hidden" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}                >
+                  className="w-full h-auto max-w-xs rounded-lg overflow-hidden" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}                >
                   <img
                     src={item.imageUrl || "https://via.placeholder.com/80"}
                     alt={item.nombre}
@@ -370,7 +371,7 @@ const handleAddProduct = async () => {
           </div>
         </div>
 
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
+        <div className="bg-white rounded-lg shadow-lg p-6 m-0 mt-0 w-full lg:w-1/2 sm:mx-0  md:mx-4">
           <Typography
             variant="h6"
             className="text-blue-600 font-semibold mb-4 text-center" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}          >

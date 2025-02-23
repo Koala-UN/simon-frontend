@@ -62,10 +62,10 @@ export interface Dish {
           };
       };
       suscripcion?: {
-          id: number;
-          tipo: string;
-          fecha_suscripcion: string;
-          fecha_vencimiento: string;
+          id?: number;
+          tipo?: string;
+          fecha_suscripcion?: string;
+          fecha_vencimiento?: string;
       };
       imageUrl?: string;
   }
@@ -116,6 +116,9 @@ export interface CartItem extends Dish {
     logout: () => Promise<Response>;
     register: (formData: FormData) => Promise<{ success: boolean; message: string; }> ;
     setIsLoading: (value: boolean) => void;
+    postAuthStatus: (user: User) => Promise<void>;
+    isAdminMenuOpen: boolean;
+    setIsAdminMenuOpen: (value: boolean) => void;
   }
 
   // Definimos la interfaz del contexto

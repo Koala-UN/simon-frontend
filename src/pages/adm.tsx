@@ -75,7 +75,7 @@ function AdminDashboard() {
       <Sidebar />
 
       {/* Content Area */}
-      <div className="w-3/4 p-6">
+      <div className="w-full p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
           <Typography variant="h5" className="font-bold mb-4"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
             Reservas

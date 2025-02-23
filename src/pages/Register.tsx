@@ -2,6 +2,8 @@ import { useState } from "react";
 ////import { useNavigate } from "react-router-dom";
 import backgroundImage from "../assets/bglogin.png";
 import { useAuth } from "../utils/getContext";
+import defaultUserImage from "../assets/sign.png";
+
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
     nombre: "",
@@ -97,6 +99,12 @@ const RegisterForm = () => {
       formDataToSend.append("cityId", formData.cityId);
       if (formData.fotoPerfil) {
         formDataToSend.append("fotoPerfil", formData.fotoPerfil);
+      }else{
+        // enviar la imagen por defecto defaultUserImage
+        const defaultImage = await fetch(defaultUserImage);
+        const blob = await defaultImage.blob();
+        const file = new File([blob], "defaultUserImage.png", { type: "image/png" });
+        formDataToSend.append("fotoPerfil", file);
       }
 
       console.log("Datos a enviar:", {

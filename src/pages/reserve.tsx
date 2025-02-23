@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button, Typography, Card } from "@material-tailwind/react";
 import {
   FaClock,
@@ -13,22 +13,10 @@ import { MdSoupKitchen, MdEmojiFoodBeverage } from "react-icons/md";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { Dish , FullRestaurant} from "../types/interfaces";
+import { Dish, FullRestaurant } from "../types/interfaces";
 import { Value } from "react-calendar/dist/esm/shared/types.js";
-
-
-
-// interface Restaurant {
-//   id: number;
-//   name: string;
-//   category: string;
-//   address: {
-//     direccion: string;
-//   };
-//   descripcion: string;
-//   image: string;
-// }
-
+import SimpleImageSlider from "react-simple-image-slider";
+import "./../styles/reserve.css";
 
 function RestaurantReservation() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
@@ -39,7 +27,9 @@ function RestaurantReservation() {
   const [guests, setGuests] = useState<number>(4);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [capacityMessage, setCapacityMessage] = useState<string>("");
-
+  const [images, setImages] = useState<{ id: number; url: string }[]>([]);
+  const [imagesLoaded, setImagesLoaded] = useState<boolean>(false);
+  const [onlyOneImage, setOnlyOneImage] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const categoryIcons: { [key: string]: React.ReactNode } = {
@@ -52,6 +42,27 @@ function RestaurantReservation() {
   };
 
   useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}/img`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+        const data = await response.json();
+        if (data.length === 0) {
+          setOnlyOneImage(true);
+        }
+        setImages(data);
+        setImagesLoaded(true);
+        console.log("llegaron las imagenes: ", data);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    };
+
     const fetchRestaurant = async () => {
       try {
         const response = await fetch(
@@ -80,7 +91,8 @@ function RestaurantReservation() {
 
     fetchRestaurant();
     fetchDishes();
-  }, [restaurantId]);
+    fetchImages();
+  }, [restaurant?.imageUrl, restaurantId]);
 
   const handleDateChange = (value: Value) => {
     if (Array.isArray(value)) {
@@ -97,7 +109,7 @@ function RestaurantReservation() {
   const handleAvailabilityCheck = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/reserve/capacity/${restaurantId}`, 
+        `${import.meta.env.VITE_BACKEND_URL}/api/reserve/capacity/${restaurantId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -140,41 +152,70 @@ function RestaurantReservation() {
     navigate(`/menu/${restaurantId}`);
   };
 
+  useEffect(() => {
+    if (images.length > 0) {
+      console.log("AHORA SIII --> images: ", images[0]);
+      setImagesLoaded(true);
+    }
+  }, [images]);
+
   if (!restaurant) {
     return <p className="text-center text-gray-500">Cargando restaurante...</p>;
   }
 
+
   return (
     <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gray-100 p-4">
       <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 mb-6 lg:mb-0 lg:mr-4">
-        <Typography variant="h4" className="font-bold mb-2"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}} children={restaurant.nombre}        >
-          
+        <Typography variant="h4" className="font-bold mb-2" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }} children={restaurant.nombre}>
         </Typography>
         <div className="flex gap-2 mb-4">
-          <Button size="sm" color="red" onClick={()=> { 
+          <Button size="sm" color="red" onClick={() => {
             console.log("Click en el botón de categoría");
             console.log(" restaurante: ", restaurant);
 
             window.location.href = `/restaurantes/${restaurant.address.ciudadId}/${restaurant.categoria}`;
-           }}   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}} 
+          }} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}
             children={restaurant.categoria}>
-            
           </Button>
         </div>
-        <Typography variant="small" className="text-gray-700 mb-4"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}} children={restaurant.address?.direccion || "Dirección no disponible"}        >  
+        <Typography variant="small" className="text-gray-700 mb-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }} children={restaurant.address?.direccion || "Dirección no disponible"}>
         </Typography>
-        <Typography className="text-gray-600 mb-4"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}} children=
-          {restaurant.descripcion || "Descripción no disponible"}       >
+        <Typography className="text-gray-600 mb-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }} children=
+          {restaurant.descripcion || "Descripción no disponible"}>
         </Typography>
         <div className="mb-4">
-          <img
-            src={restaurant.imageUrl || "https://via.placeholder.com/800x400"}
-            alt="Restaurant"
-            className="w-full h-full rounded-lg object-cover"
-          />
+          <div className="slider-container items-center justify-center mx-auto">
+            {onlyOneImage ? (
+              <div className="w-full h-full">
+                <img
+                  src={restaurant?.imageUrl || "https://via.placeholder.com/800x400"}
+                  alt="Restaurant"
+                  className="w-full h-full rounded-lg object-cover"
+                />
+              </div>
+            ) : (
+              imagesLoaded && (
+                <SimpleImageSlider
+                  width="100%"
+                  height="100%"
+                  images={images.length === 0 ? [{ url: restaurant?.imageUrl || "https://via.placeholder.com/800x400" }] : images}
+                  showBullets={true}
+                  showNavs={true}
+                  autoPlay={true}
+                  autoPlayDelay={3}
+                  slideDuration={0.5}
+                  navStyle={2}
+                  bgColor="#f3f3f3"
+                  loop={true}
+                  startIndex={0}
+                />
+              )
+            )}
+          </div>
         </div>
         <div className="flex justify-end mb-4">
-          <Button color="blue" onClick={handleMenuNavigation}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+          <Button color="blue" onClick={handleMenuNavigation} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
             Ver Menú completo
           </Button>
         </div>
@@ -182,17 +223,17 @@ function RestaurantReservation() {
           {dishes.map((dish) => (
             <Card
               key={dish.id}
-              className="flex flex-row items-center p-4 shadow-sm border rounded-lg"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
+              className="flex flex-row items-center p-4 shadow-sm border rounded-lg" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 mr-4">
                 {categoryIcons[dish.categoria] || (
                   <FaPizzaSlice className="text-purple-500" />
                 )}
               </div>
               <div className="flex-1">
-                <Typography variant="h6" className="font-bold truncate"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+                <Typography variant="h6" className="font-bold truncate" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
                   {dish.nombre}
                 </Typography>
-                <Typography variant="small" className="text-gray-500"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+                <Typography variant="small" className="text-gray-500" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
                   COP {dish.precio.toLocaleString()}
                 </Typography>
               </div>
@@ -210,7 +251,7 @@ function RestaurantReservation() {
 
       {/* Right Panel */}
       <div className="w-full lg:w-1/3 p-4 bg-white rounded-lg shadow-lg">
-        <Typography variant="h6" className="font-bold mb-4"    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+        <Typography variant="h6" className="font-bold mb-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
           Elija una fecha y hora
         </Typography>
         <Calendar
@@ -253,12 +294,12 @@ function RestaurantReservation() {
             size="sm"
             color="blue"
             className="w-full"
-            onClick={handleAvailabilityCheck}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}          >
+            onClick={handleAvailabilityCheck} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
             Validar disponibilidad
           </Button>
           {isAvailable !== null && (
             <Typography
-              className={`text-center mt-2 ${isAvailable ? "text-green-500" : "text-red-500"}`}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
+              className={`text-center mt-2 ${isAvailable ? "text-green-500" : "text-red-500"}`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
               {capacityMessage}
             </Typography>
           )}
@@ -276,7 +317,7 @@ function RestaurantReservation() {
               restaurantId,
             },
           })}
-          disabled={!isAvailable}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}        >
+          disabled={!isAvailable} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
           <span className="text-center">Hacer reservación</span>
           <FaExternalLinkAlt className="text-white" />
         </Button>

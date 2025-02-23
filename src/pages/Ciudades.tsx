@@ -59,42 +59,17 @@ const Ciudades = () => {
         {cities.map((city) => (
           <div
             key={city.id}
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              overflow: "hidden",
-              width: "100%",
-              maxWidth: "300px",
-              margin: "0 auto",
-            }}
+            onClick={() => handleNavigate(city.id)} // Navigate on click
+            className="border border-gray-300 rounded-lg overflow-hidden w-full max-w-xs mx-auto cursor-pointer transform transition-transform duration-300 hover:scale-105"
           >
             <img
               src={city.imgSrc}
               alt={city.alt}
-              style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
-              }}
+              className="w-full h-auto object-cover transition-transform duration-300"
             />
-            <div
-              style={{
-                backgroundColor: "black",
-                padding: "10px",
-                textAlign: "center",
-              }}
-            >
+            <div className="bg-black p-2 text-center">
               <button
-                style={{
-                  backgroundColor: "black",
-                  color: "white",
-                  border: "none",
-                  padding: "10px 20px",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  width: "100%",
-                }}
-                onClick={() => handleNavigate(city.id)} // Navigate on click
+                className="bg-black text-white border-none py-2 px-4 rounded cursor-pointer w-full"
               >
                 Buscar en {city.name} 🔍
               </button>

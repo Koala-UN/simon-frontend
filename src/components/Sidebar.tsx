@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import { FullRestaurant } from "../types/interfaces";
 function Sidebar() {
-  const { isAuthenticated, logout, user} = useAuth();
+  const { isAuthenticated, logout, user, isAdminMenuOpen} = useAuth();
   const [restaurant, setRestaurant] = useState<FullRestaurant | null>(null);
   //// const navigate = useNavigate();
   const handleLogout = async () => {
@@ -52,7 +52,9 @@ function Sidebar() {
 
 
   return (
-    <div className="w-1/4 bg-blue-800 text-white p-4 min-h-screen">
+    // Aquí se muestra el panel de administración solo si isAdminMenuOpen es true
+    
+    <div className={`sm:w-1/3 lg:w-1/3 bg-blue-800 text-white p-4 h-screen ${isAdminMenuOpen ? '' : 'hidden lg:block'}`}>
       <Typography variant="h5" className="font-bold mb-6 text-center"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
       <>
         Panel de administración
