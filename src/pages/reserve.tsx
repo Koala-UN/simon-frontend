@@ -17,6 +17,8 @@ import { Dish, FullRestaurant } from "../types/interfaces";
 import { Value } from "react-calendar/dist/esm/shared/types.js";
 import SimpleImageSlider from "react-simple-image-slider";
 import "./../styles/reserve.css";
+import "../styles/animations.css";
+import "../styles/reserveAnimations.css";
 
 function RestaurantReservation() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
@@ -165,8 +167,8 @@ function RestaurantReservation() {
 
 
   return (
-    <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gray-100 p-4">
-      <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 mb-6 lg:mb-0 lg:mr-4">
+    <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gray-100 p-4 fade-in-reserve">
+      <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 mb-6 lg:mb-0 lg:mr-4 slide-in-reserve">
         <Typography variant="h4" className="font-bold mb-2" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }} children={restaurant.nombre}>
         </Typography>
         <div className="flex gap-2 mb-4">
@@ -223,7 +225,7 @@ function RestaurantReservation() {
           {dishes.map((dish) => (
             <Card
               key={dish.id}
-              className="flex flex-row items-center p-4 shadow-sm border rounded-lg" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
+              className="flex flex-row items-center p-4 shadow-sm border rounded-lg fade-in-reserve" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 mr-4">
                 {categoryIcons[dish.categoria] || (
                   <FaPizzaSlice className="text-purple-500" />
@@ -250,7 +252,7 @@ function RestaurantReservation() {
       </div>
 
       {/* Right Panel */}
-      <div className="w-full lg:w-1/3 p-4 bg-white rounded-lg shadow-lg">
+      <div className="w-full lg:w-1/3 p-4 bg-white rounded-lg shadow-lg slide-in-reserve">
         <Typography variant="h6" className="font-bold mb-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={() => { }}>
           Elija una fecha y hora
         </Typography>

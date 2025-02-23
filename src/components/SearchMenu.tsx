@@ -2,7 +2,9 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Matrix } from "../pages/Buscar"; // Ensure Matrix is correctly imported
 import Tags from "./Tags.tsx";
-import {FormattedRestaurant, FullRestaurant } from "../types/interfaces.ts";
+import { FormattedRestaurant, FullRestaurant } from "../types/interfaces.ts";
+import "../styles/animations.css";
+
 function SearchMenu() {
   const { cityId } = useParams<{ cityId: string }>(); // Get cityId from URL
   // ver si tembien esta category en el URL
@@ -82,12 +84,12 @@ function SearchMenu() {
   }, [category]);
   
   return (
-    <div className="flex w-full overflow-hidden">
+    <div className="flex w-full overflow-hidden fade-in">
       {/* Left Panel */}
       <Tags onFilterChange={setSelectedTags} />
 
       {/* Right Panel */}
-      <div className="flex-1 p-4">
+      <div className="flex-1 p-4 slide-in">
         {/* Search Input */}
         <div className="mb-4">
           <input

@@ -1,22 +1,13 @@
-// interface Dish {
-//   id: number;
-//   name: string;
-//   description: string;
-//   price: number;
-//   category: string;
-//   existencias: number;
-//   rating: number;
-// }
-
 import { Dish } from "../types/interfaces";
+
 function MatrixMenuExtendido({
-    dishes,
-    onAddToCart,
-  }: {
-    dishes: Dish[];
-    onAddToCart: (dish: Dish) => void;
-  }) {
-return (
+  dishes,
+  onAddToCart,
+}: {
+  dishes: Dish[];
+  onAddToCart: (dish: Dish) => void;
+}) {
+  return (
     <div className="grid grid-cols-3 gap-6 mt-4">
       {dishes.map((dish) => (
         <div
@@ -26,7 +17,7 @@ return (
         >
           {/* Image */}
           <img
-            src={"https://via.placeholder.com/150"}
+            src={dish.imageUrl || "https://via.placeholder.com/150"}
             alt={dish.nombre}
             className="w-full h-40 object-cover rounded-lg mb-3"
           />
@@ -36,7 +27,7 @@ return (
             <h3 className="font-semibold text-lg text-gray-800 truncate">{dish.nombre}</h3>
             <div className="flex items-center">
               <span className="text-yellow-500 text-sm">⭐</span>
-              <span className="text-sm text-gray-600 ml-1">{  "4.9"}</span>
+              <span className="text-sm text-gray-600 ml-1">{dish.rating || "4.9"}</span>
             </div>
           </div>
           <p className="text-sm text-green-600 mb-2">{dish.existencias || "In Stock"}</p>
@@ -50,7 +41,6 @@ return (
       ))}
     </div>
   );
-  }
-  
-  export default MatrixMenuExtendido;
-  
+}
+
+export default MatrixMenuExtendido;

@@ -1,0 +1,25 @@
+@keyframes fadeInReserve {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInReserve {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.fade-in-reserve {
+    animation: fadeInReserve 1.5s ease-in-out;
+}
+
+.slide-in-reserve {
+    animation: slideInReserve 1.5s ease-in-out;
+}

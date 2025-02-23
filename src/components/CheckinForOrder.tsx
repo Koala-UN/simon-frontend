@@ -3,12 +3,12 @@ import axios from "axios";
 import { usePayment, useAuth } from "../utils/getContext";
 import { useNavigate } from "react-router-dom";
 
-const Checkin = () => {
-  console.log('Checkin component rendered');
+const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
+  console.log('CheckinForOrder component rendered');
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const { paymentId } = usePayment();
-  const { login, setIsLoading, setIsAuthenticated, setUser } = useAuth();
+  const { setIsLoading } = useAuth();
   const navigate = useNavigate();
   const [manualPaymentId, setManualPaymentId] = useState<string>(paymentId);
 
@@ -28,11 +28,8 @@ const Checkin = () => {
       setPaymentStatus(response.data.status);
 
       if (response.data.status === "approved") {
-        console.log('Payment approved, registering user');
-        const formDataToSend = localStorage.getItem("formDataToSend");
-        if (formDataToSend) {
-          await registerUser(formDataToSend);
-        }
+        console.log('Payment approved, creating order');
+        onSuccess();
       }
     } catch (error) {
       console.error("Error verifying payment:", error);
@@ -43,60 +40,10 @@ const Checkin = () => {
     }
   };
 
-  const registerUser = async (formDataToSend: string) => {
-    console.log('registerUser function called with formDataToSend:', formDataToSend);
-    try {
-      const parsedFormData = JSON.parse(formDataToSend);
-      const formData = new FormData();
-      for (const key in parsedFormData) {
-        formData.append(key, parsedFormData[key]);
-      }
-
-      // Add suscriptionData to formData
-      const subscriptionType = localStorage.getItem("subscriptionType");
-      formData.set("suscriptionData", JSON.stringify({ tipo: subscriptionType }));
-      console.log('formData suscriptionData:', formData.get("suscriptionData"));
-
-      // Print formData
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-      }
-
-      const registerResponse = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/restaurant/register`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      console.log('User registration response:', registerResponse.data);
-      const { success, message, user } = registerResponse.data;
-      console.log('User:', user);
-
-      console.log('User registration successful, logging in user');
-      // Extract email and password from restaurantData (stored as JSON string)
-      const restaurantDataObj = JSON.parse(parsedFormData.restaurantData);
-      const email = restaurantDataObj.correo;
-      const password = restaurantDataObj.contrasena;
-      console.log('Email:', email, 'Password:', password);
-
-      const loginResponse = await login(email, password);
-      console.log('Login response:', loginResponse);
-      if (loginResponse.success) {
-        setIsAuthenticated(true);
-        setUser(user);
-        navigate("/restaurant/verify-email-send");
-         window.location.reload();
-      } else {
-        setErrorMessage(loginResponse.message);
-      }
-    } catch (error) {
-      console.error("Error al enviar datos:", error);
-      setErrorMessage("Error al enviar datos");
-    }
+  const handleCancel = () => {
+    setPaymentStatus(null);
+    setErrorMessage("");
+    setManualPaymentId("");
   };
 
   return (
@@ -122,6 +69,12 @@ const Checkin = () => {
         >
           Verificar
         </button>
+        <button
+          onClick={handleCancel}
+          className="mt-4 inline-block bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700"
+        >
+          Cancelar
+        </button>
         {paymentStatus && (
           <p className="text-3xl font-bold mb-4">
             {paymentStatus === "approved" ? "Pago exitoso" : "Error en el pago"}
@@ -135,4 +88,4 @@ const Checkin = () => {
   );
 };
 
-export default Checkin;
+export default CheckinForOrder;

@@ -18,13 +18,13 @@ const ReservaPasos = () => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-around',
-          gap: '30px',
+          justifyContent: 'center',
+          gap: '20px',
           flexWrap: 'wrap',
         }}
       >
         {/* Paso 1 */}
-        <div style={{ width: '250px', textAlign: 'center', padding: '20px' }}>
+        <div style={{ width: '250px', textAlign: 'center', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <img
               src={logoBuscar}
@@ -48,7 +48,7 @@ const ReservaPasos = () => {
           </p>
         </div>
         {/* Paso 2 */}
-        <div style={{ width: '250px', textAlign: 'center', padding: '20px' }}>
+        <div style={{ width: '250px', textAlign: 'center', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <img
               src={logoBuscar1}
@@ -72,7 +72,7 @@ const ReservaPasos = () => {
           </p>
         </div>
         {/* Paso 3 */}
-        <div style={{ width: '250px', textAlign: 'center', padding: '20px' }}>
+        <div style={{ width: '250px', textAlign: 'center', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <img
               src={logoBuscar2}
