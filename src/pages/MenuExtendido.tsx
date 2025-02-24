@@ -162,8 +162,7 @@ function MenuExtendido() {
             <OrderSummary
               totalItems={cart.reduce((total, item) => total + item.quantity, 0)}
               totalPrice={cart.reduce((total, item) => total + (parseFloat(item.precio) || 0) * item.quantity, 0)}
-              items={cart.map(item => ({ platilloId: item.id, cantidad: item.quantity }))}
-            />
+              items={cart.map(item => ({ platilloId: item.id, cantidad: item.quantity }))} mesaId={0}            />
           </PaymentProvider>
         </div>
       </div>
