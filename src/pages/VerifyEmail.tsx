@@ -15,7 +15,7 @@ const VerifyEmailFinal = () => {
             console.log("🚀 ~ Verificando email con token:", token);
             setIsLoading(true);
 
-            if (token) {
+            if (token && !reloaded) {
                 try {
                     const response = await fetch(
                         `${import.meta.env.VITE_BACKEND_URL}/api/restaurant/verify-email?token=${token}`,
@@ -30,6 +30,7 @@ const VerifyEmailFinal = () => {
                     const data = await response.json();
                     if (data.status === "success") {
                         setVerified(true);
+                        setReloaded(true);
                     } else {
                         setVerified(false);
                     }
