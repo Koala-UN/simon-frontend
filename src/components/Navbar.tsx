@@ -108,7 +108,7 @@ const routeList: RouteProps[] = [
             <div className="relative menu-container">
               <div onClick={() => setMenuOpen(!menuOpen)} className="cursor-pointer">
                 {user?.imageUrl ? (
-                  <img src={user.imageUrl} alt="User" className="w-8 h-8 rounded-full object-cover" />
+                  <img src={user.imageUrl} alt="User" className="w-8 h-8 rounded-full object-cover" referrerPolicy="no-referrer"/>
                 ) : (
                   <UserCircleIcon className="w-8 h-8 text-gray-700" />
                 )}

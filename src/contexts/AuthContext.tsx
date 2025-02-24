@@ -123,6 +123,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (response.ok) {
           const data = await response.json();
           setIsAuthenticated(data.authenticated);
+          // const imageUrl = data.user.imageUrl;
+          // si la imagen no es null y tiene "googleusercontent.com" entonces es una foto de google y hay que hacerle fetch y hacer URL object
+          // if (imageUrl && imageUrl.includes("googleusercontent.com")) {
+            
+          // }
           setUser(data.user); // Asumiendo que la respuesta incluye los datos del usuario
           // guardar en storage estos datos
 

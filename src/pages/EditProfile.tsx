@@ -163,12 +163,12 @@ function EditProfile() {
         await handleUpdateImages();
       const formData = new FormData();
       formData.append("id", editProfile.id.toString());
-      formData.append("nombre", editProfile.nombre);
-      formData.append("telefono", editProfile.telefono);
-      formData.append("capacidadReservas", editProfile.capacidadReservas.toString());
-      formData.append("descripcion", editProfile.descripcion);
-      formData.append("categoria", editProfile.categoria);
-      formData.append("direccion", editProfile.direccion);
+      formData.append("nombre", editProfile.nombre?? "");
+      formData.append("telefono", editProfile.telefono?? "");
+      formData.append("capacidadReservas", editProfile.capacidadReservas? editProfile.capacidadReservas.toString() : "0");
+      formData.append("descripcion", editProfile.descripcion?? "");
+      formData.append("categoria", editProfile.categoria?? "");
+      formData.append("direccion", editProfile.direccion?? "");
       formData.append("ciudadId", editProfile.ciudadId.toString());
       formData.append("departamentoId", editProfile.departamentoId.toString());
       if (previewImage) {

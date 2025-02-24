@@ -7,6 +7,10 @@ import CatalogoRestaurantes from "./pages/catalogo";
 import { motion } from "framer-motion";
 
 function App() {
+  // Verificar y actualizar la URL del backend
+if (!import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL === undefined) {
+  import.meta.env.VITE_BACKEND_URL = 'http://localhost:5000';
+}
   return (
     <>
       <motion.div
