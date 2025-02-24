@@ -336,7 +336,7 @@ const handleAddProduct = async () => {
                   <Typography variant="h6" className="font-bold truncate" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
                     {item.nombre || "Producto sin nombre"}
                   </Typography>
-                  <Typography className="text-sm truncate text-gray-600" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+                  <Typography className="text-sm text-gray-600" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
                     {item.descripcion || "Sin descripción"}
                   </Typography>
                   <Typography className="font-semibold" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>

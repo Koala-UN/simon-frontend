@@ -7,6 +7,7 @@ import Checkin from "../components/Checkin";
 const SubscriptionPlans = () => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [showCheckin, setShowCheckin] = useState<boolean>(false);
+  const [showVerifyButton, setShowVerifyButton] = useState<boolean>(false);
   const { setPaymentId } = usePayment();
 
   const createPreference = async (unitPrice: number): Promise<string | undefined> => {
@@ -35,6 +36,7 @@ const SubscriptionPlans = () => {
         `https://www.mercadopago.com.co/checkout/v1/redirect?preference-id=${id}`,
         "_blank"
       );
+      setShowVerifyButton(true); // Show verify button after payment
     } else {
       alert("Error al procesar el pago. Inténtalo de nuevo.");
     }
@@ -48,82 +50,98 @@ const SubscriptionPlans = () => {
         {/* Header */}
         <Typography
           variant="h4"
-          className="font-extrabold text-center text-blue-700 mb-10" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
+          className="font-extrabold text-center text-blue-700 mb-10"
+        >
           Planes de Suscripción
         </Typography>
 
         {/* Plans */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Plan Mensualidad Base */}
-          <div className="border border-blue-300 rounded-xl p-8 bg-blue-50 hover:bg-blue-100 shadow-md transition transform hover:scale-105">
-            <Typography
-              variant="h5"
-              className="font-bold text-center text-blue-800 mb-4" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
-              Mensualidad Base
-            </Typography>
-            <Typography className="text-gray-600 mb-2 text-center" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-              <strong>Precio:</strong> COP 45,000 al mes.
-            </Typography>
-            <Typography className="text-gray-600 mb-4 text-center" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-              <strong>Incluye:</strong> Gestión de reservas y pedidos, soporte
-              multiplataforma, acceso de administradores y reportes básicos.
-            </Typography>
-            <div className="flex flex-col items-center space-y-4">
+          <div className="border border-blue-300 rounded-xl p-8 bg-blue-50 hover:bg-blue-100 shadow-md transition transform hover:scale-105 flex flex-col justify-between">
+            <div>
+              <Typography
+                variant="h5"
+                className="font-bold text-center text-blue-800 mb-4"
+              >
+                Mensualidad Base
+              </Typography>
+              <Typography className="text-gray-600 mb-2 text-center">
+                <strong>Precio:</strong> COP 45,000 al mes.
+              </Typography>
+              <Typography className="text-gray-600 mb-4 text-center">
+                <strong>Incluye:</strong> Gestión de reservas y pedidos, soporte
+                multiplataforma, acceso de administradores y reportes básicos.
+              </Typography>
+            </div>
+            <div className="flex flex-col items-center space-y-4 mt-4">
               <Button
                 variant="gradient"
                 color="blue"
                 size="md"
                 className="w-full"
                 onClick={() => handlePay(45000, "MENSUAL")}
-                disabled={isProcessing} placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                disabled={isProcessing}
+              >
                 {isProcessing ? "Procesando..." : "Suscribirse"}
               </Button>
             </div>
           </div>
 
           {/* Plan Anual */}
-          <div className="border border-blue-300 rounded-xl p-8 bg-yellow-50 hover:bg-yellow-100 shadow-md transition transform hover:scale-105">
-            <Typography
-              variant="h5"
-              className="font-bold text-center text-yellow-800 mb-4" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
-              Plan Anual
-            </Typography>
-            <Typography className="text-gray-600 mb-2 text-center" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-              <strong>Precio:</strong> COP 450,000 al año (descuento del 17% sobre el
-              plan mensual).
-            </Typography>
-            <Typography className="text-gray-600 mb-2 text-center" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-              <strong>Incluye:</strong> Todo lo del plan mensual durante 12 meses.
-            </Typography>
-            <Typography className="text-gray-600 mb-4 text-center" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-              <strong>Beneficio:</strong> Equivale a un ahorro de COP 90,000 frente al
-              pago mensual.
-            </Typography>
-            <div className="flex flex-col items-center space-y-4">
+          <div className="border border-blue-300 rounded-xl p-8 bg-yellow-50 hover:bg-yellow-100 shadow-md transition transform hover:scale-105 flex flex-col justify-between">
+            <div>
+              <Typography
+                variant="h5"
+                className="font-bold text-center text-yellow-800 mb-4"
+              >
+                Plan Anual
+              </Typography>
+              <Typography className="text-gray-600 mb-2 text-center">
+                <strong>Precio:</strong> COP 450,000 al año (descuento del 17% sobre el
+                plan mensual).
+              </Typography>
+              <Typography className="text-gray-600 mb-2 text-center">
+                <strong>Incluye:</strong> Todo lo del plan mensual durante 12 meses.
+              </Typography>
+              <Typography className="text-gray-600 mb-4 text-center">
+                <strong>Beneficio:</strong> Equivale a un ahorro de COP 90,000 frente al
+                pago mensual.
+              </Typography>
+            </div>
+            <div className="flex flex-col items-center space-y-4 mt-4">
               <Button
                 variant="gradient"
                 color="yellow"
                 size="md"
                 className="w-full"
                 onClick={() => handlePay(450000, "ANUAL")}
-                disabled={isProcessing} placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                disabled={isProcessing}
+              >
                 {isProcessing ? "Procesando..." : "Suscribirse"}
-              </Button>
-              <Button
-                variant="gradient"
-                color="green"
-                size="md"
-                className="w-full mt-4"
-                onClick={() => setShowCheckin(true)} placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
-                Verificar Pago
               </Button>
             </div>
           </div>
         </div>
 
+        {/* Verify Payment Button */}
+        {showVerifyButton && (
+          <div className="flex flex-col items-center mt-8">
+            <Button
+              variant="gradient"
+              color="green"
+              size="md"
+              className="w-full"
+              onClick={() => setShowCheckin(true)}
+            >
+              Verificar Pago
+            </Button>
+          </div>
+        )}
+
         {/* Footer */}
         <div className="mt-12 text-center">
-          <Typography variant="small" className="text-gray-600" placeholder={undefined}   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          <Typography variant="small" className="text-gray-600">
             ¿Tienes dudas? Contáctanos en{" "}
             <a
               href="mailto:soporte@simon.com"
