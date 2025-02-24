@@ -1,6 +1,10 @@
 import { Typography } from "@material-tailwind/react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import "../styles/animations.css";
+import luisImg from "../assets/luis.jpg";
+import haiderImg from "../assets/haider.jpg";
+import martinImg from "../assets/martin.jpg";
+import fabianImg from "../assets/fabian.jpg";
 
 const AboutUs = () => {
   const teamMembers = [
@@ -8,28 +12,28 @@ const AboutUs = () => {
       name: "Luis Alfonso Pedraos Suarez",
       role: "Backend Developer",
       // We'll use a placeholder until you can provide local images
-      imagePath: "src/assets/luis.jpg",
+      imagePath: luisImg,
       github: "https://github.com/brosgor",
       linkedin: "https://www.linkedin.com/in/alfonso-dev/"
     },
     {
       name: "Haider Mayorga Vela",
       role: "Front dev",
-      imagePath: "src/assets/haider.jpg",
+      imagePath: haiderImg,
       github: "https://github.com/hmayorgav",
       linkedin: "https://www.linkedin.com/in/haider-andres-mayorga-vela-205241241/"
     },
     {
       name: "Martin Polanco Barrero",
       role: "Product Owner",
-      imagePath: "src/assets/martin.jpg",
+      imagePath: martinImg,
       github: "https://github.com/mpolancob",
       linkedin: "https://www.linkedin.com/in/martin-polanco-14aa91140/"
     },
     {
       name: "Cesar Fabian Rincon",
       role: "Back dev",
-      imagePath:  "src/assets/fabian.jpg",
+      imagePath:  fabianImg,
       github: "https://github.com/CesarFRR",
       linkedin: "https://www.linkedin.com/in/c%C3%A9sar-fabi%C3%A1n-r-4b4731139/"
     }]
