@@ -49,7 +49,9 @@ function ConfirmReserve() {
 
     // Si no se recibe `restaurantName`, obtenerlo del backend
     if (!restaurantName && restaurantId) {
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`)
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${restaurantId}`, 
+      { credentials: "include" }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.status === "success") {

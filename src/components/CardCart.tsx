@@ -45,7 +45,10 @@ export function CardCart({
         if (result.status === 'success' && result.data) {
           const fetchedPrice = parseFloat(result.data.precio); // Convert string to number
           setPrice(isNaN(fetchedPrice) ? null : fetchedPrice);
-          setImage(result.data.imageUrl || null);
+          const sanitizedImageUrl = result.data.imageUrl && typeof result.data.imageUrl === 'string' ? result.data.imageUrl.replace(/^http:/, 'https:') : result.data.imageUrl;
+
+
+          setImage(sanitizedImageUrl || null);
         } else {
           console.error('Unexpected API response:', result);
         }

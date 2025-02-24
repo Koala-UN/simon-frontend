@@ -213,7 +213,8 @@ const handleAddProduct = async () => {
     setEditMode(true);
   
     const fetchImageAsFile = async (url: string) => {
-      const response = await fetch(url);
+      const newUrl = url && typeof url === 'string' ? url.replace(/^http:/, 'https:') : url;
+      const response = await fetch(newUrl);
       const blob = await response.blob();
       const file = new File([blob], "image.jpg", { type: blob.type });
       return file;
@@ -412,7 +413,7 @@ const handleAddProduct = async () => {
                 </button>
                 
                 <img
-                  src={imageUrl}
+                  src={imageUrl && typeof imageUrl === 'string' ? imageUrl.replace(/^http:/, 'https:') : imageUrl}
                   alt="Vista previa de la foto de perfil"
                   className="w-32 h-32 object-cover rounded-sm shadow-md"
                 />
