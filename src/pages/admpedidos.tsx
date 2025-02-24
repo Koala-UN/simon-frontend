@@ -23,36 +23,32 @@ function AdminDashboardOrders() {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        
         if (!isAuthenticated) {
           window.location.href = "/login";
           return;
         } else {
-            const restauranteId = user.id;
+          const restauranteId = user.id;
 
-            // Fetch orders if authenticated
-            const ordersResponse = await fetch(
-              `${import.meta.env.VITE_BACKEND_URL}/api/order?restaurantId=${restauranteId}`,
-              {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-              }
-            );
-
-            const ordersData = await ordersResponse.json();
-
-            if (ordersResponse.ok && Array.isArray(ordersData)) {
-              setOrders(ordersData);
-              setTotalPages(Math.ceil(ordersData.length / ordersPerPage));
-            } else {
-              console.error("Error al obtener pedidos:", ordersData);
-              setOrders([]);
+          // Fetch orders if authenticated
+          const ordersResponse = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/order?restaurantId=${restauranteId}`,
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
             }
+          );
 
+          const ordersData = await ordersResponse.json();
+
+          if (ordersResponse.ok && Array.isArray(ordersData)) {
+            setOrders(ordersData);
+            setTotalPages(Math.ceil(ordersData.length / ordersPerPage));
+          } else {
+            console.error("Error al obtener pedidos:", ordersData);
+            setOrders([]);
           }
-        
-        
+        }
       } catch (error) {
         console.error("Error checking auth status:", error);
         window.location.href = "/login";
@@ -70,7 +66,7 @@ function AdminDashboardOrders() {
   if (isAuthenticated === null) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Typography variant="h6"  placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>Verificando autenticación...</Typography>
+        <Typography variant="h6">Verificando autenticación...</Typography>
       </div>
     );
   }
@@ -83,10 +79,10 @@ function AdminDashboardOrders() {
       {/* Content Area */}
       <div className="w-full lg:w-3/4 p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <Typography variant="h5" className="font-bold mb-4"  placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+          <Typography variant="h5" className="font-bold mb-4">
             Pedidos
           </Typography>
-          <Typography variant="small" className="text-blue-600 mb-6 block"  placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
+          <Typography variant="small" className="text-blue-600 mb-6 block">
             Últimos pedidos
           </Typography>
 
@@ -152,7 +148,8 @@ function AdminDashboardOrders() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}  placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
               Anterior
             </Button>
             <div>
@@ -162,7 +159,8 @@ function AdminDashboardOrders() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}  placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
               Siguiente
             </Button>
           </div>

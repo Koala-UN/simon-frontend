@@ -1,8 +1,9 @@
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-
 import { usePayment } from "../utils/getContext";
+import CheckinForOrder from "./CheckinForOrder";
+import Modal from "./Modal";
 
 /**
  * Componente `OrderSummary` que muestra un resumen del pedido y permite realizar pagos con Mercado Pago.
@@ -10,17 +11,26 @@ import { usePayment } from "../utils/getContext";
  * @param {Object} props - Propiedades del componente.
  * @param {number} props.totalItems - Número total de elementos en el pedido.
  * @param {number} props.totalPrice - Precio total del pedido.
+ * @param {Array} props.items - Array de objetos con los detalles de los platillos.
+ * @param {number} props.mesaId - ID de la mesa.
  *
  * @returns {JSX.Element} El componente `OrderSummary`.
  */
-function OrderSummary({ totalItems, totalPrice }: { totalItems: number; totalPrice: number }) {
+function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: number; totalPrice: number; items: { platilloId: number; cantidad: number }[], mesaId: number }) {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [showCheckin, setShowCheckin] = useState<boolean>(false);
+  const [showNameModal, setShowNameModal] = useState<boolean>(false);
+  const [nombreCliente, setNombreCliente] = useState<string>("");
   const { setPaymentId } = usePayment();
+
+  useEffect(() => {
+    console.log("Items del carrito:", items);
+  }, [items]);
 
   // Crear preferencia de pago en Mercado Pago
   const createPreference = async (): Promise<string | undefined> => {
     try {
-      const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/payment/create_preference", {
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/payment/create_preference", {
         title: "Resumen del Pedido",
         quantity: 1,
         unit_price: totalPrice,
@@ -44,11 +54,41 @@ function OrderSummary({ totalItems, totalPrice }: { totalItems: number; totalPri
         `https://www.mercadopago.com.co/checkout/v1/redirect?preference-id=${id}`,
         "_blank"
       );
+      setShowCheckin(true);
     } else {
       alert("Error al procesar el pago. Inténtalo de nuevo.");
     }
 
     setIsProcessing(false);
+  };
+
+  const handleOrderCreation = async () => {
+    const orderDetails = {
+      nombre_cliente: nombreCliente,
+      mesaId: mesaId,
+      platillos: items.map(item => ({ platilloId: item.platilloId, cantidad: item.cantidad }))
+    };
+    console.log("Pedido a crear:", JSON.stringify(orderDetails, null, 2)); // Imprimir el pedido a crear
+    try {
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/order", orderDetails, {
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      console.log("Pedido creado exitosamente:", response.data);
+    } catch (error) {
+      if (error.response) {
+        console.error("Error al crear el pedido:", error.response.data);
+      } else {
+        console.error("Error al crear el pedido:", error.message);
+      }
+    }
+  };
+
+  const handleNameSubmit = (name: string) => {
+    setNombreCliente(name);
+    setShowNameModal(false);
+    handleOrderCreation();
   };
 
   return (
@@ -83,6 +123,26 @@ function OrderSummary({ totalItems, totalPrice }: { totalItems: number; totalPri
         {isProcessing ? "Procesando..." : "Pagar pedido"}
         <FaExternalLinkAlt className="w-4 h-4" />
       </button>
+
+      {/* Componente CheckinForOrder */}
+      {showCheckin && (
+        <div className="mt-4">
+          <CheckinForOrder onSuccess={() => {
+            console.log("Pago verificado exitosamente");
+            setShowCheckin(false);
+            setShowNameModal(true);
+          }} />
+        </div>
+      )}
+
+      {/* Modal para solicitar el nombre del cliente */}
+      {showNameModal && (
+        <Modal
+          title="Ingrese su nombre"
+          onClose={() => setShowNameModal(false)}
+          onSubmit={handleNameSubmit}
+        />
+      )}
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { usePayment, useAuth } from "../utils/getContext";
 import { useNavigate } from "react-router-dom";
 
 const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
-  console.log('CheckinForOrder component rendered');
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const { paymentId } = usePayment();
@@ -13,7 +12,6 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
   const [manualPaymentId, setManualPaymentId] = useState<string>(paymentId);
 
   const verifyPayment = async () => {
-    console.log('verifyPayment function called with paymentId:', manualPaymentId);
     setIsLoading(true);
     try {
       const response = await axios.get(
@@ -24,12 +22,11 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
           },
         }
       );
-      console.log('Payment verification response:', response.data);
       setPaymentStatus(response.data.status);
 
       if (response.data.status === "approved") {
-        console.log('Payment approved, creating order');
         onSuccess();
+        console.log("Pedido creado exitosamente");
       }
     } catch (error) {
       console.error("Error verifying payment:", error);
@@ -53,18 +50,12 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
         <input
           type="text"
           value={manualPaymentId}
-          onChange={(e) => {
-            console.log('manualPaymentId input changed:', e.target.value);
-            setManualPaymentId(e.target.value);
-          }}
+          onChange={(e) => setManualPaymentId(e.target.value)}
           placeholder="Ingrese el ID del pago"
           className="w-full p-2 border border-gray-300 rounded mt-2"
         />
         <button
-          onClick={() => {
-            console.log('Verificar button clicked');
-            verifyPayment();
-          }}
+          onClick={verifyPayment}
           className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
         >
           Verificar

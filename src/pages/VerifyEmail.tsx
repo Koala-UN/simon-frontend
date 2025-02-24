@@ -9,13 +9,7 @@ const VerifyEmailFinal = () => {
     const [verified, setVerified] = useState<boolean>(false);
     const [reloaded, setReloaded] = useState<boolean>(false); // Estado para evitar recarga infinita
 
-    useEffect(() => {
-        // Recargar la página solo una vez
-        if (!reloaded) {
-            setReloaded(true);
-            window.location.reload();
-        }
-    }, []);
+
 
     useEffect(() => {
         const verifyEmail = async () => {
