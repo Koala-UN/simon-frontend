@@ -35,7 +35,7 @@ function Sidebar() {
         const data = await response.json();
 
         if (response.ok) {
-          //console.log("🚀 ~ file: Sidebar.tsx ~ line 73 ~ fetchProfile ~ data", data)
+          console.log("🚀 ~ file: Sidebar.tsx ~ line 73 ~ fetchProfile ~ data", data)
           setRestaurant(data.data);
         } else {
           console.error("Error fetching profile:", data.message);
@@ -87,17 +87,34 @@ function Sidebar() {
           >
           Cerrar sesión
         </Button>
-        {!restaurant?.suscripcion && (
+        {!restaurant?.suscripcion?.id && ( 
           <><Typography variant="small" className="text-white mt-4 bg-gray-900 p-2 rounded-lg border border-red-500" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             <span className="font-bold ">¡Atención!</span> Debes pagar para obtener todos los beneficios porque no hay suscripción.
-            <Button size="sm" color="green" className="w-full mt-6"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}
-          onClick={() => window.location.href = "/admin/subscription"}
+            <Button size="sm" color="green" className="w-full mt-6 mb-2"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}
+          onClick={() => window.location.href = "/plans"}
           >
           Pagar suscripción
         </Button>
           </Typography>
           </>
 
+        )}
+        {(restaurant?.estado === "NO_VERIFICADO") && (
+          <div className="mt-4 p-4 bg-teal-600 rounded-lg border border-red-500 text-white">
+            <Typography variant="small" className="font-bold"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+              Debes verificar tu correo para obtener todos los beneficios.
+            </Typography>
+            <Typography variant="small" className="mt-2"   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+              Si no obtuviste el correo de verificación, haz clic en el botón de abajo para reenviarlo.
+            </Typography>
+            <Button
+              size="sm"
+              color="blue"
+              className="w-full mt-4"
+              onClick={() => window.location.href = "/restaurant/verify-email-send"}   placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
+              Reenviar correo de verificación
+            </Button>
+          </div>
         )}
       </nav>
     </div>

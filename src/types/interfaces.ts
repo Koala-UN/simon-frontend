@@ -102,6 +102,8 @@ export interface User {
     nombre?: string;
     correo: string;
     imageUrl?: string;
+    sub?: boolean;
+    ver?: boolean;
 }
 export interface CartItem extends Dish {
     quantity: number;
