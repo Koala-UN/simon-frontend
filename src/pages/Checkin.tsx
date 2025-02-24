@@ -9,7 +9,9 @@ const Checkin = () => {
 
   const verifyPayment = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/payment/verify?paymentId=${manualPaymentId}`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/payment/verify?paymentId=${manualPaymentId}`, 
+        { withCredentials: true }
+      );
       setPaymentStatus(response.data.status);
     } catch (error) {
       console.error("Error verifying payment:", error);

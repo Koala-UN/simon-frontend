@@ -30,11 +30,13 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
   // Crear preferencia de pago en Mercado Pago
   const createPreference = async (): Promise<string | undefined> => {
     try {
-      const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/payment/create_preference", {
-        title: "Resumen del Pedido",
-        quantity: 1,
-        unit_price: totalPrice,
-      });
+    const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/payment/create_preference", {
+      title: "Resumen del Pedido",
+      quantity: 1,
+      unit_price: totalPrice,
+    }, {
+      withCredentials: true,
+    });
       console.log("Preferencia creada:", response.data.id);
       return response.data.id;
     } catch (error) {
@@ -73,7 +75,8 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
       const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/order", orderDetails, {
         headers: {
           "Content-Type": "application/json",
-        }
+        },
+        withCredentials: true,
       });
       console.log("Pedido creado exitosamente:", response.data);
     } catch (error) {

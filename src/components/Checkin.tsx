@@ -22,6 +22,7 @@ const Checkin = () => {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN_MERCADO_PAGO}`,
           },
+          withCredentials: true,
         }
       );
       console.log('Payment verification response:', response.data);
@@ -69,6 +70,7 @@ const Checkin = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+          withCredentials: true,
         }
       );
 

@@ -16,6 +16,9 @@ const SubscriptionPlans = () => {
         title: "Plan de Suscripción",
         quantity: 1,
         unit_price: unitPrice,
+      },
+      {
+        withCredentials: true,
       });
       console.log("Preferencia creada:", response.data.id);
       return response.data.id;

@@ -18,6 +18,7 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN_MERCADO_PAGO}`,
           },
+          withCredentials: true,
         }
       );
       setPaymentStatus(response.data.status);
