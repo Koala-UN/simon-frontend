@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import axios from "axios";
 import { usePayment } from "../utils/getContext";
 
 const Checkin = () => {
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
-  const { paymentId, setPaymentId } = usePayment();
+  const { paymentId } = usePayment();
   const [manualPaymentId, setManualPaymentId] = useState<string>(paymentId);
 
   const verifyPayment = async () => {

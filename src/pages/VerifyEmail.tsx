@@ -15,7 +15,7 @@ const VerifyEmailFinal = () => {
             setReloaded(true);
             window.location.reload();
         }
-    }, []);
+    }, [reloaded]);
 
     useEffect(() => {
         const verifyEmail = async () => {
