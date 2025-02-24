@@ -4,20 +4,20 @@ const tratamiento = () => {
   return (
     <div className="p-6 bg-gray-100">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
-        <Typography variant="h4" className="font-bold mb-6 text-center">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h4" className="font-bold mb-6 text-center">
           Política de Tratamiento de Datos Personales (Política de Privacidad)
         </Typography>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           INTRODUCCIÓN
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           La sociedad SIMON, con domicilio en Bogotá D.C., correo electrónico
           koalasimonapp@gmail.com y teléfono 300 7102511, informa a los Titulares de
           Datos Personales que sean tratados de cualquier forma por SIMON acerca de
           esta política de tratamiento de información, en cumplimiento de la Ley 1581
           de 2012 y el Decreto 1377 de 2013.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           El objetivo principal de esta Política es informar a los Titulares de los
           Datos Personales sobre sus derechos, los procedimientos y mecanismos
           establecidos por SIMON para garantizar el ejercicio de dichos derechos, así
@@ -25,7 +25,7 @@ const tratamiento = () => {
           sometidos los Datos Personales, siempre que el Titular otorgue su
           autorización previa, expresa e informada.
         </Typography>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           DEFINICIONES
         </Typography>
         <ul className="list-disc list-inside mb-4">
@@ -48,10 +48,10 @@ const tratamiento = () => {
           <li>Transferencia: La Transferencia de Datos Personales tiene lugar cuando el Responsable y/o Encargado del Tratamiento de Datos Personales envía la información o los datos personales a un receptor, que a su vez es responsable del tratamiento y se encuentra dentro o fuera del país.</li>
           <li>Violación de datos personales: Es el delito tipificado en el artículo 269 del Código Penal. El cual establece: “El que, sin estar facultado para ello, con provecho propio o de un tercero, obtenga, compile, sustraiga, ofrezca, venda, intercambie, envíe, compre, intercepte, divulgue, modifique o emplee códigos personales, datos personales contenidos en ficheros, archivos, bases de datos o medios semejantes, incurrirá en pena de prisión de cuarenta y ocho (48) a noventa y seis (96) meses y en multa de 100 a 1000 salarios mínimos legales mensuales vigentes.”</li>
         </ul>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           PRINCIPIOS RECTORES PARA EL TRATAMIENTO DE DATOS PERSONALES
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Según lo establecido en el Título II de la Ley Estatutaria 1581 de 2012, la
           protección de datos personales se regirá por la aplicación armónica e
           integral de los siguientes principios:
@@ -66,10 +66,10 @@ const tratamiento = () => {
           <li>Principio de confidencialidad: Todas las personas que intervengan en el tratamiento de datos personales que no tengan la naturaleza de públicos están obligadas a garantizar la reserva de la información, inclusive después de finalizada su relación con alguna de las labores que comprende el tratamiento, pudiendo sólo realizar suministro o comunicación de datos personales cuando ello corresponda al desarrollo de las actividades autorizadas en la Ley Estatutaria 1581 de 2012 y en los términos de la misma.</li>
           <li>Principio de acceso y circulación restringida: El tratamiento se sujeta a los límites que se derivan de la naturaleza de los datos personales, de las disposiciones de la Ley Estatutaria 1581 de 2012 y la Constitución. En este sentido, el tratamiento sólo podrá hacerse por personas autorizadas por el Titular y/o por las personas previstas en la mencionada ley.</li>
         </ul>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           DERECHOS DE LOS TITULARES
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           En cumplimiento de las garantías fundamentales consagradas en la
           Constitución y la ley, y sin perjuicio de lo dispuesto en las demás normas
           que regulen la materia, los Titulares de los datos personales podrán ejercer
@@ -86,13 +86,13 @@ const tratamiento = () => {
           <li>Derecho a presentar quejas y reclamos ante la Superintendencia de Industria y Comercio por infracciones a lo dispuesto en la Ley Estatutaria 1581 de 2012 y las demás normas que la modifiquen, adicionen o complementen.</li>
           <li>Derecho a ser informado por parte del Responsable y/o Encargado del uso y tratamiento que se les dará a los datos personales, así como de las modificaciones y actualizaciones de las políticas de protección, medidas de seguridad y finalidades.</li>
         </ul>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           FORMA DE RECOLECTAR LOS DATOS
         </Typography>
-        <Typography variant="h6" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h6" className="font-semibold mb-4">
           FORMA DE RECOLECCIÓN DE DATOS A CLIENTES
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Para garantizar el correcto funcionamiento de la plataforma de SIMON, la
           recolección de datos personales de los clientes se limitará exclusivamente a
           la información necesaria para gestionar su reserva en los restaurantes.
@@ -104,7 +104,7 @@ const tratamiento = () => {
           reserva. La recolección se llevará a cabo a través de la aplicación web,
           garantizando que el proceso sea claro y eficiente para los usuarios.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           También se recolectarán datos sobre los pedidos realizados a través de la
           plataforma para permitir una trazabilidad efectiva, garantizar que los
           pedidos lleguen correctamente al restaurante y brindar un servicio más
@@ -115,10 +115,10 @@ const tratamiento = () => {
           únicamente la información necesaria para cumplir con el objetivo del
           servicio.
         </Typography>
-        <Typography variant="h6" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h6" className="font-semibold mb-4">
           FORMA DE RECOLECCIÓN DE DATOS A ALIADOS COMERCIALES
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Para garantizar el correcto funcionamiento de la plataforma de SIMON, se
           recolectarán los siguientes datos personales de los aliados comerciales:
           nombre completo del encargado de la cuenta, que servirá como punto de
@@ -133,7 +133,7 @@ const tratamiento = () => {
           la empresa, asegurando que se cumpla con los principios de finalidad y
           proporcionalidad.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Adicionalmente, se recopilarán datos relacionados con las reservas
           realizadas en el restaurante y los pedidos gestionados a través de la
           plataforma. Esta información permitirá evaluar la demanda y el desempeño del
@@ -142,13 +142,13 @@ const tratamiento = () => {
           transparente y siempre en cumplimiento con los principios de legalidad y
           proporcionalidad.
         </Typography>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           FINALIDADES DEL TRATAMIENTO DE LOS DATOS PERSONALES
         </Typography>
-        <Typography variant="h6" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h6" className="font-semibold mb-4">
           FINALIDADES DEL TRATAMIENTO DE LOS DATOS DE CLIENTES
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           La información recolectada de los clientes se utilizará principalmente para
           cumplir con el servicio solicitado, es decir, gestionar las reservas y
           pedidos realizados en los restaurantes. Los datos sobre las reservas
@@ -159,10 +159,10 @@ const tratamiento = () => {
           restaurante, ofrecer soporte en caso de inconvenientes y realizar análisis
           para mejorar la calidad del servicio.
         </Typography>
-        <Typography variant="h6" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h6" className="font-semibold mb-4">
           FINALIDADES DEL TRATAMIENTO DE LOS DATOS DE ALIADOS COMERCIALES
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Los datos recopilados de los aliados comerciales tienen como objetivo
           administrar de manera eficiente la relación contractual y operativa con la
           plataforma. Esto incluye el manejo de reservas realizadas en sus
@@ -173,29 +173,29 @@ const tratamiento = () => {
           información sea tratada de forma segura y únicamente con las finalidades
           previamente autorizadas.
         </Typography>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           AUTORIZACIÓN Y CONSENTIMIENTO DEL TITULAR
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           El consentimiento y autorización por parte del Titular de la información es
           un requisito constitucional y legal que deben cumplir las personas
           responsables del tratamiento de datos personales. El consentimiento debe
           cumplir con los siguientes presupuestos:
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Previo: La autorización la debe dar el Titular de información de manera
           previa a cualquier tipo de Tratamiento de datos personales.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Expreso: La autorización debe otorgarse de forma inequívoca, clara y
           específica.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Informado: El Titular debe comprender claramente para qué serán tratados sus
           datos personales y las finalidades que pueden derivarse del Tratamiento de
           los mismos.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Para utilizar los servicios ofrecidos en la plataforma SIMON, todos los
           visitantes deben registrarse y otorgar su consentimiento para el tratamiento
           de sus datos personales. Por ello, en cada uno de los sistemas se incluye
@@ -203,10 +203,10 @@ const tratamiento = () => {
           Personales”, que es imprescindible leer y aceptar para continuar accediendo
           a los servicios de SIMON.
         </Typography>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           OFICIAL DE PROTECCIÓN DE DATOS PERSONALES
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           SIMON ha designado a Martin Polanco Barrero identificado con la cédula
           1005755060 como oficial de protección de datos personales y responsable de
           la recepción y atención de consultas, quejas y reclamos de todo tipo
@@ -214,7 +214,7 @@ const tratamiento = () => {
           consultas y reclamaciones en materia de Datos Personales de conformidad con
           la Ley y esta política.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Algunas de las funciones particulares de esta área en relación con Datos
           Personales son:
         </Typography>
@@ -232,24 +232,24 @@ const tratamiento = () => {
             solicitudes que no procedan de acuerdo con la Ley.
           </li>
         </ul>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Los datos de contacto son:
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Dirección física: Cra 17 #93A-38, dirección electrónica
           koalasimonapp@gmail.com y teléfono 3007102511
         </Typography>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           CANALES DE COMUNICACIÓN Y MECANISMOS DISPUESTOS POR SIMON
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           En cumplimiento de la garantía constitucional del Habeas Data, que protege
           los derechos de acceso, actualización, rectificación y supresión de datos
           personales por parte de sus Titulares, así como de sus causahabientes,
           representantes legales y/o apoderados, SIMON  dispondrá de canales de
           comunicación para dichos Titulares.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Todas las solicitudes, consultas, quejas y/o reclamos deberán ser dirigidos
           al Oficial de Protección de Datos Personales, a través de los siguientes
           medios:
@@ -262,24 +262,24 @@ const tratamiento = () => {
             de manera formal a la dirección: Cra 17 #93A-38, Bogotá, Colombia.
           </li>
         </ul>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Por estos medios, los Titulares tendrán la posibilidad de eliminar sus Datos
           Personales almacenados en Rappi en cualquier momento mediante las diversas
           plataformas disponibles.
         </Typography>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           PROCEDIMIENTO LEGAL PARA CONSULTAS QUEJAS Y RECLAMOS
         </Typography>
-        <Typography variant="h6" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h6" className="font-semibold mb-4">
           Consultas
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Tratándose del derecho de petición en calidad de información y/o consultas,
           SIMON  dará respuesta en un término máximo de diez (10) días hábiles
           contados a partir del día siguiente a la fecha de recepción de la petición o
           consulta.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Cuando no fuere posible atender la consulta dentro de dicho término se
           informará al interesado, indicando los motivos de la demora y señalando la
           fecha en que esta se atenderá, la cual en ningún caso podrá superar cinco
@@ -290,7 +290,7 @@ const tratamiento = () => {
           <li>El nombre y número de identificación del Titular.</li>
           <li>Copia documento de identidad del titular</li>
         </ul>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           En caso de que el causahabiente del Titular solicite la consulta, deberá
           adjuntar a la consulta:
         </Typography>
@@ -303,7 +303,7 @@ const tratamiento = () => {
           <li>Descripción completa de la consulta.</li>
           <li>Dirección y datos de contacto del consultante.</li>
         </ul>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Si se trata del representante legal y/o apoderado del Titular, deberá
           presentar:
         </Typography>
@@ -321,17 +321,17 @@ const tratamiento = () => {
           <li>Descripción completa de la consulta.</li>
           <li>Dirección y datos de contacto del consultante.</li>
         </ul>
-        <Typography variant="h6" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h6" className="font-semibold mb-4">
           Quejas y/o reclamos
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Cuando el Titular considere que su información debe ser objeto de
           corrección, actualización o supresión o cuando advierta un presunto
           incumplimiento de cualquiera de sus derechos, el término máximo para atender
           la queja o reclamo será de quince (15) días hábiles contados a partir del
           día siguiente a la fecha de recepción del documento.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Cuando no fuere posible atender el reclamo dentro de dicho término, se
           informará al interesado los motivos de la demora y la fecha en que será
           atendido, la cual en ningún caso podrá superar los ocho (8) días hábiles
@@ -346,7 +346,7 @@ const tratamiento = () => {
           <li>El nombre y número de identificación del Titular.</li>
           <li>Copia documento de identidad del titular</li>
         </ul>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           En caso de que el causahabiente del Titular presente la queja y/o reclamo,
           deberá adjuntar:
         </Typography>
@@ -359,7 +359,7 @@ const tratamiento = () => {
           <li>Dirección y datos de contacto del consultante.</li>
           <li>Documento que acredite la calidad en que obra.</li>
         </ul>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Si se trata de un representante legal y/o apoderado:
         </Typography>
         <ul className="list-disc list-inside mb-4">
@@ -377,23 +377,23 @@ const tratamiento = () => {
           <li>El objeto perseguido.</li>
           <li>Dirección y datos de contacto del reclamante.</li>
         </ul>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           TRATAMIENTO DE DATOS PERSONALES SENSIBLES
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           SIMON no recolectará datos personales sensibles bajo ninguna circunstancia,
           en línea con el artículo 6 de la Ley 1581 de 2012
         </Typography>
-        <Typography variant="h5" className="font-semibold mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}variant="h5" className="font-semibold mb-4">
           VIGENCIA
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           Los Datos Personales que sean almacenados, utilizados o transmitidos
           permanecerán en las bases de datos de SIMON  durante el tiempo que sea
           necesario para cumplir con las finalidades expuestas en este manual o para
           que la Empresa pueda cumplir con sus deberes legales.
         </Typography>
-        <Typography className="mb-4">
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}className="mb-4">
           De ser necesario SIMON se reserva el derecho a modificar la presente
           Política de forma unilateral.
         </Typography>

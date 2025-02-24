@@ -10,7 +10,6 @@ const VerifyEmailFinal = () => {
     const [reloaded, setReloaded] = useState<boolean>(false); // Estado para evitar recarga infinita
 
 
-
     useEffect(() => {
         const verifyEmail = async () => {
             console.log("🚀 ~ Verificando email con token:", token);

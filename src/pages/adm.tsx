@@ -162,6 +162,8 @@ function AdminDashboard() {
               onClick={() => setCurrentPage((prev) => prev + 1)}    placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}            >
               Siguiente
             </Button>
+          
+         
           </div>
         </div>
       </div>
@@ -169,4 +171,8 @@ function AdminDashboard() {
   );
 }
 
+<<<<<<< HEAD
 export default AdminDashboard;
+=======
+export default AdminDashboard;
+>>>>>>> be51c875e7edba02d12c37388cc1c9e09dc1807d

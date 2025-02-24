@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { usePayment, useAuth } from "../utils/getContext";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +58,7 @@ const Checkin = () => {
       console.log('formData suscriptionData:', formData.get("suscriptionData"));
 
       // Print formData
-      for (let pair of formData.entries()) {
+      for (const pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
 
@@ -73,7 +73,7 @@ const Checkin = () => {
       );
 
       console.log('User registration response:', registerResponse.data);
-      const { success, message, user } = registerResponse.data;
+      const {  user } = registerResponse.data;
       console.log('User:', user);
 
       console.log('User registration successful, logging in user');

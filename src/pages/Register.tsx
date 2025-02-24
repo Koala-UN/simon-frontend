@@ -19,7 +19,7 @@ const RegisterForm = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [previewImage, setPreviewImage] = useState<File | null>(null);
-  const { register, setIsLoading } = useAuth();
+  const { setIsLoading } = useAuth();
   // const navigate = useNavigate();
 
   const cities = [
