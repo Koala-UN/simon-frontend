@@ -1,38 +1,54 @@
-import  { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useAuth } from '../utils/getContext';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useAuth } from "../utils/getContext";
+
 const VerifyEmailFinal = () => {
     const { search } = useLocation();
-    const token = new URLSearchParams(search).get('token');
-    const {setIsLoading} = useAuth();
+    const token = new URLSearchParams(search).get("token");
+    const { setIsLoading } = useAuth();
     const [verified, setVerified] = useState<boolean>(false);
-    useEffect(() => {
+    const [reloaded, setReloaded] = useState<boolean>(false); // Estado para evitar recarga infinita
 
+    useEffect(() => {
+        // Recargar la página solo una vez
+        if (!reloaded) {
+            setReloaded(true);
+            window.location.reload();
+        }
+    }, []);
+
+    useEffect(() => {
         const verifyEmail = async () => {
-            console.log("🚀 ~ file: VerifyEmail.tsx ~ line 19 ~ verifyEmail ~ token", token)
+            console.log("🚀 ~ Verificando email con token:", token);
             setIsLoading(true);
+
             if (token) {
                 try {
-                    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/verify-email?token=${token}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        credentials: 'include',
-                    });
+                    const response = await fetch(
+                        `${import.meta.env.VITE_BACKEND_URL}/api/restaurant/verify-email?token=${token}`,
+                        {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            credentials: "include",
+                        }
+                    );
                     const data = await response.json();
-                    if (data.status === 'success') {
+                    if (data.status === "success") {
                         setVerified(true);
                     } else {
                         setVerified(false);
                     }
                 } catch (error) {
-                    console.error('Error verifying email:', error);                }
+                    console.error("Error verifying email:", error);
+                }
             } else {
                 setVerified(false);
             }
             setIsLoading(false);
         };
+
         verifyEmail();
     }, [setIsLoading, token]);
 
@@ -43,12 +59,18 @@ const VerifyEmailFinal = () => {
                 {verified ? (
                     <>
                         <p className="text-3xl font-bold mb-4">¡Tu correo ha sido verificado exitosamente!</p>
-                        <a href="/" className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Ir a inicio</a>
+                        <a href="/" className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                            Ir a inicio
+                        </a>
                     </>
                 ) : (
                     <>
-                        <p className="text-3xl font-bold mb-4">Error al verificar el correo. Por favor, inténtalo de nuevo.</p>
-                        <a href="/" className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Ir a inicio</a>
+                        <p className="text-3xl font-bold mb-4">
+                            Error al verificar el correo. Por favor, inténtalo de nuevo.
+                        </p>
+                        <a href="/" className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                            Ir a inicio
+                        </a>
                     </>
                 )}
             </div>

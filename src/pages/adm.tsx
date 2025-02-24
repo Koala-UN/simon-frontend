@@ -163,10 +163,11 @@ function AdminDashboard() {
               Siguiente
             </Button>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default AdminDashboard;
+                          </Button>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td                      colSpan={6}

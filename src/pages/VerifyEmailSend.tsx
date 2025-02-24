@@ -16,18 +16,22 @@ const VerifyEmailSend = () => {
             setIsLoading(true);
             try {
                 if (!isAuthenticated || !userRef.current?.correo) {
+                    console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 33 ~ sendVerificationEmail ~ user", userRef.current, isAuthenticated)
+
                     console.error('User is not authenticated or does not have an email' , userRef.current, isAuthenticated);
                     setEmailSent(false);
                     setIsLoading(false);
                     return;
                 }
                 console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 33 ~ sendVerificationEmail ~ user", userRef.current, isAuthenticated)
+                const emailData = { correo: userRef.current?.correo };
+                console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 36 ~ sendVerificationEmail ~ emailData", emailData);
                 const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/verify-email-send`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({correo: userRef.current?.correo}),
+                    body: JSON.stringify(emailData),
                     credentials: 'include',
                 });
                 const data = await response.json();

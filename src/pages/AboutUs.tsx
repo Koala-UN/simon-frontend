@@ -1,5 +1,6 @@
 import { Typography } from "@material-tailwind/react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import "../styles/animations.css";
 
 const AboutUs = () => {
   const teamMembers = [
@@ -32,9 +33,10 @@ const AboutUs = () => {
       github: "https://github.com/CesarFRR",
       linkedin: "https://www.linkedin.com/in/c%C3%A9sar-fabi%C3%A1n-r-4b4731139/"
     }]
+
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
+    <div className="p-6 bg-gray-100 min-h-screen fade-in">
+      <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8 slide-in">
         <Typography variant="h4" className="font-bold mb-6 text-center" placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}>
           Acerca de Nosotros
         </Typography>
@@ -63,7 +65,7 @@ const AboutUs = () => {
           </Typography>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member, index) => (
-              <div key={index} className="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow">
+              <div key={index} className="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow fade-in">
                 <img
                   src={member.imagePath}
                   alt={member.name}
