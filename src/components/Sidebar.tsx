@@ -35,7 +35,7 @@ function Sidebar() {
         const data = await response.json();
 
         if (response.ok) {
-          console.log("🚀 ~ file: Sidebar.tsx ~ line 73 ~ fetchProfile ~ data", data)
+          //console.log("🚀 ~ file: Sidebar.tsx ~ line 73 ~ fetchProfile ~ data", data)
           setRestaurant(data.data);
         } else {
           console.error("Error fetching profile:", data.message);

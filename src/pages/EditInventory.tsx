@@ -46,7 +46,6 @@ function Inventory() {
   const { isAuthenticated, setIsLoading, user } = useAuth();
   const [previewImage, setPreviewImage] = useState<File | null>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>("");
   const categories = [
     "Entradas",
     "Sopas y Cremas",
@@ -118,9 +117,7 @@ function Inventory() {
     if (fileList && fileList.length > 0) {
       console.log("archivo cargado", fileList[0], "    ", fileList[0].name);
       setNewProduct({ ...newProduct, imageUrl: fileList[0] });
-      console.log("newProduct", newProduct);
       setPreviewImage(fileList[0]);
-      setImageUrl(URL.createObjectURL(fileList[0]));
     } else {
       setPreviewImage(null);
     }
@@ -413,7 +410,7 @@ const handleAddProduct = async () => {
                 </button>
                 
                 <img
-                  src={imageUrl && typeof imageUrl === 'string' ? imageUrl.replace(/^http:/, 'https:') : imageUrl}
+                  src={newProduct.imageUrl ? URL.createObjectURL(newProduct.imageUrl) : ""}
                   alt="Vista previa de la foto de perfil"
                   className="w-32 h-32 object-cover rounded-sm shadow-md"
                 />

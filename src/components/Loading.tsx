@@ -1,6 +1,8 @@
 
 import { ReactNode } from 'react';
 import "../styles/loading.css";
+// mejor importemos la imagen svg de carga
+import load from "./../assets/load.svg";
 interface LoadingProps {
     isLoading: boolean;
     children?: ReactNode;
@@ -11,7 +13,8 @@ const Loading = ({ isLoading, children }: LoadingProps) => {
         <div >
             {isLoading && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
-                <img src="./load.svg" alt="" className="size-1/4" />
+                    <img src={load} alt
+                    ="loading" className="w-20 h-20" />
               </div>
               
             )}
