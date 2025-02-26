@@ -59,7 +59,7 @@ const Checkin = () => {
       console.log('formData suscriptionData:', formData.get("suscriptionData"));
 
       // Print formData
-      for (const pair of formData.entries()) {
+      for (let pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
 
@@ -70,12 +70,11 @@ const Checkin = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          withCredentials: true,
         }
       );
 
       console.log('User registration response:', registerResponse.data);
-      const {  user } = registerResponse.data;
+      const { success, message, user } = registerResponse.data;
       console.log('User:', user);
 
       console.log('User registration successful, logging in user');
@@ -90,8 +89,8 @@ const Checkin = () => {
       if (loginResponse.success) {
         setIsAuthenticated(true);
         setUser(user);
+        window.location.reload();
         navigate("/restaurant/verify-email-send");
-         window.location.reload();
       } else {
         setErrorMessage(loginResponse.message);
       }

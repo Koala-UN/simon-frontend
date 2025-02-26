@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { FaUtensils, FaGlassCheers, FaAppleAlt, FaLeaf, FaFish, FaBreadSlice } from "react-icons/fa";
 import { TbSoupFilled, TbPizza } from "react-icons/tb";
@@ -26,12 +26,17 @@ function FilterFood({ setCategory }: { setCategory: (category: string) => void }
   ];
 
   const handleCategoryClick = (categoryName: string) => {
-    setActiveCategory(categoryName); // Set the active category
-    setCategory(categoryName); // Update the selected category in the parent
+    if (activeCategory === categoryName) {
+      setActiveCategory(""); // Deselect the category
+      setCategory(""); // Update the selected category in the parent
+    } else {
+      setActiveCategory(categoryName); // Set the active category
+      setCategory(categoryName); // Update the selected category in the parent
+    }
   };
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-2">
       {categories.map((category) => (
         <Button
           key={category.id}
@@ -40,7 +45,8 @@ function FilterFood({ setCategory }: { setCategory: (category: string) => void }
           className={`flex items-center gap-2 px-4 py-2 rounded-full ${activeCategory === category.name
               ? "bg-orange-500 text-white" // Active state styles
               : "bg-orange-100 text-black hover:bg-orange-200"}`}
-          onClick={() => handleCategoryClick(category.name)}   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}        >
+          onClick={() => handleCategoryClick(category.name)}
+        >
           <span className="text-xl">{category.icon}</span>
           <span className="font-medium">{category.name}</span>
         </Button>

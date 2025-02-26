@@ -165,6 +165,13 @@ function RestaurantReservation() {
     return <p className="text-center text-gray-500">Cargando restaurante...</p>;
   }
 
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const [hours, minutes] = value.split(":").map(Number);
+    if (minutes === 0 || minutes === 30) {
+      setSelectedTime(value);
+    }
+  };
 
   return (
     <div className="flex flex-col lg:flex-row justify-center min-h-screen bg-gray-100 p-4 fade-in-reserve">
@@ -264,7 +271,7 @@ function RestaurantReservation() {
               ? "bg-red-500 text-white rounded-full"
               : ""
           }
-          tileDisabled={({ date }) => date < new Date()}
+          tileDisabled={({ date }) => date < new Date(new Date().setHours(0, 0, 0, 0))}
         />
         <div className="space-y-4 mt-4">
           <div>
@@ -275,9 +282,60 @@ function RestaurantReservation() {
             <input
               type="time"
               value={selectedTime}
-              onChange={(e) => setSelectedTime(e.target.value)}
+              onChange={handleTimeChange}
               className="w-full border rounded px-2 py-1"
+              list="time-options"
             />
+            <datalist id="time-options">
+              <option value="00:00" />
+              <option value="00:30" />
+              <option value="01:00" />
+              <option value="01:30" />
+              <option value="02:00" />
+              <option value="02:30" />
+              <option value="03:00" />
+              <option value="03:30" />
+              <option value="04:00" />
+              <option value="04:30" />
+              <option value="05:00" />
+              <option value="05:30" />
+              <option value="06:00" />
+              <option value="06:30" />
+              <option value="07:00" />
+              <option value="07:30" />
+              <option value="08:00" />
+              <option value="08:30" />
+              <option value="09:00" />
+              <option value="09:30" />
+              <option value="10:00" />
+              <option value="10:30" />
+              <option value="11:00" />
+              <option value="11:30" />
+              <option value="12:00" />
+              <option value="12:30" />
+              <option value="13:00" />
+              <option value="13:30" />
+              <option value="14:00" />
+              <option value="14:30" />
+              <option value="15:00" />
+              <option value="15:30" />
+              <option value="16:00" />
+              <option value="16:30" />
+              <option value="17:00" />
+              <option value="17:30" />
+              <option value="18:00" />
+              <option value="18:30" />
+              <option value="19:00" />
+              <option value="19:30" />
+              <option value="20:00" />
+              <option value="20:30" />
+              <option value="21:00" />
+              <option value="21:30" />
+              <option value="22:00" />
+              <option value="22:30" />
+              <option value="23:00" />
+              <option value="23:30" />
+            </datalist>
           </div>
           <div>
             <label className="flex items-center gap-2 text-gray-700 font-semibold">

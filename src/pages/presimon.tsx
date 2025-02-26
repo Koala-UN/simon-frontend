@@ -10,6 +10,7 @@ const PresentacionSimon = () => {
         height: '50vh',
         padding: '20px',
         backgroundColor: '#fff',
+        flexDirection: 'row',
       }}
     >
       <div
@@ -19,6 +20,7 @@ const PresentacionSimon = () => {
           width: '100%',
           alignItems: 'center',
           gap: '20px',
+          
         }}
       >
         {/* Text Section */}
@@ -41,6 +43,21 @@ const PresentacionSimon = () => {
           />
         </div>
       </div>
+      <style jsx>{`
+        @media (max-width: 768px) {
+          div > div {
+            flex-direction: column;
+            text-align: center;
+          }
+          div > div > div {
+            margin-bottom: 20px;
+          }
+          img {
+            width: 200px;
+            order: 2;
+          }
+        }
+      `}</style>
     </div>
   );
 };

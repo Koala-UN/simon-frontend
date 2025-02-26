@@ -125,9 +125,9 @@ function MenuExtendido() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       {/* Left Panel */}
-      <div className="w-3/4 p-4 h-full">
+      <div className="w-full md:w-3/4 p-4 h-full">
         <div className="mb-4">
           <h2 className="text-2xl font-bold text-left">{restaurantName}</h2>
           <p className="text-sm text-gray-500 text-left mb-4">
@@ -147,10 +147,10 @@ function MenuExtendido() {
       </div>
 
       {/* Divider */}
-      <div className="border-l border-gray-300"></div>
+      <div className="border-l border-gray-300 hidden md:block"></div>
 
       {/* Right Panel */}
-      <div className="w-1/4 p-4 flex flex-col h-full">
+      <div className="w-full md:w-1/4 p-4 flex flex-col h-full">
         <CardCartList
           cart={cart}
           onIncrement={handleIncrement}

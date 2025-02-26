@@ -30,11 +30,9 @@ const CatalogoRestaurantes = () => {
           <img src={images[1]} alt="Restaurante 2" className="w-full h-full object-cover" />
         </div>
         {/* 📌 Imagen 3 */}
-        <div className="w-full h-36 md:h-56 rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+        <div className="hidden md:block w-full h-36 md:h-56 rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105">
           <img src={images[2]} alt="Restaurante 3" className="w-full h-full object-cover" />
         </div>
-
-    
       </div>
     </div>
   );

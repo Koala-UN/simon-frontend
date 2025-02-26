@@ -1,8 +1,8 @@
 import { useState } from "react";
-////import { useNavigate } from "react-router-dom";
 import backgroundImage from "../assets/bglogin.png";
 import { useAuth } from "../utils/getContext";
 import defaultUserImage from "../assets/sign.png";
+import { validateEmail, validatePositiveNumber, validatePositiveCapacity } from "../../validation.js"; // Importar funciones de validación
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +20,6 @@ const RegisterForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [previewImage, setPreviewImage] = useState<File | null>(null);
   const { setIsLoading } = useAuth();
-  // const navigate = useNavigate();
 
   const cities = [
     { id: 1, name: "Bogotá" },
@@ -45,8 +44,6 @@ const RegisterForm = () => {
     }
   };
 
-  // funcion para verificar si el formulario esta completo
-
   const validateForm = () => {
     if (
       formData.nombre === "" ||
@@ -56,17 +53,26 @@ const RegisterForm = () => {
       formData.capacidadReservas === "" ||
       formData.descripcion === "" ||
       formData.direccion === "" ||
-      formData.cityId === "" //||
-     // formData.categoria === "" ||
-     // formData.fotoPerfil === null
+      formData.cityId === "" ||
+      formData.categoria === "" ||
+      formData.fotoPerfil === null
     ) {
       return false;
     }
-    if (formData.categoria === "") {
-      formData.categoria = "Casual Dining";
+    if (!validateEmail(formData.correo)) {
+      setErrorMessage("Por favor ingresa un correo electrónico válido");
+      return false;
+    }
+    if (!validatePositiveNumber(formData.telefono)) {
+      setErrorMessage("Por favor ingresa un número de teléfono válido");
+      return false;
+    }
+    if (!validatePositiveCapacity(formData.capacidadReservas)) {
+      setErrorMessage("Por favor ingresa una capacidad de reservas válida");
+      return false;
     }
     return true;
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     setIsLoading(true);
@@ -100,7 +106,6 @@ const RegisterForm = () => {
       if (formData.fotoPerfil) {
         formDataToSend.append("fotoPerfil", formData.fotoPerfil);
       } else {
-        // enviar la imagen por defecto defaultUserImage
         const defaultImage = await fetch(defaultUserImage);
         const blob = await defaultImage.blob();
         const file = new File([blob], "defaultUserImage.png", { type: "image/png" });
@@ -120,7 +125,6 @@ const RegisterForm = () => {
         categoria: formData.categoria,
       });
 
-      // Store formDataToSend in localStorage
       localStorage.setItem("formDataToSend", JSON.stringify(Object.fromEntries(formDataToSend)));
 
       window.location.href = "/plans";
@@ -134,7 +138,7 @@ const RegisterForm = () => {
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
-      window.location.href = import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth/google";
+      window.location.href = import.meta.env.VITE_BACKEND_URL + "/api/restaurant/auth/google";
     } catch (error) {
       console.error('Error en el inicio de sesión con Google:', error);
       setIsLoading(false);
@@ -154,17 +158,17 @@ const RegisterForm = () => {
           <p className="text-red-500 text-center mb-4">{errorMessage}</p>
         )}
         <form onSubmit={handleSubmit}>
-            <div className="mb-4">
+          <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Foto de Perfil
             </label>
             {previewImage && (
               <div className="flex justify-center mb-4">
-              <img
-                src={URL.createObjectURL(previewImage)}
-                alt="Vista previa de la foto de perfil"
-                className="w-32 h-32 object-cover rounded-full shadow-md"
-              />
+                <img
+                  src={URL.createObjectURL(previewImage)}
+                  alt="Vista previa de la foto de perfil"
+                  className="w-32 h-32 object-cover rounded-full shadow-md"
+                />
               </div>
             )}
             <div className="flex justify-center">
@@ -327,12 +331,12 @@ const RegisterForm = () => {
           </button>
           <p className="py-1"></p>
           <button
-          type="button"
-          className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition shadow-lg"
-          onClick={handleGoogleLogin}
-        >
-          Registrarse con Google
-        </button>
+            type="button"
+            className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition shadow-lg"
+            onClick={handleGoogleLogin}
+          >
+            Registrarse con Google
+          </button>
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
           Al continuar aceptas nuestros{" "}
