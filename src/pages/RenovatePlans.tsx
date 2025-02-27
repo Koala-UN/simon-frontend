@@ -1,7 +1,7 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { useState } from "react";
 import axios from "axios";
-import { usePayment, useAuth } from "../utils/getContext";
+import { usePayment } from "../utils/getContext";
 import CheckinForRenovate from "../components/CheckinForRenovate";
 
 const RenovatePlans = () => {
@@ -10,7 +10,7 @@ const RenovatePlans = () => {
   const [showCheckin, setShowCheckin] = useState<boolean>(false);
   const [showVerifyButton, setShowVerifyButton] = useState<boolean>(false);
   const { setPaymentId } = usePayment();
-  const { user } = useAuth();
+  //const { user } = useAuth();
 
   const createPreference = async (unitPrice: number): Promise<string | undefined> => {
     console.log('Creating preference for price:', unitPrice);
@@ -195,7 +195,7 @@ const RenovatePlans = () => {
             setShowCheckin(false);
             setShowVerifyButton(false);
           }}
-          restaurantId={user?.restauranteId || 0}
+         // restaurantId={user?.restauranteId || 0}
         />
       )}
     </div>

@@ -143,7 +143,7 @@ const AboutUs = () => {
         </section>
 
         <section className="mb-8">
-          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined}>
+          <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  variant="h5" className="font-semibold mb-4">
             Nuestra Identidad Visual
           </Typography>
           <div className="bg-simon-bg-warm p-6 rounded-lg shadow-sm">
@@ -200,7 +200,7 @@ const AboutUs = () => {
         </section>
 
         <section className="mb-8">
-          <Typography variant="h5" className="font-semibold mb-4" placeholder={undefined}>
+          <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  variant="h5" className="font-semibold mb-4" >
             Síguenos en Redes Sociales
           </Typography>
           <div className="flex flex-col md:flex-row gap-6 justify-center items-center">

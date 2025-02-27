@@ -163,7 +163,7 @@ function AdminDashboardOrders() {
       alert("Pedido marcado como entregado exitosamente");
     } catch (error) {
       console.error("Error detallado al actualizar el pedido:", error);
-      console.error("Mensaje de error:", error.response?.data || error.message);
+      
       alert("Error al actualizar el estado del pedido");
     }
   };
@@ -171,7 +171,7 @@ function AdminDashboardOrders() {
   if (isAuthenticated === null) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Typography variant="h6">Verificando autenticación...</Typography>
+        <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}   variant="h6">Verificando autenticación...</Typography>
       </div>
     );
   }
@@ -184,10 +184,11 @@ function AdminDashboardOrders() {
       {/* Content Area */}
       <div className="w-full lg:w-3/4 p-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <Typography variant="h5" className="font-bold mb-4">
+          <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}   variant="h5" className="font-bold mb-4">
             Pedidos
           </Typography>
-          <Typography variant="small" className="text-blue-600 mb-6 block">
+          <Typography placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}   
+          variant="small" className="text-blue-600 mb-6 block">
             Últimos pedidos
           </Typography>
 
@@ -240,7 +241,9 @@ function AdminDashboardOrders() {
                       <td className="border border-blue-300 px-4 py-2">
                         {order.platillos.map((platillo) => (
                           <div key={platillo.platillo_id} className="mb-1">
-                            <Typography variant="small">
+                            <Typography variant="small"
+                            
+                            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}   >
                               • {platillo.nombre} - COP {platillo.total.toLocaleString()}
                             </Typography>
                           </div>
@@ -249,7 +252,7 @@ function AdminDashboardOrders() {
                       <td className="border border-blue-300 px-4 py-2">
                         {order.estado !== "CANCELADO" && order.estado !== "ENTREGADO" && (
                           <>
-                            <Button
+                            <Button placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}   
                               size="sm"
                               color="red"
                               onClick={() => cancelOrder(order.id)}
@@ -257,7 +260,7 @@ function AdminDashboardOrders() {
                             >
                               Cancelar Pedido
                             </Button>
-                            <Button
+                            <Button placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}   
                               size="sm"
                               color="green"
                               onClick={() => markAsDelivered(order.id, order.platillos)}
@@ -285,7 +288,7 @@ function AdminDashboardOrders() {
 
           {/* Pagination */}
           <div className="flex justify-between items-center mt-4">
-            <Button
+            <Button placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}   
               size="sm"
               color="blue-gray"
               disabled={currentPage === 1}
@@ -300,8 +303,7 @@ function AdminDashboardOrders() {
               size="sm"
               color="blue-gray"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-            >
+              onClick={() => setCurrentPage((prev) => prev + 1)} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            >
               Siguiente
             </Button>
           </div>

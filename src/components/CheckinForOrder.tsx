@@ -73,7 +73,7 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
             <h1 className="text-2xl font-bold mb-4">Estado del Pago</h1>
             {paymentStatus && (
               <p className="text-3xl font-bold mb-4">
-                {paymentStatus === ("approved" || "OK") ? "Pago exitoso" : "Error en el pago"}
+                {(paymentStatus === "approved" || paymentStatus === "OK") ? "Pago exitoso" : "Error en el pago"}
               </p>
             )}
             {errorMessage && (

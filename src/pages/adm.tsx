@@ -171,7 +171,7 @@ function AdminDashboard() {
                       <td className="border border-blue-300 px-4 py-2">
                         {reservation.estado}
                         {reservation.estado !== "CANCELADO" && reservation.estado !== "CANCELADA" && (
-                          <Button
+                          <Button placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}   
                             size="sm"
                             color="red"
                             onClick={() => {

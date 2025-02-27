@@ -154,7 +154,7 @@ const SubscriptionPlans = () => {
           </Typography>
         </div>
       </div>
-      {showCheckin && <Checkin />}
+      {showCheckin && <Checkin onClose={()=>{}}/>}
     </div>
   );
 };

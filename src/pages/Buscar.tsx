@@ -55,8 +55,8 @@ export function Matrix({
       }
 
       const prices = data.data
-        .map(dish => Number(dish.precio))
-        .filter(price => !isNaN(price) && price > 0);
+        .map((dish: { precio: string | number }) => parseFloat(dish.precio.toString()))
+        .filter((price: number) => !isNaN(price) && price > 0);
 
       if (prices.length === 0) {
         throw new Error('No valid prices found');
@@ -114,6 +114,7 @@ export function Matrix({
     };
 
     loadData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurants]);
 
   const handleReserveClick = (restaurantId: number) => {

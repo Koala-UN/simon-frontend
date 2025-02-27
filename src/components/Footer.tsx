@@ -57,7 +57,7 @@ export function Footer() {
           <h3 className="font-semibold mb-4">Síguenos</h3>
           <div className="flex flex-row gap-4 justify-center mt-4">
             {socialMedia.map((social, index) => (
-              <Typography
+              <Typography  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
                 key={index}
                 as="a"
                 href={social.link}
