@@ -69,6 +69,51 @@ function AdminDashboard() {
   const endIndex = startIndex + reservationsPerPage;
   const currentReservations = reservations.slice(startIndex, endIndex);
 
+  const cancelReservation = async (reservationId: number) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/reserve/${reservationId}/cancel`,
+        {
+          method: "POST", // Cambiar a POST para que coincida con el backend
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message || "Reservación cancelada exitosamente");
+        
+        // Recargar las reservaciones
+        const restauranteId = user.id;
+        const newResponse = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/reserve/restaurant/${restauranteId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+
+        const newData = await newResponse.json();
+        if (newResponse.ok) {
+          setReservations(newData.data);
+          setTotalPages(Math.ceil(newData.data.length / reservationsPerPage));
+        }
+      } else {
+        alert(data.message || "Error al cancelar la reservación");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error al cancelar la reservación");
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-blue-50">
       {/* Sidebar */}
@@ -102,7 +147,7 @@ function AdminDashboard() {
                     Teléfono
                   </th>
                   <th className="border border-blue-300 px-4 py-2 text-left">
-                    Detalles
+                    Estado
                   </th>
                 </tr>
               </thead>
@@ -124,8 +169,21 @@ function AdminDashboard() {
                         {reservation.telefono}
                       </td>
                       <td className="border border-blue-300 px-4 py-2">
-                        {reservation.estado}:{" "}
-                        {reservation.mesaEtiqueta || "Sin mesa asignada"}
+                        {reservation.estado}
+                        {reservation.estado !== "CANCELADO" && reservation.estado !== "CANCELADA" && (
+                          <Button
+                            size="sm"
+                            color="red"
+                            onClick={() => {
+                              if (window.confirm("¿Estás seguro de cancelar esta reservación?")) {
+                                cancelReservation(reservation.id);
+                              }
+                            }}
+                            className="ml-2"
+                          >
+                            Cancelar
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   ))

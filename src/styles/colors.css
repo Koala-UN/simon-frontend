@@ -1,0 +1,28 @@
+:root {
+  /* Primary Colors */
+  --simon-primary: #FF3B30;    /* Naranja claro - Color principal */
+  --simon-secondary: #FFA50F;  /* Amarillo oscuro - Color secundario */
+  --simon-text: #333333;       /* Negro grisáceo - Texto */
+
+  /* Variations */
+  --simon-primary-light: #FF5B52;
+  --simon-primary-dark: #D42E24;
+  --simon-secondary-light: #FFB53F;
+  --simon-secondary-dark: #D88B0C;
+  
+  /* Background variations */
+  --simon-bg-warm: #FFF9F2;
+  --simon-bg-light: #FFFFFF;
+  
+  /* Text variations */
+  --simon-text-light: #666666;
+  --simon-text-lighter: #999999;
+}
+
+/* Utility classes */
+.text-simon-primary { color: var(--simon-primary); }
+.text-simon-secondary { color: var(--simon-secondary); }
+.text-simon-dark { color: var(--simon-text); }
+.bg-simon-primary { background-color: var(--simon-primary); }
+.bg-simon-secondary { background-color: var(--simon-secondary); }
+.bg-simon-warm { background-color: var(--simon-bg-warm); }

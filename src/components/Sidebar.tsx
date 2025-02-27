@@ -80,7 +80,7 @@ function Sidebar() {
               Inventario
             </li>
             <li onClick={() => window.location.href = "/qr"} className="cursor-pointer hover:text-blue-300">
-              QR Generator
+              Mi QR
             </li>
           </ul>
         </div>

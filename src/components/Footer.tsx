@@ -1,7 +1,21 @@
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { Typography } from "@material-tailwind/react";
+import { FaInstagram, FaTiktok } from 'react-icons/fa';
 import logo from"../assets/logosimonW.png";
 
-export const Footer = () => {
+export function Footer() {
+  const socialMedia = [
+    {
+      icon: FaInstagram,
+      link: "https://www.instagram.com/koalasimonapp",
+      name: "Instagram"
+    },
+    {
+      icon: FaTiktok,
+      link: "https://www.tiktok.com/@koalasimonapp",
+      name: "TikTok"
+    }
+  ];
+
   return (
     <footer
       id="footer"
@@ -41,24 +55,24 @@ export const Footer = () => {
         {/* Social Media Links */}
         <div className="flex flex-col items-center md:items-end">
           <h3 className="font-semibold mb-4">Síguenos</h3>
-          <div className="flex space-x-4">
-            <a href="#" className="opacity-60 hover:opacity-100">
-              <FaFacebook size={24} />
-            </a>
-            <a href="#" className="opacity-60 hover:opacity-100">
-              <FaTwitter size={24} />
-            </a>
-            <a href="#" className="opacity-60 hover:opacity-100">
-              <FaInstagram size={24} />
-            </a>
-            <a href="#" className="opacity-60 hover:opacity-100">
-              <FaLinkedin size={24} />
-            </a>
+          <div className="flex flex-row gap-4 justify-center mt-4">
+            {socialMedia.map((social, index) => (
+              <Typography
+                key={index}
+                as="a"
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="opacity-80 transition-opacity hover:opacity-100"
+              >
+                <social.icon className="h-6 w-6 text-simon-primary" />
+              </Typography>
+            ))}
           </div>
         </div>
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { useAuth,usePayment } from "../utils/getContext";
+import { useAuth, usePayment } from "../utils/getContext";
+
 const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -30,12 +31,13 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
         if (typeof onSuccess === 'function') {
           onSuccess();
         }
-        console.log("Pedido creado exitosamente");
+        alert("¡Pago Exitoso!\nTu pedido ha sido creado correctamente");
       }
     } catch (error) {
       console.error("Error verifying payment:", error);
       setPaymentStatus("error");
       setErrorMessage("Error al verificar el pago");
+      alert("Error\nNo se pudo verificar el pago");
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +74,7 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
         </button>
         {paymentStatus && (
           <p className="text-3xl font-bold mb-4">
-            {paymentStatus === "approved" ? "Pago exitoso" : "Error en el pago"}
+            {paymentStatus === ("approved" || "OK") ? "Pago exitoso" : "Error en el pago"}
           </p>
         )}
         {errorMessage && (

@@ -5,6 +5,8 @@ import SearchMenu from "./components/SearchMenu.tsx";
 import Reserve from "./pages/reserve.tsx";
 import MenuExtendido from "./pages/MenuExtendido.tsx";
 import "./styles/index.css"; // Ensure the path is correct
+import './styles/colors.css';
+import './styles/typography.css';
 import ConfirmReserve from "./pages/ConfirmReserve.tsx";
 import NavBar from "./components/Navbar.tsx";
 import { Footer } from "./components/Footer.tsx";

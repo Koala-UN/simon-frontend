@@ -72,7 +72,7 @@ const QrGenerator = () => {
                 <div ref={qrRef} className="p-4 bg-white rounded-lg shadow-md flex justify-center">
                   <QRCode value={link} />
                 </div>
-                <p className="text-sm text-gray-600 mt-4">Escanea este código QR para acceder a tu reserva.</p>
+                <p className="text-sm text-gray-600 mt-4">Escanea este código QR para acceder a tu portal.</p>
                 <button
                   className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
                   onClick={handleDownload}

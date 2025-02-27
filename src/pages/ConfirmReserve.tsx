@@ -6,7 +6,7 @@ import {
   // FaUsers,
   FaExternalLinkAlt,
 } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface FormDataInterface {
   firstName: string;
@@ -19,6 +19,7 @@ interface FormDataInterface {
 
 function ConfirmReserve() {
   const location = useLocation();
+  const navigate = useNavigate();
   const {
     restaurantName: initialRestaurantName,
     restaurantImage,
@@ -114,6 +115,9 @@ function ConfirmReserve() {
         setSuccessMessage("✅ ¡Reservación guardada con éxito!");
         setErrorMessage("");
         console.log("✅ Reserva creada correctamente:", responseData);
+        setTimeout(() => {
+          navigate("/"); // Redirect to the general menu page after a delay
+        }, 2000); // 3 seconds delay
       } else {
         setErrorMessage(responseData.message || "❌ Error al guardar la reserva.");
         setSuccessMessage("");
