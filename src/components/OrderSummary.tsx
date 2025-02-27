@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { usePayment } from "../utils/getContext";
 import CheckinForOrder from "./CheckinForOrder";
-import Modal from "./Modal";
+import Modal from "./modal";
 
 /**
  * Componente `OrderSummary` que muestra un resumen del pedido y permite realizar pagos con Mercado Pago.
@@ -77,10 +77,10 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
       });
       console.log("Pedido creado exitosamente:", response.data);
     } catch (error) {
-      if (error.response) {
-        console.error("Error al crear el pedido:", error.response.data);
+      if ((error as Error).message) {
+        console.error("Error al crear el pedido:", (error as Error).message);
       } else {
-        console.error("Error al crear el pedido:", error.message);
+        console.error("Error al crear el pedido:", (error as Error).message);
       }
     }
   };

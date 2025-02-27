@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 
 const QrGenerator = () => {
   const [link, setLink] = useState<string>('');
-  const [userData, setUserData] = useState<object | null>(null);
+  const [, setUserData] = useState<object | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const qrRef = useRef<HTMLDivElement>(null);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { usePayment, useAuth } from "../utils/getContext";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Checkin = () => {
   console.log('Checkin component rendered');
@@ -9,7 +9,7 @@ const Checkin = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { paymentId } = usePayment();
   const { login, setIsLoading, setIsAuthenticated, setUser } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [manualPaymentId, setManualPaymentId] = useState<string>(paymentId);
 
   const verifyPayment = async () => {

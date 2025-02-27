@@ -2,7 +2,6 @@ import { Typography, Button } from "@material-tailwind/react";
 import { useState } from "react";
 import axios from "axios";
 import { usePayment } from "../utils/getContext";
-import CheckinForOrder from "../components/CheckinForOrder";
 import Checkin from "../components/Checkin";
 const SubscriptionPlans = () => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
