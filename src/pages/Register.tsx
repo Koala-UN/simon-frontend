@@ -135,15 +135,15 @@ const RegisterForm = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setIsLoading(true);
-    try {
-      window.location.href = import.meta.env.VITE_BACKEND_URL + "/api/restaurant/auth/google";
-    } catch (error) {
-      console.error('Error en el inicio de sesión con Google:', error);
-      setIsLoading(false);
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     window.location.href = import.meta.env.VITE_BACKEND_URL + "/api/restaurant/auth/google";
+  //   } catch (error) {
+  //     console.error('Error en el inicio de sesión con Google:', error);
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <div
@@ -330,13 +330,13 @@ const RegisterForm = () => {
             Registrarse
           </button>
           <p className="py-1"></p>
-          <button
+          {/* <button
             type="button"
             className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition shadow-lg"
             onClick={handleGoogleLogin}
           >
             Registrarse con Google
-          </button>
+          </button> */}
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
           Al continuar aceptas nuestros{" "}
