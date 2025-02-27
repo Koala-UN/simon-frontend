@@ -31,6 +31,8 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
           onSuccess();
         }
         console.log("Pedido creado exitosamente");
+        alert("Pedido creado exitosamente, haz click en Aceptar para continuar");
+        window.location.href = "/"; // Redirigir a la página principal
       }
     } catch (error) {
       console.error("Error verifying payment:", error);
