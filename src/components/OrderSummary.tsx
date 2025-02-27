@@ -5,6 +5,7 @@ import { usePayment } from "../utils/getContext";
 import CheckinForOrder from "./CheckinForOrder";
 import Modal from "./modal";
 
+
 /**
  * Componente `OrderSummary` que muestra un resumen del pedido y permite realizar pagos con Mercado Pago.
  *
