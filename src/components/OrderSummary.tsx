@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { usePayment } from "../utils/getContext";
 import CheckinForOrder from "./CheckinForOrder";
-import Modal from "./Modal";
+import Modal from "./modal";
 
 /**
  * Componente `OrderSummary` que muestra un resumen del pedido y permite realizar pagos con Mercado Pago.
@@ -20,7 +20,6 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [showCheckin, setShowCheckin] = useState<boolean>(false);
   const [showNameModal, setShowNameModal] = useState<boolean>(false);
-  const [nombreCliente, setNombreCliente] = useState<string>("");
   const { setPaymentId } = usePayment();
 
   useEffect(() => {
@@ -62,9 +61,9 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
     setIsProcessing(false);
   };
 
-  const handleOrderCreation = async () => {
+  const handleOrderCreation = async (name: string) => {
     const orderDetails = {
-      nombre_cliente: nombreCliente,
+      nombre_cliente: name,
       mesaId: mesaId,
       platillos: items.map(item => ({ platilloId: item.platilloId, cantidad: item.cantidad }))
     };
@@ -76,19 +75,23 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
         }
       });
       console.log("Pedido creado exitosamente:", response.data);
+      alert("Pedido creado exitosamente, haz click en Aceptar para continuar");
+      window.location.href = "/"; // Redirigir a la página principal
     } catch (error) {
-      if (error.response) {
-        console.error("Error al crear el pedido:", error.response.data);
+      if ((error as Error).message) {
+        console.error("Error al crear el pedido:", (error as Error).message);
       } else {
-        console.error("Error al crear el pedido:", error.message);
+        console.error("Error al crear el pedido:", (error as Error).message);
       }
     }
   };
 
   const handleNameSubmit = (name: string) => {
-    setNombreCliente(name);
     setShowNameModal(false);
-    handleOrderCreation();
+    // Asegúrate de que el estado se actualice antes de llamar a handleOrderCreation
+    setTimeout(() => {
+      handleOrderCreation(name);
+    }, 0);
   };
 
   return (

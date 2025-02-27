@@ -28,15 +28,15 @@ const LoginForm = () => {
    // setIsLoading(false);
   };
 
-  const handleGoogleLogin = async () => {
-    setIsLoading(true);
-    try {
-      window.location.href = import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth/google";
-    } catch (error) {
-      console.error('Error en el inicio de sesión con Google:', error);
-      setIsLoading(false);
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     window.location.href = import.meta.env.VITE_BACKEND_URL+"/api/restaurant/auth/google";
+  //   } catch (error) {
+  //     console.error('Error en el inicio de sesión con Google:', error);
+  //     setIsLoading(false);
+  //   }
+  // };
   
 
   return (
@@ -90,13 +90,13 @@ const LoginForm = () => {
         >
           Iniciar sesión
         </button>
-        <button
+        {/* <button
           type="button"
           className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition shadow-lg"
           onClick={handleGoogleLogin}
         >
           Iniciar sesión con Google
-        </button>
+        </button> */}
         </form>
         <p className="text-center text-sm text-black mt-4">
         <a href="/recover-password" className="text-blue-500 font-medium hover:underline">
