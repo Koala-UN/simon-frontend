@@ -77,6 +77,8 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
         }
       });
       console.log("Pedido creado exitosamente:", response.data);
+      alert("Pedido creado exitosamente, haz click en Aceptar para continuar");
+      window.location.href = "/"; // Redirigir a la página principal
     } catch (error) {
       if ((error as Error).message) {
         console.error("Error al crear el pedido:", (error as Error).message);
