@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { usePayment, useAuth } from "../utils/getContext";
-
+import { useAuth,usePayment } from "../utils/getContext";
 const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -12,25 +11,31 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
   const verifyPayment = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(
-        `https://api.mercadopago.com/v1/payments/${manualPaymentId}`,
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/payment/webhooks`,
         {
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN_MERCADO_PAGO}`,
-          },
+          data: { id: manualPaymentId },
+        },
+        {
           withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }
       );
-      setPaymentStatus(response.data.status);
+      console.log("Response:", response.data);
+      setPaymentStatus(response.data.statusText);
 
-      if (response.data.status === "approved") {
-        onSuccess();
+      if (response.data.statusText === "OK") {
+        if (typeof onSuccess === 'function') {
+          onSuccess();
+        }
         console.log("Pedido creado exitosamente");
       }
     } catch (error) {
       console.error("Error verifying payment:", error);
       setPaymentStatus("error");
-      setErrorMessage("Error verifying payment");
+      setErrorMessage("Error al verificar el pago");
     } finally {
       setIsLoading(false);
     }

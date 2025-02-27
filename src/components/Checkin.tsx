@@ -22,16 +22,16 @@ const Checkin = () => {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN_MERCADO_PAGO}`,
           },
-          withCredentials: true,
         }
       );
-      console.log('Payment verification response:', response.data);
+      console.log('Payment verification response:', response.data.status);
       setPaymentStatus(response.data.status);
 
       if (response.data.status === "approved") {
         console.log('Payment approved, registering user');
         const formDataToSend = localStorage.getItem("formDataToSend");
         if (formDataToSend) {
+          console.log('formData suscriptionData:', formDataToSend);
           await registerUser(formDataToSend);
         }
       }
@@ -52,16 +52,17 @@ const Checkin = () => {
       for (const key in parsedFormData) {
         formData.append(key, parsedFormData[key]);
       }
+      console.log('formData suscriptionData:', formData.get("suscriptionData"));
 
       // Add suscriptionData to formData
       const subscriptionType = localStorage.getItem("subscriptionType");
       formData.set("suscriptionData", JSON.stringify({ tipo: subscriptionType }));
-      console.log('formData suscriptionData:', formData.get("suscriptionData"));
 
       // Print formData
       for (const pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
+      console.log(formData);
 
       const registerResponse = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/restaurant/register`,
@@ -86,7 +87,6 @@ const Checkin = () => {
       const email = restaurantDataObj.correo;
       const password = restaurantDataObj.contrasena;
       console.log('Email:', email, 'Password:', password);
-
       const loginResponse = await login(email, password);
       console.log('Login response:', loginResponse);
       if (loginResponse.success) {

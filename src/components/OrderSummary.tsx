@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { usePayment } from "../utils/getContext";
 import CheckinForOrder from "./CheckinForOrder";
-import Modal from "./modal";
+import Modal from "./Modal";
 
 /**
  * Componente `OrderSummary` que muestra un resumen del pedido y permite realizar pagos con Mercado Pago.
@@ -30,13 +30,11 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
   // Crear preferencia de pago en Mercado Pago
   const createPreference = async (): Promise<string | undefined> => {
     try {
-    const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/payment/create_preference", {
-      title: "Resumen del Pedido",
-      quantity: 1,
-      unit_price: totalPrice,
-    }, {
-      withCredentials: true,
-    });
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/payment/create_preference", {
+        title: "Resumen del Pedido",
+        quantity: 1,
+        unit_price: totalPrice,
+      });
       console.log("Preferencia creada:", response.data.id);
       return response.data.id;
     } catch (error) {
@@ -75,15 +73,14 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
       const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/order", orderDetails, {
         headers: {
           "Content-Type": "application/json",
-        },
-        withCredentials: true,
+        }
       });
       console.log("Pedido creado exitosamente:", response.data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("Error al crear el pedido:", error.message);
+      if (error.response) {
+        console.error("Error al crear el pedido:", error.response.data);
       } else {
-        console.error("Error desconocido al crear el pedido:", error);
+        console.error("Error al crear el pedido:", error.message);
       }
     }
   };

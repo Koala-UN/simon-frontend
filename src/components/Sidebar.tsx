@@ -1,5 +1,4 @@
 import { Typography, Button } from "@material-tailwind/react";
-//////import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/getContext";
 import { useEffect, useState } from "react";
 
@@ -79,6 +78,9 @@ function Sidebar() {
             </li>
             <li onClick={() => window.location.href = "/admin/inventory"} className="cursor-pointer hover:text-blue-300">
               Inventario
+            </li>
+            <li onClick={() => window.location.href = "/qr"} className="cursor-pointer hover:text-blue-300">
+              QR Generator
             </li>
           </ul>
         </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import backgroundImage from "../assets/bglogin.png";
 import { useAuth } from "../utils/getContext";
 import defaultUserImage from "../assets/sign.png";
-import { validateEmail, validatePositiveNumber, validatePositiveCapacity } from "./../utils/validation"; // Importar funciones de validación
+import { validateEmail, validatePositiveNumber, validatePositiveCapacity } from "../utils/validation"; // Update the import statement
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({

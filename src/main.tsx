@@ -67,6 +67,7 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/admin/orders" element={<AdminDashboardOrders />} />
               <Route path="/qr" element={<QrGenerator />} />
               <Route path="/admin/edit-profile" element={<EditProfile/>} />
+            
             </Route>
           </Routes>
           <Footer />

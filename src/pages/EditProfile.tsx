@@ -69,7 +69,9 @@ function EditProfile() {
           setProfile(data.data);
           console.log("🚀 ~ file: Editprofile.tsx ~ line 64 ~ fetchProfile ~ data", data)
           // descargamos la imagen para hacerla ObjectURL y listo:
-            const responseImage = await fetch(data.data.imageUrl);
+          const responseImage = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/proxy/github-image?url=${encodeURIComponent(data.data.imageUrl)}`
+          );
             const blob = await responseImage.blob();
             const file = new File([blob], "imageUrl");
             setPreviewImage(file);
@@ -131,6 +133,8 @@ function EditProfile() {
       // solo enviar la lista
 
       const lista = imagenesRestaurante.map((image) => image.url);
+      // si la lista esta vacia, no enviar nada
+      if (lista.length === 0) return
       
         console.log("🚀 ~ file: Editprofile.tsx ~ line 123 ~ handleUpdateImages ~ lista", lista)
       const response = await fetch(
