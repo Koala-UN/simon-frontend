@@ -7,17 +7,14 @@ const Ayuda = () => {
 
     const faqItems = [
         {
-            question: '¿Cómo puedo crear una cuenta?',
-            answer: 'Para crear una cuenta, haz clic en el botón "Registrarse" en la página de inicio y sigue las instrucciones.'
+            question: "¿Cómo puedo contactar con el soporte?",
+            answer: "Si necesitas ayuda o tienes alguna duda, contactar con nuestro equipo de soporte es muy sencillo y estamos encantados de ayudarte. La mejor manera de hacerlo es enviándonos un correo electrónico a koalasimonapp@gmail.com. Cuando nos escribas, te sugerimos que incluyas un poco de información sobre lo que necesitas resolver —por ejemplo, si tienes un problema con un pedido, una consulta sobre cómo usar la plataforma o cualquier otra inquietud. Esto nos ayuda a darte una respuesta más rápida y personalizada. Solemos responder en un plazo de 24 a 48 horas, pero si tu caso es urgente, no dudes en mencionarlo en el asunto del correo (algo como 'Urgente: ayuda con pedido') y trataremos de atenderte lo antes posible. Queremos que tu experiencia sea la mejor, así que no dudes en escribirnos cuando lo necesites."
         },
         {
-            question: '¿Cómo puedo hacer una reserva?',
-            answer: 'Para hacer una reserva, inicia sesión en tu cuenta, selecciona el restaurante y la fecha, y sigue las instrucciones.'
+            question: "¿Cómo puedo hacer un pedido?",
+            answer: "Hacer un pedido con nosotros es un proceso práctico y directo. Para empezar, entra a nuestra plataforma —ya sea la web o la app— y dirígete a la sección de pedidos, que обычно está bien señalada en el menú. Allí encontrarás una lista con todos los productos o platos que ofrecemos; navega un poco y selecciona el que quieras haciendo clic en él. Luego, te pediremos que indiques la cantidad que deseas pedir —puede ser 1 unidad, 2, 5 o las que necesites, solo ajusta el número según lo que quieras. Cuando tengas tu pedido listo, pasamos al pago. Usamos Mercado Pago como nuestro método de pago, que es seguro y fácil de usar. Serás redirigido a su plataforma, donde podrás pagar con tu cuenta de Mercado Pago, tarjeta de débito o crédito. Una vez que completes la transacción, recibirás un comprobante con un ID único que empieza con '#', por ejemplo, '#1234'. Para verificar tu pedido con nosotros, solo toma los números después del '#' —en este caso, '1234'— y envíanos ese código por correo o en la sección de verificación de la plataforma. Así confirmamos que todo está en orden y tu pedido estará en camino en poco tiempo."
         },
-        {
-            question: '¿Cómo puedo contactar con el soporte?',
-            answer: 'Puedes contactarnos a través de nuestro correo electrónico: koalasimonapp@gmail.com'
-        }
+ 
     ];
 
     const toggleFAQ = (index: number) => {
