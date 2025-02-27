@@ -51,10 +51,9 @@ const SubscriptionPlans = () => {
     <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-b from-blue-50 to-blue-200 p-6">
       <div className="w-full max-w-5xl bg-white rounded-xl shadow-lg p-8">
         {/* Header */}
-        <Typography
+        <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
           variant="h4"
-          className="font-extrabold text-center text-blue-700 mb-10"
-        >
+          className="font-extrabold text-center text-blue-700 mb-10"       >
           Planes de Suscripción
         </Typography>
 
@@ -63,16 +62,16 @@ const SubscriptionPlans = () => {
           {/* Plan Mensualidad Base */}
           <div className="border border-blue-300 rounded-xl p-8 bg-blue-50 hover:bg-blue-100 shadow-md transition transform hover:scale-105 flex flex-col justify-between">
             <div>
-              <Typography
+              <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
                 variant="h5"
                 className="font-bold text-center text-blue-800 mb-4"
               >
                 Mensualidad Base
               </Typography>
-              <Typography className="text-gray-600 mb-2 text-center">
+              <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  className="text-gray-600 mb-2 text-center">
                 <strong>Precio:</strong> COP 45,000 al mes.
               </Typography>
-              <Typography className="text-gray-600 mb-4 text-center">
+              <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  className="text-gray-600 mb-4 text-center">
                 <strong>Incluye:</strong> Gestión de reservas y pedidos, soporte
                 multiplataforma, acceso de administradores y reportes básicos.
               </Typography>
@@ -84,8 +83,7 @@ const SubscriptionPlans = () => {
                 size="md"
                 className="w-full"
                 onClick={() => handlePay(45000, "MENSUAL")}
-                disabled={isProcessing}
-              >
+                disabled={isProcessing}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 {isProcessing ? "Procesando..." : "Suscribirse"}
               </Button>
             </div>
@@ -94,20 +92,20 @@ const SubscriptionPlans = () => {
           {/* Plan Anual */}
           <div className="border border-blue-300 rounded-xl p-8 bg-yellow-50 hover:bg-yellow-100 shadow-md transition transform hover:scale-105 flex flex-col justify-between">
             <div>
-              <Typography
+              <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
                 variant="h5"
                 className="font-bold text-center text-yellow-800 mb-4"
               >
                 Plan Anual
               </Typography>
-              <Typography className="text-gray-600 mb-2 text-center">
+              <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  className="text-gray-600 mb-2 text-center">
                 <strong>Precio:</strong> COP 450,000 al año (descuento del 17% sobre el
                 plan mensual).
               </Typography>
-              <Typography className="text-gray-600 mb-2 text-center">
+              <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  className="text-gray-600 mb-2 text-center">
                 <strong>Incluye:</strong> Todo lo del plan mensual durante 12 meses.
               </Typography>
-              <Typography className="text-gray-600 mb-4 text-center">
+              <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  className="text-gray-600 mb-4 text-center">
                 <strong>Beneficio:</strong> Equivale a un ahorro de COP 90,000 frente al
                 pago mensual.
               </Typography>
@@ -120,6 +118,7 @@ const SubscriptionPlans = () => {
                 className="w-full"
                 onClick={() => handlePay(450000, "ANUAL")}
                 disabled={isProcessing}
+                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}     
               >
                 {isProcessing ? "Procesando..." : "Suscribirse"}
               </Button>
@@ -136,6 +135,7 @@ const SubscriptionPlans = () => {
               size="md"
               className="w-full"
               onClick={() => setShowCheckin(true)}
+              placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}     
             >
               Verificar Pago
             </Button>
@@ -144,7 +144,7 @@ const SubscriptionPlans = () => {
 
         {/* Footer */}
         <div className="mt-12 text-center">
-          <Typography variant="small" className="text-gray-600">
+          <Typography  placeholder={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  variant="small" className="text-gray-600">
             ¿Tienes dudas? Contáctanos en{" "}
             <a
               href="mailto:soporte@simon.com"

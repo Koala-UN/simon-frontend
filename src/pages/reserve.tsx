@@ -167,7 +167,7 @@ function RestaurantReservation() {
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const [hours, minutes] = value.split(":").map(Number);
+    const [, minutes] = value.split(":").map(Number);
     if (minutes === 0 || minutes === 30) {
       setSelectedTime(value);
     }
