@@ -5,7 +5,6 @@ import { usePayment } from "../utils/getContext";
 import CheckinForOrder from "./CheckinForOrder";
 import Modal from "./modal";
 
-
 /**
  * Componente `OrderSummary` que muestra un resumen del pedido y permite realizar pagos con Mercado Pago.
  *
@@ -21,7 +20,6 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [showCheckin, setShowCheckin] = useState<boolean>(false);
   const [showNameModal, setShowNameModal] = useState<boolean>(false);
-  const [nombreCliente, setNombreCliente] = useState<string>("");
   const { setPaymentId } = usePayment();
 
   useEffect(() => {
@@ -63,9 +61,9 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
     setIsProcessing(false);
   };
 
-  const handleOrderCreation = async () => {
+  const handleOrderCreation = async (name: string) => {
     const orderDetails = {
-      nombre_cliente: nombreCliente,
+      nombre_cliente: name,
       mesaId: mesaId,
       platillos: items.map(item => ({ platilloId: item.platilloId, cantidad: item.cantidad }))
     };
@@ -89,9 +87,11 @@ function OrderSummary({ totalItems, totalPrice, items, mesaId }: { totalItems: n
   };
 
   const handleNameSubmit = (name: string) => {
-    setNombreCliente(name);
     setShowNameModal(false);
-    handleOrderCreation();
+    // Asegúrate de que el estado se actualice antes de llamar a handleOrderCreation
+    setTimeout(() => {
+      handleOrderCreation(name);
+    }, 0);
   };
 
   return (
