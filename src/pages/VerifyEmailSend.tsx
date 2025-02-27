@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../utils/getContext';
 
 const VerifyEmailSend = () => {
-    const { setIsLoading } = useAuth();
+    const { setIsLoading, isAuthenticated, user } = useAuth();
     const [emailSent, setEmailSent] = useState<boolean>(false);
-    const {isAuthenticated, user } = useAuth();
     const userRef = useRef(user);
 
     useEffect(() => {
@@ -16,16 +15,12 @@ const VerifyEmailSend = () => {
             setIsLoading(true);
             try {
                 if (!isAuthenticated || !userRef.current?.correo) {
-                    console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 33 ~ sendVerificationEmail ~ user", userRef.current, isAuthenticated)
-
-                    console.error('User is not authenticated or does not have an email' , userRef.current, isAuthenticated);
+                    console.error('User is not authenticated or does not have an email', userRef.current, isAuthenticated);
                     setEmailSent(false);
                     setIsLoading(false);
                     return;
                 }
-                console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 33 ~ sendVerificationEmail ~ user", userRef.current, isAuthenticated)
                 const emailData = { correo: userRef.current?.correo };
-                console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 36 ~ sendVerificationEmail ~ emailData", emailData);
                 const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/restaurant/verify-email-send`, {
                     method: 'POST',
                     headers: {
@@ -35,7 +30,6 @@ const VerifyEmailSend = () => {
                     credentials: 'include',
                 });
                 const data = await response.json();
-                console.log("🚀 ~ file: VerifyEmailSend.tsx ~ line 43 ~ sendVerificationEmail ~ data", data)
                 if (data.status === 'success') {
                     setEmailSent(true);
                 } else {
@@ -47,7 +41,12 @@ const VerifyEmailSend = () => {
             }
             setIsLoading(false);
         };
-        sendVerificationEmail();
+
+        if (isAuthenticated && userRef.current?.correo) {
+            sendVerificationEmail();
+        } else {
+            console.error('User is not authenticated or does not have an email', userRef.current, isAuthenticated);
+        }
     }, [isAuthenticated, setIsLoading]);
 
     return (

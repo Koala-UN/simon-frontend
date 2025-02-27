@@ -92,8 +92,8 @@ const Checkin = () => {
       if (loginResponse.success) {
         setIsAuthenticated(true);
         setUser(user);
-        window.location.reload();
-        navigate("/restaurant/verify-email-send");
+        window.location.href = "/restaurant/verify-email-send";
+       // navigate("/restaurant/verify-email-send");
       } else {
         setErrorMessage(loginResponse.message);
       }
