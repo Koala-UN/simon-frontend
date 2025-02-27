@@ -93,7 +93,7 @@ function Sidebar() {
           <><Typography variant="small" className="text-white mt-4 bg-gray-900 p-2 rounded-lg border border-red-500" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             <span className="font-bold ">¡Atención!</span> Debes pagar para obtener todos los beneficios porque no hay suscripción.
             <Button size="sm" color="green" className="w-full mt-6 mb-2"   placeholder={undefined} onPointerEnterCapture={undefined}  onPointerLeaveCapture= {()=> {}}
-          onClick={() => window.location.href = "/plans"}
+          onClick={() => window.location.href = "/admin/renovate-plans"}
           >
           Pagar suscripción
         </Button>

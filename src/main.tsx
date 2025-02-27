@@ -20,6 +20,7 @@ import Tratamiento from "./pages/tratamiento.tsx";
 import RegisterForm from "./pages/Register.tsx";
 import SubscriptionPlans from "./pages/Plans.tsx";
 import Ciudades from "./pages/Ciudades.tsx";
+
 import RecoveryPassword from "./pages/RecoveryPassword.tsx";
 import  AuthProvider  from "./contexts/AuthContext.tsx";
 import AboutUs from "./pages/AboutUs.tsx";
@@ -31,6 +32,7 @@ import QrGenerator from "./components/QrGenerator.tsx";
 import Ayuda from "./pages/Ayuda.tsx";
 import EditProfile from "./pages/EditProfile.tsx";
 import PaymentProvider from "./contexts/PaymentContext.tsx";
+import RenovatePlans from "./pages/RenovatePlans.tsx";
 
 // Verificar y actualizar la URL del backend
 if (!import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL === undefined) {
@@ -48,6 +50,8 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/help" element={<Ayuda />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/plans" element={<SubscriptionPlans />} />
+            // En tu archivo de rutas
+            <Route path="/admin/renovate-plans" element={<RenovatePlans />} />
             <Route path="/data-privacy" element={<Tratamiento />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="/login" element={<Authcard />} />

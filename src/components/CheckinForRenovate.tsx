@@ -1,13 +1,50 @@
 import { useState } from "react";
 import axios from "axios";
-import { useAuth } from "../utils/getContext"; // Removemos usePayment
+import { useAuth } from "../utils/getContext";
 
-const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
+interface CheckinForRenovateProps {
+  onSuccess: () => void;
+}
+
+const CheckinForRenovate = ({ onSuccess }: CheckinForRenovateProps) => {
   const [showModal, setShowModal] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const { setIsLoading } = useAuth();
+  const { setIsLoading, user } = useAuth();
   const [manualPaymentId, setManualPaymentId] = useState<string>("");
+
+  const updateSubscription = async () => {
+    if (!user?.id) {
+      console.error('No user ID available');
+      setErrorMessage("Error: Usuario no autenticado");
+      return;
+    }
+
+    console.log('Updating subscription for user:', user);
+    try {
+      const subscriptionType = localStorage.getItem("subscriptionType");
+      console.log('Subscription type:', subscriptionType);
+      
+      await axios.patch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/restaurant/${user.id}/suscription`,
+        {
+          tipo: subscriptionType
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      console.log('Subscription updated successfully for user:', user.nombre);
+      alert(`¡Suscripción actualizada con éxito para ${user.nombre}!`);
+      onSuccess();
+    } catch (error) {
+      console.error("Error updating subscription:", error);
+      setErrorMessage("Error al actualizar la suscripción");
+    }
+  };
 
   const verifyPayment = async () => {
     setIsLoading(true);
@@ -24,21 +61,18 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
           }
         }
       );
-      console.log("Response:", response.data);
+
       setPaymentStatus(response.data.statusText);
       setShowModal(true);
 
       if (response.data.statusText === "OK") {
-        if (typeof onSuccess === 'function') {
-          onSuccess();
-        }
+        await updateSubscription();
       }
     } catch (error) {
       console.error("Error verifying payment:", error);
       setPaymentStatus("error");
       setErrorMessage("Error al verificar el pago");
       setShowModal(true);
-      alert("Error\nNo se pudo verificar el pago");
     } finally {
       setIsLoading(false);
     }
@@ -48,7 +82,8 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
     setPaymentStatus(null);
     setErrorMessage("");
     setManualPaymentId("");
-    onSuccess(); // Llamamos directamente a onSuccess ya que sabemos que existe
+    setShowModal(false);
+    onSuccess();
   };
 
   return (
@@ -64,7 +99,7 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
         onClick={verifyPayment}
         className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
       >
-        Verificar Pago
+        Enviar Pago
       </button>
 
       {showModal && (
@@ -73,7 +108,7 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
             <h1 className="text-2xl font-bold mb-4">Estado del Pago</h1>
             {paymentStatus && (
               <p className="text-3xl font-bold mb-4">
-                {paymentStatus === ("approved" || "OK") ? "Pago exitoso" : "Error en el pago"}
+                {paymentStatus === "OK" ? "Pago exitoso" : "Error en el pago"}
               </p>
             )}
             {errorMessage && (
@@ -92,4 +127,4 @@ const CheckinForOrder = ({ onSuccess }: { onSuccess: () => void }) => {
   );
 };
 
-export default CheckinForOrder;
+export default CheckinForRenovate;

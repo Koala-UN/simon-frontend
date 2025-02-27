@@ -1,16 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
-import { usePayment, useAuth } from "../utils/getContext";
-// import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/getContext"; // Removemos usePayment
 
-const Checkin = () => {
+const Checkin = ({ onClose }: { onClose: () => void }) => {
   console.log('Checkin component rendered');
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const { paymentId } = usePayment();
   const { login, setIsLoading, setIsAuthenticated, setUser } = useAuth();
-  // const navigate = useNavigate();
-  const [manualPaymentId, setManualPaymentId] = useState<string>(paymentId);
+  const [manualPaymentId, setManualPaymentId] = useState<string>("");
+  const [showModal, setShowModal] = useState(false);
 
   const verifyPayment = async () => {
     console.log('verifyPayment function called with paymentId:', manualPaymentId);
@@ -26,6 +24,7 @@ const Checkin = () => {
       );
       console.log('Payment verification response:', response.data.status);
       setPaymentStatus(response.data.status);
+      setShowModal(true);
 
       if (response.data.status === "approved") {
         console.log('Payment approved, registering user');
@@ -39,6 +38,7 @@ const Checkin = () => {
       console.error("Error verifying payment:", error);
       setPaymentStatus("error");
       setErrorMessage("Error verifying payment");
+      setShowModal(true);
     } finally {
       setIsLoading(false);
     }
@@ -103,38 +103,59 @@ const Checkin = () => {
     }
   };
 
+  const handleCancel = () => {
+    setPaymentStatus(null);
+    setErrorMessage("");
+    setManualPaymentId("");
+    setShowModal(false);
+    if (typeof onClose === 'function') {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-8 rounded shadow-md text-center w-96">
-        <h1 className="text-2xl font-bold mb-4">Verificar Pago</h1>
-        <input
-          type="text"
-          value={manualPaymentId}
-          onChange={(e) => {
-            console.log('manualPaymentId input changed:', e.target.value);
-            setManualPaymentId(e.target.value);
-          }}
-          placeholder="Ingrese el ID del pago"
-          className="w-full p-2 border border-gray-300 rounded mt-2"
-        />
-        <button
-          onClick={() => {
-            console.log('Verificar button clicked');
-            verifyPayment();
-          }}
-          className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-        >
-          Verificar
-        </button>
-        {paymentStatus && (
-          <p className="text-3xl font-bold mb-4">
-            {paymentStatus === "approved" ? "Pago exitoso" : "Error en el pago"}
-          </p>
-        )}
-        {errorMessage && (
-          <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
-        )}
-      </div>
+    <div>
+      <input
+        type="text"
+        value={manualPaymentId}
+        onChange={(e) => {
+          console.log('manualPaymentId input changed:', e.target.value);
+          setManualPaymentId(e.target.value);
+        }}
+        placeholder="Ingrese el ID del pago"
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <button
+        onClick={() => {
+          console.log('Verificar button clicked');
+          verifyPayment();
+        }}
+        className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+      >
+        Verificar
+      </button>
+
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded shadow-md text-center w-96">
+            <h1 className="text-2xl font-bold mb-4">Estado del Pago</h1>
+            {paymentStatus && (
+              <p className="text-3xl font-bold mb-4">
+                {paymentStatus === "approved" ? "Pago exitoso" : "Error en el pago"}
+              </p>
+            )}
+            {errorMessage && (
+              <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+            )}
+            <button
+              onClick={handleCancel}
+              className="mt-4 inline-block bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
