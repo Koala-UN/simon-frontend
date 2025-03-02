@@ -123,7 +123,7 @@ export function Matrix({
 
   if (!showMatrix) {
     return (
-      <div className="w-full h-64 flex items-center justify-center">
+      <div className="w-full h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
           <h2 className="mt-4 text-xl font-semibold text-blue-600">Reservamos tu tiempo</h2>

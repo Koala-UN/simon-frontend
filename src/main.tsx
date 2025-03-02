@@ -33,7 +33,7 @@ import Ayuda from "./pages/Ayuda.tsx";
 import EditProfile from "./pages/EditProfile.tsx";
 import PaymentProvider from "./contexts/PaymentContext.tsx";
 import RenovatePlans from "./pages/RenovatePlans.tsx";
-
+import Thanks from "./pages/Thanks.tsx";
 // Verificar y actualizar la URL del backend
 if (!import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL === undefined) {
   import.meta.env.VITE_BACKEND_URL = 'http://localhost:5000';
@@ -50,6 +50,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/help" element={<Ayuda />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/plans" element={<SubscriptionPlans />} />
+            <Route path="/thanks" element={<Thanks />} />
             // En tu archivo de rutas
             <Route path="/admin/renovate-plans" element={<RenovatePlans />} />
             <Route path="/data-privacy" element={<Tratamiento />} />
